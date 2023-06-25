@@ -1,3 +1,6 @@
+# Elevated privileges required for creating symbolic links 
+#Requires -RunAsAdministrator
+
 Set-Location $PSScriptRoot
 
 # Make sure Oh My Posh is installed
@@ -6,8 +9,8 @@ if (!(Test-Path $ompPath)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
 
-# Copy profile.ps1 to $PROFILE
-Copy-Item -Path "Profile.ps1" -Destination $PROFILE.CurrentUserAllHosts -Force
+# Create Symbolic link to Profile.ps1 in PowerShell profile directory
+New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Resolve-Path .\Profile.ps1) -Force
 
 # Install Terminal-Icons module
 Install-Module -Name Terminal-Icons -Repository PSGallery
