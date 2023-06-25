@@ -1,71 +1,171 @@
-# Simple function to start a new elevated process. If arguments are supplied then 
-# a single command is started with admin rights; if not then a new admin instance
-# of PowerShell is started.
+<# 
+                      7#G~                  
+                    7BB7J#P~                
+                 .?BG!   .?#G!              
+                :B@J       .?BB7            
+             ::  :Y#P~        7BB?.         
+           ^Y#?    :J#G~        !GB?.       
+          !&@!       .?#G!        J@B:      
+       ~^  ^Y#5^       .7BB7    .PB?.  ~^   
+    .!GB7    :Y#5^        !GB7.  ^.    Y#5^ 
+    7&&~       !@@G~       .P@#J.       J@B^
+     :J#G~   ~P#J^?#G!   .?#G~~P#Y:  .7BB7  
+       .?BG7P#J.   .7BB7J#P~    ^5#Y?BG!    
+         .?BJ.        7#G~        ^5B!      
 
+    Author: Scott McKendry
+    Description: PowersShell Profile containing aliases and functions to be loaded when a new PowerShell session is started.
+#>
+
+# Imports
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Import Terminal-Icons module - This makes ls (Get-ChildItem) display icons for files and folders
 Import-Module Terminal-Icons
 
-function admin {
-    if ($args.Count -gt 0) {   
-        $argList = "& '" + $args + "'"
-        Start-Process pwsh -Verb runAs -ArgumentList $argList
-    } else {
-        Start-Process pwsh -Verb runAs
-    }
+
+# Aliases & Custom Envioronment Variables
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Set-Alias -Name su -Value Start-AdminSession
+Set-Alias -Name up -Value Update-Profile
+Set-Alias -Name ff -Value Find-File
+Set-Alias -Name grep -Value Find-String
+Set-Alias -Name touch -Value New-File
+Set-Alias -Name df -Value Get-Volume
+Set-Alias -Name sed -Value Set-String
+Set-Alias -Name which -Value Show-Command
+Set-Alias -Name ll -Value Get-ChildItem
+Set-Alias -Name la -Value Get-ChildItem
+Set-Alias -Name l -Value Get-ChildItem
+
+# Custom Environment Variables
+$ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+# Putting the FUN in Functions 😎
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function Start-AdminSession {
+    <#
+    .SYNOPSIS
+        Starts a new PowerShell session with elevated rights. Alias: su 
+    #>
+    Start-Process wt -Verb runAs
 }
 
-# Set UNIX-like aliases for the admin command, so sudo <command> will run the command
-# with elevated rights. 
-Set-Alias -Name su -Value admin
-Set-Alias -Name sudo -Value admin
+function Update-Profile {
+    <#
+    .SYNOPSIS
+        Updates the PowerShell profile with the latest version.Alternative to completely restarting the action session. 
+        Note that functions won't be updated, this requires a full restart. Alias: up
+    #>
+    Write-Verbose "Re-running profile script from $($PROFILE.CurrentUserAllHosts)"
+    .$PROFILE.CurrentUserAllHosts
+}
 
-function reload-profile {
-    & $profile
+function Find-File {
+    <#
+    .SYNOPSIS
+        Finds a file in the current directory and all subdirectories. Alias: ff
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(ValueFromPipeline, Mandatory = $true, Position = 0)]
+        [string]$SearchTerm
+    )
+    
+    Write-Verbose "Searching for '$SearchTerm' in current directory and subdirectories"
+    $result = Get-ChildItem -Recurse -Filter "*$SearchTerm*" -ErrorAction SilentlyContinue
+
+    Write-Verbose "Outputting results to table"
+    $result | Format-Table -AutoSize
 }
-function find-file($name) {
-    Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
-        $place_path = $_.directory
-        Write-Output "${place_path}\${_}"
-    }
-}
-function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
-}
-function ix ($file) {
-    curl.exe -F "f:1=@$file" ix.io
-}
-function grep($regex, $dir) {
-    if ( $dir ) {
-        Get-ChildItem $dir | select-string $regex
+
+function Find-String {
+    <#
+    .SYNOPSIS
+        Searches for a string in a file or directory. Alias: grep
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$SearchTerm,
+        [Parameter(ValueFromPipeline, Mandatory = $false, Position = 1)]
+        [string]$Directory,
+        [Parameter(Mandatory = $false)]
+        [switch]$Recurse
+    )
+
+    Write-Verbose "Searching for '$SearchTerm' in '$Directory'"
+    if ($Directory) {
+        if ($Recurse) {
+            Write-Verbose "Searching for '$SearchTerm' in '$Directory' and subdirectories"
+            Get-ChildItem -Recurse $Directory | Select-String $SearchTerm
+            return
+        }
+
+        Write-Verbose "Searching for '$SearchTerm' in '$Directory'"
+        Get-ChildItem $Directory | Select-String $SearchTerm
         return
     }
-    $input | select-string $regex
-}
-function touch($file) {
-    "" | Out-File $file -Encoding ASCII
-}
-function df {
-    get-volume
-}
-function sed($file, $find, $replace) {
-    (Get-Content $file).replace("$find", $replace) | Set-Content $file
-}
-function which($name) {
-    Get-Command $name | Select-Object -ExpandProperty Definition
-}
-function export($name, $value) {
-    set-item -force -path "env:$name" -value $value;
-}
-function pkill($name) {
-    Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
-}
-function pgrep($name) {
-    Get-Process $name
-}
-function kpt {
-    Start-Process "C:\Users\Scott\KPT\KPT.lnk"
+
+    if ($Recurse) {
+        Write-Verbose "Searching for '$SearchTerm' in current directory and subdirectories"
+        Get-ChildItem -Recurse | Select-String $SearchTerm
+        return
+    }
+
+    Write-Verbose "Searching for '$SearchTerm' in current directory"
+    Get-ChildItem | Select-String $SearchTerm
 }
 
-Clear-Host
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/spaceship.omp.json" | Invoke-Expression
+function New-File {
+    <#
+    .SYNOPSIS
+        Creates a new file with the specified name and extension. Alias: touch
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Name
+    )
+
+    Write-Verbose "Creating new file '$Name'"
+    New-Item -ItemType File -Name $Name -Path $PWD | Out-Null
+}
+
+function Set-String {
+    <#
+    .SYNOPSIS
+        Replaces a string in a file. Alias: sed
+    .EXAMPLE
+        Set-String -File "C:\Users\Scott\Documents\test.txt" -Find "Hello" -Replace "Goodbye"
+    .EXAMPLE
+        sed test.txt Hello Goodbye
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$File,
+        [Parameter(Mandatory = $true, Position = 1)]
+        [string]$Find,
+        [Parameter(Mandatory = $true, Position = 2)]
+        [string]$Replace
+    )
+    Write-Verbose "Replacing '$Find' with '$Replace' in '$File'"
+    (Get-Content $File).replace("$Find", $Replace) | Set-Content $File
+}
+function Show-Command {
+    <#
+    .SYNOPSIS
+        Displays the definition of a command. Alias: which
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Name
+    )
+    Write-Verbose "Showing definition of '$Name'"
+    Get-Command $Name | Select-Object -ExpandProperty Definition
+}
+
+# Prompt Setup
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Oh-My-Posh init pwsh --config "$env:POSH_THEMES_PATH/material.omp.json" | Invoke-Expression
