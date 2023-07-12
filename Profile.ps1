@@ -165,6 +165,54 @@ function Show-Command {
     Write-Verbose "Showing definition of '$Name'"
     Get-Command $Name | Select-Object -ExpandProperty Definition
 }
+function Get-OrCreateSecret {
+    <# 
+    .SYNOPSIS
+        Gets secret from local vault or creates it if it doesn't exist. Requires SecretManagement and SecretStore modules and a local vault to be created.
+        Install Modules with:
+            Install-Module Microsoft.PowerShell.SecretManagement, Microsoft.PowerShell.SecretStore
+        Create local vault with:
+            Install-Module Microsoft.PowerShell.SecretManagement, Microsoft.PowerShell.SecretStore
+            Set-SecretStoreConfiguration -Authentication None -Confirm:$False
+
+        https://devblogs.microsoft.com/powershell/secretmanagement-and-secretstore-are-generally-available/
+    
+    .PARAMETER secretName
+        Name of the secret to get or create. It's recommended to use the username or public key / client id as secret name to make it easier to identify the secret later.
+    
+    .EXAMPLE
+        $password = Get-OrCreateSecret -secretName $username
+    
+    .EXAMPLE
+        $clientSecret = Get-OrCreateSecret -secretName $clientId
+
+    .OUTPUTS
+        System.String
+    #>
+
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$secretName
+    )
+
+    Write-Verbose "Getting secret $secretName"
+    $secretValue = Get-Secret $secretName -AsPlainText -ErrorAction SilentlyContinue
+
+    if (!$secretValue) {
+        $createSecret = Read-Host "No secret found matching $secretName, create one? Y/N"
+
+        if ($createSecret.ToUpper() -eq "Y") {
+            $secretValue = Read-Host -Prompt "Enter secret value for ($secretName)" -AsSecureString
+            Set-Secret -Name $secretName -SecureStringSecret $secretValue
+            $secretValue = Get-Secret $secretName -AsPlainText
+        }
+        else {
+            throw "Secret not found and not created, exiting"
+        }
+    }
+    return $secretValue
+}
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
