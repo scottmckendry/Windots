@@ -39,9 +39,33 @@ Set-Alias -Name l -Value Get-ChildItem
 
 # Custom Environment Variables
 $ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+$ENV:WindotsLocalRepo = "$($ENV:USERPROFILE)\Git\Windots\"
 
 # Putting the FUN in Functions 😎
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function Get-LatestProfile {
+    <#
+    .SYNOPSIS
+        Checks the Github repository for the latest commit date and compares to the local version.
+        If the profile is out of date, instructions are displayed on how to update it.
+    #>
+
+    Write-Verbose "Checking for updates to the profile"
+    $currentWorkingDirectory = $PWD
+    Set-Location $ENV:WindotsLocalRepo
+    $gitStatus = git status
+
+    if ($gitStatus -like "*Your branch is up to date with*") {
+        Write-Verbose "Profile is up to date"
+        Set-Location $currentWorkingDirectory
+        return
+    }
+    else {
+        Write-Verbose "Profile is out of date"
+        Write-Host "Your PowerShell profile is out of date with the latest commit. To update it, run Update-Profile." -ForegroundColor Yellow
+        Set-Location $currentWorkingDirectory
+    }
+} 
 function Start-AdminSession {
     <#
     .SYNOPSIS
@@ -53,9 +77,16 @@ function Start-AdminSession {
 function Update-Profile {
     <#
     .SYNOPSIS
-        Updates the PowerShell profile with the latest version.Alternative to completely restarting the action session. 
+        Downloads the latest version of the PowerShell profile from Github and updates the PowerShell profile with the latest version. Alternative to completely restarting the action session. 
         Note that functions won't be updated, this requires a full restart. Alias: up
     #>
+    Write-Verbose "Storing current working directory in memory"
+    $currentWorkingDirectory = $PWD
+    Write-Verbose "Updating local profile from Github repository"
+    Set-Location $ENV:WindotsLocalRepo
+    git pull | Out-Null
+    Write-Verbose "Reverting to previous working directory"
+    Set-Location $currentWorkingDirectory
     Write-Verbose "Re-running profile script from $($PROFILE.CurrentUserAllHosts)"
     .$PROFILE.CurrentUserAllHosts
 }
@@ -217,3 +248,6 @@ function Get-OrCreateSecret {
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Oh-My-Posh init pwsh --config "$env:POSH_THEMES_PATH/material.omp.json" | Invoke-Expression
+
+# Check for updates
+Get-LatestProfile
