@@ -37,12 +37,23 @@ Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name la -Value Get-ChildItem
 Set-Alias -Name l -Value Get-ChildItem
 
-# Custom Environment Variables
-$ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-$ENV:WindotsLocalRepo = "$($ENV:USERPROFILE)\Git\Windots\"
-
 # Putting the FUN in Functions 😎
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function Find-WindotsRepository {
+    <#
+    .SYNOPSIS
+        Finds the local Windots repository. 
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$ProfilePath
+    )
+
+    Write-Verbose "Resolving the symbolic link for the profile"
+    $profileSymbolicLink = Get-ChildItem $ProfilePath | Where-Object FullName -EQ $PROFILE.CurrentUserAllHosts
+    return Split-Path $profileSymbolicLink.Target
+}
 function Get-LatestProfile {
     <#
     .SYNOPSIS
@@ -244,6 +255,10 @@ function Get-OrCreateSecret {
     }
     return $secretValue
 }
+
+# Custom Environment Variables
+$ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+$ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
