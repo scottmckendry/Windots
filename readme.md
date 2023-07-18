@@ -8,3 +8,5 @@ Admin rights are required when running the setup script to create the symbolic l
 ## Installation
 1. Clone the repository to your home directory.
 2. Run `Setup.ps1` from an elevated PowerShell prompt. 
+
+**[Blog Post](https://scottmckendry.tech/the-ultimate-powershell-profile/)**
