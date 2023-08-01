@@ -9,11 +9,32 @@ if (!(Test-Path $ompPath)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
 
+# Ensure nvim & chocolatey and mingw are installed
+if (!(Get-Command nvim -ErrorAction SilentlyContinue)) {
+    winget install -e --id Neovim.Neovim
+}
+if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
+    winget install -e -h --id=Chocolatey.Chocolatey
+}
+if (!(Get-Command gcc -ErrorAction SilentlyContinue)) {
+    choco install -y mingw
+}
+
+# Install NVChad
+if (!(Test-Path $HOME\AppData\Local\nvim\lua\core)) {
+    git clone https://github.com/NvChad/NvChad $HOME\AppData\Local\nvim --depth 1
+}
+
 # Create Symbolic link to Profile.ps1 in PowerShell profile directory
 New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Resolve-Path .\Profile.ps1) -Force
 
+# Create Symbolic link to custom nvim config directory
+New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim\lua\custom -Target (Resolve-Path .\nvim\lua\custom) -Force
+
 # Install Terminal-Icons module
-Install-Module -Name Terminal-Icons -Repository PSGallery
+if (!(Get-Module -Name Terminal-Icons -ErrorAction SilentlyContinue)) {
+    Install-Module -Name Terminal-Icons -Repository PSGallery
+}
 
 # Get all installed font families
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")

@@ -82,7 +82,7 @@ function Start-AdminSession {
     .SYNOPSIS
         Starts a new PowerShell session with elevated rights. Alias: su 
     #>
-    Start-Process wt -Verb runAs
+    Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command &{Set-Location $PWD}"
 }
 
 function Update-Profile {
