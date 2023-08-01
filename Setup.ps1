@@ -9,7 +9,7 @@ if (!(Test-Path $ompPath)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
 
-# Ensure nvim & chocolatey and mingw are installed
+# Ensure nvim, chocolatey, mingw and ripgrep are installed
 if (!(Get-Command nvim -ErrorAction SilentlyContinue)) {
     winget install -e --id Neovim.Neovim
 }
@@ -18,6 +18,9 @@ if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
 }
 if (!(Get-Command gcc -ErrorAction SilentlyContinue)) {
     choco install -y mingw
+}
+if (!(Get-Command rg -ErrorAction SilentlyContinue)) {
+    choco install -y ripgrep
 }
 
 # Install NVChad
