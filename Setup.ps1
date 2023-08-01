@@ -1,29 +1,32 @@
-# Elevated privileges required for creating symbolic links 
+# Setup script for Windots
+# Author: Scott McKendry
+
 #Requires -RunAsAdministrator
 
+# Set working directory
 Set-Location $PSScriptRoot
 
-# Make sure Oh My Posh is installed
-$ompPath = (Get-Command oh-my-posh).Source
-if (!(Test-Path $ompPath)) {
+# Install dependencies - OMP, neovim, choco, mingw, ripgrep, fd
+if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
-
-# Ensure nvim, chocolatey, mingw and ripgrep are installed
-if (!(Get-Command nvim -ErrorAction SilentlyContinue)) {
+if (!(Get-Command "nvim" -ErrorAction SilentlyContinue)) {
     winget install -e --id Neovim.Neovim
 }
-if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
+if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Chocolatey.Chocolatey
 }
-if (!(Get-Command gcc -ErrorAction SilentlyContinue)) {
+if (!(Get-Command "gcc" -ErrorAction SilentlyContinue)) {
     choco install -y mingw
 }
-if (!(Get-Command rg -ErrorAction SilentlyContinue)) {
+if (!(Get-Command "rg" -ErrorAction SilentlyContinue)) {
     choco install -y ripgrep
 }
+if (!(Get-Command "fd" -ErrorAction SilentlyContinue)) {
+    choco install -y fd
+}
 
-# Install NVChad
+# Clone NvChad
 if (!(Test-Path $HOME\AppData\Local\nvim\lua\core)) {
     git clone https://github.com/NvChad/NvChad $HOME\AppData\Local\nvim --depth 1
 }
