@@ -19,6 +19,8 @@ local plugins = {
     opts = {
       ensure_installed = {
         "gopls",
+        "powershell_es",
+        "bicep-lsp",
       },
     },
   },

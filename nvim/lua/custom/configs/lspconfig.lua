@@ -19,3 +19,18 @@ lspconfig.gopls.setup {
     },
   },
 }
+
+lspconfig.powershell_es.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "ps1" },
+  bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+}
+
+local bicep_bin = vim.fn.stdpath("data") .. "/mason/packages/bicep-lsp/extension/BicepLanguageServer/Bicep.LangServer.dll"
+lspconfig.bicep.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "bicep", "bicepparam" },
+  cmd = { "dotnet", bicep_bin },
+}
