@@ -11,6 +11,9 @@ local plugins = {
             accept = "<Tab>",
           }
         },
+        filetypes = {
+          markdown = true,
+        }
       })
     end
   },
@@ -62,6 +65,13 @@ local plugins = {
     end,
     build = function()
       vim.cmd [[silent! GoInstallDeps]]
+    end,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    build = function()
+      vim.fn["mkdp#util#install"]()
     end,
   },
 }

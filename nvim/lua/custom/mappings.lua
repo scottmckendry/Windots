@@ -1,5 +1,17 @@
 local M = {}
 
+M.splitscreen = {
+  n = {
+    ["<leader>sv"] = {
+      "<cmd> vsplit <CR>",
+      "Split screen vertically"
+    },
+    ["<leader>sh"] = {
+      "<cmd> split <CR>",
+      "Split screen horizontally"
+    }
+  }
+}
 M.dap = {
   plugin = true,
   n = {
