@@ -6,7 +6,7 @@
 # Set working directory
 Set-Location $PSScriptRoot
 
-# Install dependencies - OMP, neovim, choco, mingw, ripgrep, fd
+# Install dependencies - OMP, neovim, choco, mingw, ripgrep, fd, lazygit
 if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
@@ -24,6 +24,9 @@ if (!(Get-Command "rg" -ErrorAction SilentlyContinue)) {
 }
 if (!(Get-Command "fd" -ErrorAction SilentlyContinue)) {
     choco install -y fd
+}
+if (!(Get-Command "lazygit" -ErrorAction SilentlyContinue)) {
+    choco install -y lazygit
 }
 
 # Create Symbolic link to Profile.ps1 in PowerShell profile directory

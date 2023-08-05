@@ -8,7 +8,6 @@ local M = {
         "json-lsp",
         "azure-pipelines-language-server",
         "gopls",
-        "powershell_editor_services",
         "bicep-lsp",
       },
     },
