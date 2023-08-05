@@ -1,6 +1,6 @@
 # Setup script for Windots
 # Author: Scott McKendry
-
+ 
 #Requires -RunAsAdministrator
 
 # Set working directory
@@ -47,22 +47,22 @@ if (!(Get-Module -Name Terminal-Icons -ErrorAction SilentlyContinue)) {
 $fontFamilies = (New-Object System.Drawing.Text.InstalledFontCollection).Families
 
 # Check if CaskaydiaCove NF is installed
-if ($fontFamilies -notcontains "CaskaydiaCove NF") {
+if ($fontFamilies -notcontains "JetBrainsMono NF") {
     # Download and install CaskaydiaCove NF
     $webClient = New-Object System.Net.WebClient
-    $webClient.DownloadFile("https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/CascadiaCode.zip", ".\CascadiaCode.zip")
+    $webClient.DownloadFile("https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip", ".\JetBrainsMono.zip")
 
-    Expand-Archive -Path ".\CascadiaCode.zip" -DestinationPath ".\CascadiaCode" -Force
+    Expand-Archive -Path ".\JetBrainsMono.zip" -DestinationPath ".\JetBrainsMono" -Force
     $destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-    Get-ChildItem -Path ".\CascadiaCode" -Recurse -Filter "*.ttf" | ForEach-Object {
+    Get-ChildItem -Path ".\JetBrainsMono" -Recurse -Filter "*.ttf" | ForEach-Object {
         If (-not(Test-Path "C:\Windows\Fonts\$($_.Name)")) {        
             # Install font
             $destination.CopyHere($_.FullName, 0x10)
         }
     }
 
-    Remove-Item -Path ".\CascadiaCode" -Recurse -Force
-    Remove-Item -Path ".\CascadiaCode.zip" -Force
+    Remove-Item -Path ".\JetBrainsMono" -Recurse -Force
+    Remove-Item -Path ".\JetBrainsMono.zip" -Force
 }
 
 # Import Windows Terminal settings
@@ -70,7 +70,8 @@ $terminalSettings = Get-Content -Path "$env:LOCALAPPDATA\Packages\Microsoft.Wind
 
 # Add font face property to terminalSettings object
 $font = @{
-    "face" = "CaskaydiaCove Nerd Font Mono"
+  "face" = "JetBrainsMono Nerd Font"
+  "size" = 10
 }
 
 Add-Member -InputObject $terminalSettings.profiles.defaults -MemberType NoteProperty -Name "font" -Value $font -Force

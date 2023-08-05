@@ -1,21 +1,49 @@
+local overrides = require("custom.overrides")
+
 local plugins = {
   {
     "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
     event = "InsertEnter",
-    config = function ()
-      require("copilot").setup({
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
+    config = function()
+      require("copilot").setup {
         suggestion = {
-          auto_trigger = true,
+          enabled = false,
+          auto_trigger = false,
           keymap = {
-            accept = "<Tab>",
-          }
+            -- accept = "<Tab>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
         },
-        filetypes = {
-          markdown = true,
-        }
-      })
-    end
+        panel = {
+          enabled = false,
+        },
+        server_opts_overrides = {
+          trace = "verbose",
+          settings = {
+            advanced = {
+              listCount = 3,
+              inlineSuggestCount = 3,
+            },
+          },
+        },
+      }
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    opts = overrides.cmp
   },
   {
     "williamboman/mason.nvim",
@@ -47,6 +75,24 @@ local plugins = {
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
+    end,
+  },
+  {
+    "folke/noice.nvim",
+    event = "UIEnter",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      require "custom.configs.noice"
+    end,
+  },
+  {
+    "sindrets/diffview.nvim",
+    cmd = "DiffviewOpen",
+    config = function()
+      require("diffview").setup()
     end,
   },
   {

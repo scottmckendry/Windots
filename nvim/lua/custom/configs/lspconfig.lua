@@ -31,7 +31,6 @@ lspconfig.powershell_es.setup {
   bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
   cmd = { "pwsh", "-NoLogo", "-Command", command },
 }
-
 local bicep_bin = vim.fn.stdpath("data") .. "/mason/packages/bicep-lsp/extension/BicepLanguageServer/Bicep.LangServer.dll"
 lspconfig.bicep.setup{
   on_attach = on_attach,
