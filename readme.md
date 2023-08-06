@@ -4,7 +4,7 @@ A collection of scripts and configurations, commonly referred to as dotfiles, fo
 Installs and configures:
 - NeoVim (Based on [LazyVim](https://github.com/LazyVim/LazyVim))
 - PowerShell (7) Profile
-- Small tweaks to Windows terminal
+- Windows Terminal
 
 An elevated powershell session is required to run the setup script in order to create symbolic links and install depedencies.
 

@@ -59,6 +59,9 @@ New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Reso
 # Create Symbolic link to Neovim Config
 New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim -Target (Resolve-Path .\nvim) -Force | Out-Null
 
+# Create Symbolic link for Windows Terminal settings
+New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Target (Resolve-Path .\windowsterminal\settings.json) -Force | Out-Null
+
 # Install Required PowerShell Modules
 Write-Host "Installing missing PowerShell Modules..."
 foreach ($module in $requiredModules){
@@ -92,18 +95,3 @@ if ($fontFamilies -notcontains "JetBrainsMono NF") {
     Remove-Item -Path ".\JetBrainsMono" -Recurse -Force
     Remove-Item -Path ".\JetBrainsMono.zip" -Force
 }
-
-Write-Host "Updating Windows Terminal Settings..."
-# Import Windows Terminal settings
-$terminalSettings = Get-Content -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" | ConvertFrom-Json -Depth 20
-
-# Add font face property to terminalSettings object
-$font = @{
-  "face" = "JetBrainsMono Nerd Font"
-  "size" = 10
-}
-
-Add-Member -InputObject $terminalSettings.profiles.defaults -MemberType NoteProperty -Name "font" -Value $font -Force
-
-# Set Windows Terminal settings
-$terminalSettings | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -Force
