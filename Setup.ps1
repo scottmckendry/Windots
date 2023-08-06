@@ -36,6 +36,21 @@ if (!(Get-Command "lazygit" -ErrorAction SilentlyContinue)) {
     choco install -y lazygit
 }
 
+# Create Custom NVIM shotcut
+if (!(Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")) {
+    $wshShell = New-Object -ComObject WScript.Shell
+    $shortcut = $wshShell.CreateShortcut("$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")
+    $shortcut.TargetPath = "C:\Program Files\Neovim\bin\nvim.exe"
+    $shortcut.workingDirectory = (Resolve-Path ..) # Set working directory to parent directory of this script (likely where you keep all Git Projects)
+    $shortcut.IconLocation = "C:\Program Files\Neovim\bin\nvim-qt.exe,0" # Steal icon from nvim-qt.exe
+    $shortcut.Save()
+}
+
+# Delete OOTB Nvim Shortcuts (including QT)
+if (Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\") {
+    Remove-Item "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\" -Recurse -Force
+}
+
 Write-Host "Creating Symbolic Links..."
 
 # Create Symbolic link to Profile.ps1 in PowerShell profile directory
