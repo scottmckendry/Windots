@@ -3,8 +3,15 @@
  
 #Requires -RunAsAdministrator
 
+# Required PowerShell Modules
+$requiredModules = @(
+    "Terminal-Icons"
+)
+
 # Set working directory
 Set-Location $PSScriptRoot
+
+Write-Host "Installing missing dependencies..."
 
 # Install dependencies - OMP, neovim, choco, mingw, ripgrep, fd, lazygit
 if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
@@ -29,17 +36,23 @@ if (!(Get-Command "lazygit" -ErrorAction SilentlyContinue)) {
     choco install -y lazygit
 }
 
+Write-Host "Creating Symbolic Links..."
+
 # Create Symbolic link to Profile.ps1 in PowerShell profile directory
-New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Resolve-Path .\Profile.ps1) -Force
+New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Resolve-Path .\Profile.ps1) -Force | Out-Null
 
 # Create Symbolic link to Neovim Config
-New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim -Target (Resolve-Path .\nvim) -Force
+New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim -Target (Resolve-Path .\nvim) -Force | Out-Null
 
-# Install Terminal-Icons module
-if (!(Get-Module -Name Terminal-Icons -ErrorAction SilentlyContinue)) {
-    Install-Module -Name Terminal-Icons -Repository PSGallery
+# Install Required PowerShell Modules
+Write-Host "Installing missing PowerShell Modules..."
+foreach ($module in $requiredModules){
+    if (!(Get-Module $module -ErrorAction SilentlyContinue)) {
+        Install-Module $module -Scope CurrentUser -Force
+    }
 }
 
+Write-Host "Installing Fonts..."
 # Get all installed font families
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
 $fontFamilies = (New-Object System.Drawing.Text.InstalledFontCollection).Families
@@ -52,10 +65,12 @@ if ($fontFamilies -notcontains "JetBrainsMono NF") {
 
     Expand-Archive -Path ".\JetBrainsMono.zip" -DestinationPath ".\JetBrainsMono" -Force
     $destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-    Get-ChildItem -Path ".\JetBrainsMono" -Recurse -Filter "*.ttf" | ForEach-Object {
-        If (-not(Test-Path "C:\Windows\Fonts\$($_.Name)")) {        
-            # Install font
-            $destination.CopyHere($_.FullName, 0x10)
+
+    $fonts = Get-ChildItem -Path ".\JetBrainsMono" -Recurse -Filter "*.ttf"
+    foreach ($font in $fonts) {
+        # Only install standard fonts (16 fonts instead of 90+)
+        if ($font.Name -like "JetBrainsMonoNerdFont-*.ttf"){
+            $destination.CopyHere($font.FullName, 0x10)
         }
     }
 
@@ -63,6 +78,7 @@ if ($fontFamilies -notcontains "JetBrainsMono NF") {
     Remove-Item -Path ".\JetBrainsMono.zip" -Force
 }
 
+Write-Host "Updating Windows Terminal Settings..."
 # Import Windows Terminal settings
 $terminalSettings = Get-Content -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" | ConvertFrom-Json -Depth 20
 
