@@ -6,7 +6,7 @@
 # Set working directory
 Set-Location $PSScriptRoot
 
-# Install dependencies - OMP, neovim, choco, mingw, ripgrep, fd
+# Install dependencies - OMP, neovim, choco, mingw, ripgrep, fd, lazygit
 if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
@@ -25,17 +25,15 @@ if (!(Get-Command "rg" -ErrorAction SilentlyContinue)) {
 if (!(Get-Command "fd" -ErrorAction SilentlyContinue)) {
     choco install -y fd
 }
-
-# Clone NvChad
-if (!(Test-Path $HOME\AppData\Local\nvim\lua\core)) {
-    git clone https://github.com/NvChad/NvChad $HOME\AppData\Local\nvim --depth 1
+if (!(Get-Command "lazygit" -ErrorAction SilentlyContinue)) {
+    choco install -y lazygit
 }
 
 # Create Symbolic link to Profile.ps1 in PowerShell profile directory
 New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Resolve-Path .\Profile.ps1) -Force
 
-# Create Symbolic link to custom nvim config directory
-New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim\lua\custom -Target (Resolve-Path .\nvim\lua\custom) -Force
+# Create Symbolic link to Neovim Config
+New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim -Target (Resolve-Path .\nvim) -Force
 
 # Install Terminal-Icons module
 if (!(Get-Module -Name Terminal-Icons -ErrorAction SilentlyContinue)) {

@@ -2,7 +2,7 @@
 A collection of scripts and configurations, commonly referred to as dotfiles, for Windows.
 
 Installs and configures:
-- Neovim (NVChad + Dependencies)
+- NeoVim (Based on [LazyVim](https://github.com/LazyVim/LazyVim))
 - PowerShell (7) Profile
 - Small tweaks to Windows terminal
 
