@@ -21,7 +21,10 @@ local M = {
               group = augroup,
               buffer = bufnr,
               callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr })
+                vim.lsp.buf.format({
+                  bufnr = bufnr,
+                  timeout_ms = 4000,
+                })
               end,
             })
           end
