@@ -6,6 +6,7 @@ local M = {
     ensure_installed = {
       "bicep",
       "go",
+      "gomod",
     },
   },
 }
