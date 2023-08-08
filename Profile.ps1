@@ -99,7 +99,7 @@ function Update-Profile {
     git pull | Out-Null
 
     Write-Verbose "Rerunning setup script to capture any new dependencies."
-    Start-Process pwsh -Verb runAs -ArgumentList "-Command 'Set-Location $PWD; .\Setup.ps1'"
+    Start-Process pwsh -Verb runAs -WorkingDirectory $PWD -ArgumentList "-NoExit -Command .\Setup.ps1"
 
     Write-Verbose "Reverting to previous working directory"
     Set-Location $currentWorkingDirectory
