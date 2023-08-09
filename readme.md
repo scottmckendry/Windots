@@ -13,3 +13,8 @@ An elevated powershell session is required to run the setup script in order to c
 2. Run `Setup.ps1` from an elevated PowerShell prompt. 
 
 **[Blog Post](https://scottmckendry.tech/the-ultimate-powershell-profile/)**
+
+## Screenshots:
+
+![screenshot](./nvim/screenshot2.png)
+![screenshot](./nvim/screenshot.png)
