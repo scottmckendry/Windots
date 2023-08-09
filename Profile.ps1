@@ -31,7 +31,7 @@ Set-Alias -Name ff -Value Find-File
 Set-Alias -Name grep -Value Find-String
 Set-Alias -Name touch -Value New-File
 Set-Alias -Name df -Value Get-Volume
-Set-Alias -Name sed -Value Set-String
+# Set-Alias -Name sed -Value Set-String # Replaced by sed.exe
 Set-Alias -Name which -Value Show-Command
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name la -Value Get-ChildItem
@@ -182,7 +182,7 @@ function New-File {
 function Set-String {
     <#
     .SYNOPSIS
-        Replaces a string in a file. Alias: sed
+        Replaces a string in a file. Alias: sed (deprecated, use sed.exe instead)
     .EXAMPLE
         Set-String -File "C:\Users\Scott\Documents\test.txt" -Find "Hello" -Replace "Goodbye"
     .EXAMPLE
