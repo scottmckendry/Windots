@@ -42,10 +42,10 @@
       "colorScheme": "Catppuccin Mocha",
       "font": {
         "face": "JetBrainsMono Nerd Font",
-        "size": 10.0
+        "size": 9.2
       },
       "opacity": 100,
-      "padding": "5, 5, 5, -5",
+      "padding": "2, 2, 0, 0",
       "scrollbarState": "hidden",
       "useAcrylic": false
     },

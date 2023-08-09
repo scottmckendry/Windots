@@ -34,6 +34,13 @@ local M = {
             cmd = { "pwsh", "-NoLogo", "-Command", command },
           })
         end,
+        azure_pipelines_language_server = function()
+          require("lspconfig").azure_pipelines_language_server.setup({
+            cmd = { "azure_pipelines_language_server", "--stdio" },
+            filetypes = { "yaml" },
+            single_file_support = true,
+          })
+        end,
       },
     },
   },
