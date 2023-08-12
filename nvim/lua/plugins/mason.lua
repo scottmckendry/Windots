@@ -6,9 +6,10 @@ local M = {
     opts = {
       ensure_installed = {
         "json-lsp",
-        "azure-pipelines-language-server",
         "gopls",
         "bicep-lsp",
+        "dockerfile-language-server",
+        "docker-compose-language-service"
       },
     },
   },

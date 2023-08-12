@@ -39,13 +39,14 @@ local M = {
           })
         end,
 
-        -- Azure Pipelines
-        azure_pipelines_language_server = function()
-          require("lspconfig").azure_pipelines_language_server.setup({
-            cmd = { "azure_pipelines_language_server", "--stdio" },
-            filetypes = { "yaml" },
-            single_file_support = true,
-          })
+        -- Dockerfile
+        dockerls = function()
+          require 'lspconfig'.dockerls.setup {}
+        end,
+
+        -- Docker Compose
+        docker_compose_language_service = function()
+          require 'lspconfig'.docker_compose_language_service.setup {}
         end,
       },
     },
