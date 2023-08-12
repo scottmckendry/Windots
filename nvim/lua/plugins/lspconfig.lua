@@ -11,6 +11,8 @@ local M = {
     "neovim/nvim-lspconfig",
     opts = {
       setup = {
+
+        -- Go Language Server (gopls)
         gopls = function()
           require("lspconfig").gopls.setup({
             cmd = { "gopls" },
@@ -27,6 +29,8 @@ local M = {
             },
           })
         end,
+
+        -- PowerShell Editor Services
         powershell_es = function()
           require("lspconfig").powershell_es.setup({
             filetypes = { "ps1" },
@@ -34,6 +38,8 @@ local M = {
             cmd = { "pwsh", "-NoLogo", "-Command", command },
           })
         end,
+
+        -- Azure Pipelines
         azure_pipelines_language_server = function()
           require("lspconfig").azure_pipelines_language_server.setup({
             cmd = { "azure_pipelines_language_server", "--stdio" },
