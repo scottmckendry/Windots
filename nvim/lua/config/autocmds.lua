@@ -30,6 +30,7 @@ autocmd("BufEnter", {
   pattern = "*.bicepparam",
   callback = function()
     vim.bo.filetype = "bicep"
+    vim.cmd("call timer_start(2000, { tid -> execute('w') })") -- Force write after 2 seconds to dismiss erroneous syntax errors
   end,
   group = general,
   desc = "Set bicepparam filetype to bicep",
