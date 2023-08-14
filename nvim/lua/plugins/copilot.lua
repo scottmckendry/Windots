@@ -11,6 +11,7 @@ local M = {
         },
         filetypes = {
           markdown = true,
+          yaml = true,
         },
       })
     end,
