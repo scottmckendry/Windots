@@ -3,10 +3,17 @@
 local M = {
   {
     "nvim-treesitter/nvim-treesitter",
-    ensure_installed = {
-      "bicep",
-      "go",
-      "gomod",
+    opts = {
+      ensure_installed = {
+        "bicep",
+        "gitignore",
+        "go",
+        "gomod",
+        "gosum",
+        "gowork",
+        "html",
+        "http",
+      },
     },
   },
 }
