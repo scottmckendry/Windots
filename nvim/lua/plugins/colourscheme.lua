@@ -1,10 +1,11 @@
 return {
-  --{ "rebelot/kanagawa.nvim" },
+  -- { "shaunsingh/nord.nvim" },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-mocha",
+      -- colorscheme = "catppuccin-mocha",
+      colorscheme = "tokyonight",
     },
   },
 }
