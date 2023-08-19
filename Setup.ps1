@@ -24,7 +24,7 @@ if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Chocolatey.Chocolatey
 }
 # Path Refresh
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 # Choco Deps
 if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
