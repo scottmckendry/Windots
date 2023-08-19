@@ -13,7 +13,20 @@ Set-Location $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
 
-# Install dependencies - OMP, neovim, zig, ripgrep, fd, sed, lazygit
+# Install dependencies - pwsh, gitm choco, OMP, neovim, zig, ripgrep, fd, sed, lazygit
+if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
+    winget install -e -h --id=Microsoft.PowerShell
+}
+if (!(Get-Command "git" -ErrorAction SilentlyContinue)) {
+    winget install -e -h --id=Git.Git
+}
+if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
+    winget install -e -h --id=Chocolatey.Chocolatey
+}
+# Path Refresh
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+
+# Choco Deps
 if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
