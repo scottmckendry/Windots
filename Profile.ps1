@@ -262,6 +262,9 @@ function Get-OrCreateSecret {
     return $secretValue
 }
 
+# Check for Git updates while prompt is loading
+Start-Job -ScriptBlock { git fetch --all } | Out-Null
+
 # Custom Environment Variables
 $ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot

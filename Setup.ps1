@@ -13,15 +13,12 @@ Set-Location $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
 
-# Install dependencies - OMP, neovim, choco, zig, ripgrep, fd, sed, lazygit
+# Install dependencies - OMP, neovim, zig, ripgrep, fd, sed, lazygit
 if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=JanDeDobbeleer.oh-my-posh 
 }
 if (!(Get-Command "nvim" -ErrorAction SilentlyContinue)) {
     winget install -e --id Neovim.Neovim
-}
-if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
-    winget install -e -h --id=Chocolatey.Chocolatey
 }
 if (!(Get-Command "zig" -ErrorAction SilentlyContinue)) {
     choco install -y zig
