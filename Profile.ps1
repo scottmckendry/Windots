@@ -17,11 +17,17 @@
     Description: PowersShell Profile containing aliases and functions to be loaded when a new PowerShell session is started.
 #>
 
+# Initialise logging - helpful for debugging slow profile load times
+$logPath = "$env:USERPROFILE/Profile.log"
+$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+"`n$($stopwatch.ElapsedMilliseconds)ms`tProfile load started" | Out-File -FilePath $logPath -Append
+
 # Imports
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Import Terminal-Icons module - This makes ls (Get-ChildItem) display icons for files and folders
-Import-Module Terminal-Icons
+# Import-Module Terminal-Icons
 
+"$($stopwatch.ElapsedMilliseconds)ms`tModules imported" | Out-File -FilePath $logPath -Append
 
 # Aliases & Custom Envioronment Variables
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -36,6 +42,8 @@ Set-Alias -Name which -Value Show-Command
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name la -Value Get-ChildItem
 Set-Alias -Name l -Value Get-ChildItem
+
+"$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 
 # Putting the FUN in Functions 😎
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -262,16 +270,26 @@ function Get-OrCreateSecret {
     return $secretValue
 }
 
+"$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append
+
 # Custom Environment Variables
 $ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
 
 # Check for Git updates while prompt is loading
-Start-Job -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
+Start-ThreadJob -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
+
+"$($stopwatch.ElapsedMilliseconds)ms`tGit fetch job started" | Out-File -FilePath $logPath -Append
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-Oh-My-Posh init pwsh --config "$env:POSH_THEMES_PATH/material.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/material.omp.json" | Invoke-Expression
+
+"$($stopwatch.ElapsedMilliseconds)ms`tPrompt initialised" | Out-File -FilePath $logPath -Append
 
 # Check for updates
 Get-LatestProfile
+
+$stopwatch.Stop()
+
+"$($stopwatch.ElapsedMilliseconds)ms`tProfile load complete" | Out-File -FilePath $logPath -Append

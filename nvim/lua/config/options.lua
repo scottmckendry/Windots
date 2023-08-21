@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 -- Set shell to PowerShell 7
-vim.opt.shell = "pwsh"
+vim.opt.shell = "pwsh -NoLogo"
 vim.opt.shellcmdflag =
 "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
 vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
