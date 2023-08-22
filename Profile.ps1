@@ -25,7 +25,7 @@ $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 # Imports
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Import Terminal-Icons module - This makes ls (Get-ChildItem) display icons for files and folders
-# Import-Module Terminal-Icons
+Import-Module Terminal-Icons
 
 "$($stopwatch.ElapsedMilliseconds)ms`tModules imported" | Out-File -FilePath $logPath -Append
 
