@@ -22,7 +22,7 @@ An elevated powershell session is required to run the setup script in order to c
 ![screenshot](./nvim/screenshot.png)
 
 
-![screenshot](./nvim/screenshot2.png)
+![screenshot](./nvim/screenshot2.png) 
 
 
 **[Blog Post](https://scottmckendry.tech/the-ultimate-powershell-profile/)**
