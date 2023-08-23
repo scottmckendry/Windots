@@ -64,16 +64,13 @@ if (Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Pro
     Remove-Item "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\" -Recurse -Force
 }
 
+# Create Symbolic Links for Profile, Neovim, Windows Terminal and gitconfig
 Write-Host "Creating Symbolic Links..."
 
-# Create Symbolic link to Profile.ps1 in PowerShell profile directory
 New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Resolve-Path .\Profile.ps1) -Force | Out-Null
-
-# Create Symbolic link to Neovim Config
 New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim -Target (Resolve-Path .\nvim) -Force | Out-Null
-
-# Create Symbolic link for Windows Terminal settings
 New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Target (Resolve-Path .\windowsterminal\settings.json) -Force | Out-Null
+New-Item -ItemType SymbolicLink -Path $HOME\.gitconfig -Target (Resolve-Path .\.gitconfig) -Force | Out-Null
 
 # Install Required PowerShell Modules
 Write-Host "Installing missing PowerShell Modules..."
