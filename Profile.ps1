@@ -22,13 +22,6 @@ $logPath = "$env:USERPROFILE/Profile.log"
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 "`n$($stopwatch.ElapsedMilliseconds)ms`tProfile load started" | Out-File -FilePath $logPath -Append
 
-# Imports
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Import Terminal-Icons module - This makes ls (Get-ChildItem) display icons for files and folders
-Import-Module Terminal-Icons
-
-"$($stopwatch.ElapsedMilliseconds)ms`tModules imported" | Out-File -FilePath $logPath -Append
-
 # Aliases & Custom Envioronment Variables
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Set-Alias -Name su -Value Start-AdminSession
@@ -39,9 +32,10 @@ Set-Alias -Name touch -Value New-File
 Set-Alias -Name df -Value Get-Volume
 # Set-Alias -Name sed -Value Set-String # Replaced by sed.exe
 Set-Alias -Name which -Value Show-Command
-Set-Alias -Name ll -Value Get-ChildItem
-Set-Alias -Name la -Value Get-ChildItem
-Set-Alias -Name l -Value Get-ChildItem
+Set-Alias -Name ls -Value Get-ChildItemPretty
+Set-Alias -Name ll -Value Get-ChildItemPretty
+Set-Alias -Name la -Value Get-ChildItemPretty
+Set-Alias -Name l -Value Get-ChildItemPretty
 
 "$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 
@@ -268,6 +262,23 @@ function Get-OrCreateSecret {
         }
     }
     return $secretValue
+}
+
+function Get-ChildItemPretty {
+    <#
+    .SYNOPSIS
+        Drop in replacement for Get-ChildItem that lazy loads the Terminal-Icons Module first. This improves profile start up time dramatically.
+        Alias: ls, ll, la, l
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $false, Position = 0)]
+        [string]$Path = $PWD
+    )
+    Write-Verbose "Importing Terminal-Icons module"
+    Import-Module Terminal-Icons -ErrorAction SilentlyContinue
+    Write-Verbose "Showing children of '$Path'"
+    Get-ChildItem $Path | Format-Table -AutoSize
 }
 
 "$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append
