@@ -36,6 +36,7 @@ Set-Alias -Name ls -Value Get-ChildItemPretty
 Set-Alias -Name ll -Value Get-ChildItemPretty
 Set-Alias -Name la -Value Get-ChildItemPretty
 Set-Alias -Name l -Value Get-ChildItemPretty
+Set-Alias -Name tif Show-ThisIsFine
 
 "$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 
@@ -279,6 +280,15 @@ function Get-ChildItemPretty {
     Import-Module Terminal-Icons -ErrorAction SilentlyContinue
     Write-Verbose "Showing children of '$Path'"
     Get-ChildItem $Path | Format-Table -AutoSize
+}
+
+function Show-ThisIsFine {
+    <#
+    .SYNOPSIS
+        Displays the "This is fine" meme in the console. Alias: tif
+    #>
+    Write-Verbose "Running thisisfine.ps1"
+    Invoke-Expression (Get-Content "$env:WindotsLocalRepo\art\thisisfine.ps1" -Raw)
 }
 
 "$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append
