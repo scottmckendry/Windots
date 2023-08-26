@@ -13,12 +13,18 @@ Set-Location $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
 
-# Install dependencies - pwsh, gitm choco, OMP, neovim, zig, ripgrep, fd, sed, lazygit
+# Install dependencies - pwsh, git, OMP, neovim, choco, zig, ripgrep, fd, sed, lazygit
 if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Microsoft.PowerShell
 }
 if (!(Get-Command "git" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Git.Git
+}
+if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
+    winget install -e -h --id=JanDeDobbeleer.OhMyPosh
+}
+if (!(Get-Command "nvim" -ErrorAction SilentlyContinue)) {
+    winget install -e -h --id Neovim.Neovim
 }
 if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Chocolatey.Chocolatey
@@ -27,12 +33,6 @@ if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 # Choco Deps
-if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
-    winget install -e -h --id=JanDeDobbeleer.OhMyPosh
-}
-if (!(Get-Command "nvim" -ErrorAction SilentlyContinue)) {
-    winget install -e --id Neovim.Neovim
-}
 if (!(Get-Command "zig" -ErrorAction SilentlyContinue)) {
     choco install -y zig
 }
@@ -64,18 +64,18 @@ if (Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Pro
     Remove-Item "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\" -Recurse -Force
 }
 
-# Create Symbolic Links for Profile, Neovim, Windows Terminal and gitconfig
+# Create Symbolic Links for Profile, Neovim, Windows Terminal, PowerToys and gitconfig
 Write-Host "Creating Symbolic Links..."
 
-New-Item -ItemType SymbolicLink -Path $PROFILE.CurrentUserAllHosts -Target (Resolve-Path .\Profile.ps1) -Force | Out-Null
-New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\nvim -Target (Resolve-Path .\nvim) -Force | Out-Null
-New-Item -ItemType SymbolicLink -Path $HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Target (Resolve-Path .\windowsterminal\settings.json) -Force | Out-Null
-New-Item -ItemType SymbolicLink -Path $HOME\.gitconfig -Target (Resolve-Path .\.gitconfig) -Force | Out-Null
+New-Item -ItemType SymbolicLink -Path "$PROFILE.CurrentUserAllHosts" -Target (Resolve-Path .\Profile.ps1) -Force | Out-Null
+New-Item -ItemType SymbolicLink -Path "$HOME\AppData\Local\nvim" -Target (Resolve-Path .\nvim) -Force | Out-Null
+New-Item -ItemType SymbolicLink -Path "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -Target (Resolve-Path .\windowsterminal\settings.json) -Force | Out-Null
+New-Item -ItemType SymbolicLink -Path "$HOME\.gitconfig" -Target (Resolve-Path .\.gitconfig) -Force | Out-Null
 
 # Install Required PowerShell Modules
 Write-Host "Installing missing PowerShell Modules..."
 foreach ($module in $requiredModules){
-    if (!(Get-Module $module -ErrorAction SilentlyContinue)) {
+    if (!(Get-Module -ListAvailable -Name $module -ErrorAction SilentlyContinue)) {
         Install-Module $module -Scope CurrentUser -Force
     }
 }
