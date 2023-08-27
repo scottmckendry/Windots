@@ -1,4 +1,3 @@
-local null_ls = require("null-ls")
 return {
   {
     "williamboman/mason.nvim",
@@ -8,6 +7,7 @@ return {
         "gopls",
         "goimports-reviser",
         "golines",
+        "golangci-lint",
         "bicep-lsp",
         "dockerfile-language-server",
         "docker-compose-language-service",
@@ -57,32 +57,59 @@ return {
 
         -- PowerShell Editor Services
         powershell_es = function()
-          require "lspconfig".powershell_es.setup {}
+          require("lspconfig").powershell_es.setup({})
         end,
 
         -- Dockerfile
         dockerls = function()
-          require 'lspconfig'.dockerls.setup {}
+          require("lspconfig").dockerls.setup({})
         end,
 
         -- Docker Compose
         docker_compose_language_service = function()
-          require 'lspconfig'.docker_compose_language_service.setup {}
+          require("lspconfig").docker_compose_language_service.setup({})
         end,
       },
     },
   },
 
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   opts = function()
+  --     return {
+  --       sources = {
+  --         null_ls.builtins.formatting.gofmt,
+  --         null_ls.builtins.formatting.goimports_reviser,
+  --         null_ls.builtins.formatting.golines,
+  --       },
+  --     }
+  --   end,
+  -- },
+
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function()
-      return {
-        sources = {
-          null_ls.builtins.formatting.gofmt,
-          null_ls.builtins.formatting.goimports_reviser,
-          null_ls.builtins.formatting.golines,
-        },
-      }
+    "nvimdev/guard.nvim",
+    event = "BufReadPre",
+    config = function()
+      local ft = require("guard.filetype")
+
+      ft("go")
+        :fmt("gofmt")
+        :append({
+          cmd = "goimports-reviser",
+          stdin = true,
+        })
+        :append("golines")
+        :lint({
+          cmd = "golangci-lint",
+          stdin = true,
+        })
+
+      require("guard").setup({
+        -- the only options for the setup function
+        fmt_on_save = true,
+        -- Use lsp if no formatter was defined for this filetype
+        lsp_as_default_formatter = false,
+      })
     end,
   },
 }
