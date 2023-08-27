@@ -64,7 +64,7 @@ if (Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Pro
     Remove-Item "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\" -Recurse -Force
 }
 
-# Create Symbolic Links for Profile, Neovim, Windows Terminal, PowerToys and gitconfig
+# Create Symbolic Links for Profile, Neovim, Windows Terminal and gitconfig
 Write-Host "Creating Symbolic Links..."
 
 New-Item -ItemType SymbolicLink -Path "$PROFILE.CurrentUserAllHosts" -Target (Resolve-Path .\Profile.ps1) -Force | Out-Null

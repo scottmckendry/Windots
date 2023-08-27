@@ -1,12 +1,37 @@
--- LSP Config https://github.com/neovim/nvim-lspconfig
+local null_ls = require("null-ls")
+return {
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "json-lsp",
+        "gopls",
+        "goimports-reviser",
+        "golines",
+        "bicep-lsp",
+        "dockerfile-language-server",
+        "docker-compose-language-service",
+        "powershell-editor-services",
+      },
+    },
+  },
 
-local bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services"
-local command_fmt =
-[[& '%s/PowerShellEditorServices/Start-EditorServices.ps1' -BundledModulesPath '%s' -LogPath '%s/powershell_es.log' -SessionDetailsPath '%s/powershell_es.session.json' -FeatureFlags @() -AdditionalModules @() -HostName nvim -HostProfileId 0 -HostVersion 1.0.0 -Stdio -LogLevel Normal]]
-local temp_path = vim.fn.stdpath("cache")
-local command = command_fmt:format(bundle_path, bundle_path, temp_path, temp_path)
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "bicep",
+        "gitignore",
+        "go",
+        "gomod",
+        "gosum",
+        "gowork",
+        "html",
+        "http",
+      },
+    },
+  },
 
-local M = {
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -32,11 +57,7 @@ local M = {
 
         -- PowerShell Editor Services
         powershell_es = function()
-          require("lspconfig").powershell_es.setup({
-            filetypes = { "ps1" },
-            bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
-            cmd = { "pwsh", "-NoLogo", "-Command", command },
-          })
+          require "lspconfig".powershell_es.setup {}
         end,
 
         -- Dockerfile
@@ -51,6 +72,17 @@ local M = {
       },
     },
   },
-}
 
-return M
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function()
+      return {
+        sources = {
+          null_ls.builtins.formatting.gofmt,
+          null_ls.builtins.formatting.goimports_reviser,
+          null_ls.builtins.formatting.golines,
+        },
+      }
+    end,
+  },
+}
