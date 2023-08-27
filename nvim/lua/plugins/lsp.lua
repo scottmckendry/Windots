@@ -93,16 +93,19 @@ return {
       local ft = require("guard.filetype")
 
       ft("go")
-        :fmt("gofmt")
-        :append({
-          cmd = "goimports-reviser",
-          stdin = true,
-        })
-        :append("golines")
-        :lint({
-          cmd = "golangci-lint",
-          stdin = true,
-        })
+          :fmt({
+            cmd = "goimports-reviser",
+            args = { "-output", "stdout" },
+            fname = true,
+          })
+          :append({
+            cmd = "gofmt",
+            stdin = true,
+          })
+          :append({
+            cmd = "golines",
+            stdin = true,
+          })
 
       require("guard").setup({
         -- the only options for the setup function
