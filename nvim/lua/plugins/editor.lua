@@ -74,6 +74,11 @@ return {
     config = function(_, opts)
       require("dap-go").setup(opts)
     end
-  }
+  },
 
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {}
+  },
 }
