@@ -1,9 +1,7 @@
 -- Disabled Plugins
 return {
-  -- mini.pairs
-  { "echasnovski/mini.pairs", enabled = false },
-  -- spectre
-  { "windwp/nvim-spectre", enabled = false },
-  -- null-ls
+  { "echasnovski/mini.pairs",          enabled = false },
+  { "echasnovski/mini.ai",             enabled = false },
+  { "windwp/nvim-spectre",             enabled = false },
   { "jose-elias-alvarez/null-ls.nvim", enabled = false },
 }

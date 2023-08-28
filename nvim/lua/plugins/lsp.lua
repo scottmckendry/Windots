@@ -7,7 +7,6 @@ return {
         "gopls",
         "goimports-reviser",
         "golines",
-        "golangci-lint",
         "bicep-lsp",
         "dockerfile-language-server",
         "docker-compose-language-service",
@@ -73,19 +72,6 @@ return {
     },
   },
 
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   opts = function()
-  --     return {
-  --       sources = {
-  --         null_ls.builtins.formatting.gofmt,
-  --         null_ls.builtins.formatting.goimports_reviser,
-  --         null_ls.builtins.formatting.golines,
-  --       },
-  --     }
-  --   end,
-  -- },
-
   {
     "nvimdev/guard.nvim",
     event = "BufReadPre",
@@ -104,6 +90,13 @@ return {
           })
           :append({
             cmd = "golines",
+            stdin = true,
+          })
+
+      ft("lua")
+          :fmt({
+            cmd = "stylua",
+            args = { "-" },
             stdin = true,
           })
 
