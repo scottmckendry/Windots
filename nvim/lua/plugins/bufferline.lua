@@ -17,6 +17,10 @@ return {
           text_align = "left",
         },
       },
+      style_preset = {
+        "no_italic",
+        "minimal",
+      }
     },
   },
 }

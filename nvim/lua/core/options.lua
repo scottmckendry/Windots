@@ -13,6 +13,7 @@ opt.shellquote = ""
 opt.shellxquote = ""
 
 -- UI/General
+opt.number = true
 opt.relativenumber = true
 opt.ignorecase = true
 opt.clipboard = "unnamedplus"
