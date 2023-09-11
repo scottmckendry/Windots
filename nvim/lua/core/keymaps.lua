@@ -1,8 +1,19 @@
-local map = vim.keymap.set
+local map = function(modes, lhs, rhs, opts)
+  local options = { silent = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  if type(modes) == "string" then
+    modes = { modes }
+  end
+  for _, mode in ipairs(modes) do
+    vim.keymap.set(mode, lhs, rhs, options)
+  end
+end
 
 -- better up/down
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
@@ -29,11 +40,17 @@ map("n", "<S-h>", ":BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 map("n", "<S-l>", ":BufferLineCycleNext<cr>", { desc = "Next buffer" })
 map("n", "[b", ":BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 map("n", "]b", ":BufferLineCycleNext<cr>", { desc = "Next buffer" })
-map("n", "<leader>bb", ":e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "<leader>`", ":e #<cr>", { desc = "Switch to Other Buffer" })
+map("n", "<leader>bb", ":e #<cr>", { desc = "Switch to Other buffer" })
+map("n", "<leader>`", ":e #<cr>", { desc = "Switch to Other buffer" })
 
 -- lazy
 map("n", "<leader>l", ":Lazy<cr>", { desc = "Lazy" })
+
+-- Telescope
+map("n", "<leader>ff", ":Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
+map("n", "<leader>fr", ":Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
+map("n", "<leader>fs", ":Telescope live_grep<cr>", { desc = "Find string in cwd" })
+map("n", "<leader>fc", ":Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 
 --keywordprg
 map("n", "<leader>K", ":norm! K<cr>", { desc = "Keywordprg" })
