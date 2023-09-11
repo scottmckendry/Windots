@@ -10,12 +10,14 @@ return {
       mode = { "n", "v" },
       ["<leader>b"] = { name = "+buffer" },
       ["<leader>c"] = { name = "+code" },
+      ["<leader>e"] = { name = "+explorer" },
       ["<leader>f"] = { name = "+file/find" },
       ["<leader>g"] = { name = "+git" },
       ["<leader>s"] = { name = "+search" },
       ["<leader>u"] = { name = "+ui" },
       ["<leader>w"] = { name = "+windows" },
       ["<leader>x"] = { name = "+diagnostics/quickfix" },
+      ["<leader><Tab>"] = { name = "+tabs" },
     }
   },
   config = function(_, opts)
