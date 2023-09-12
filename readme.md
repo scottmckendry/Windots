@@ -1,8 +1,32 @@
-# Windots
+<p align="center">
+  <a href="https://scottmckendry.tech">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://scottmckendry.tech/content/images/2023/09/logo-white.png">
+      <img src="https://scottmckendry.tech/content/images/2022/11/2-transparent-3.png" height="128">
+    </picture>
+    <h1 align="center">Windots</h1>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/scottmckendry/Windots/commit">
+    <img alt="LastCommit" src="https://img.shields.io/github/last-commit/scottmckendry/windots/main?style=for-the-badge&logo=github&color=%237dcfff">
+  </a>
+  <a href="https://github.com/scottmckendry/Windots/actions/workflows/sync.yml">
+    <img alt="SyncStatus" src="https://img.shields.io/github/actions/workflow/status/scottmckendry/Windots/sync.yml?style=for-the-badge&logo=github&label=Sync%20to%20dots&color=%23bb9af7">
+  </a>
+  <a href="https://github.com/scottmckendry/Windots/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/scottmckendry/Windots?style=for-the-badge&logo=github&color=%239ece6a">
+  </a>
+  <a href="https://github.com/scottmckendry/Windots/stars">
+    <img alt="stars" src="https://img.shields.io/github/stars/scottmckendry/windots?style=for-the-badge&logo=github&color=%23f7768e">
+  </a>
+</p>
+
 A collection of scripts and configurations, commonly referred to as dotfiles, for Windows.
 
 Installs and configures:
-- NeoVim (Based on [LazyVim](https://github.com/LazyVim/LazyVim))
+- Neovim
 - PowerShell (7) Profile
 - Windows Terminal
 
@@ -24,5 +48,10 @@ An elevated powershell session is required to run the setup script in order to c
 
 ![screenshot](./nvim/screenshot2.png) 
 
+<hr>
 
-**[Blog Post](https://scottmckendry.tech/the-ultimate-powershell-profile/)**
+<p align="center">
+  <a href="https://scottmckendry.tech/the-ultimate-powershell-profile/">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Blog_Post-Go?style=for-the-badge&label=%F0%9F%92%ADRead&color=%237aa2f7">
+  </a>
+</p>
