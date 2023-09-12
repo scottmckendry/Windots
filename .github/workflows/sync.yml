@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Sync to dots
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Copy 'nvim' folder
+      - name: Sync Neovim
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "nvim/" # Folder to copy
+          destination_repo: "scotmckendry/dots" # Target repo
+          destination_folder: "nvim/" # Folder where to copy it
+          user_email: "39483124+scottmckendry@users.noreply.github.com"
+          user_name: "Scott McKendry"
+          commit_message: ${{ github.event.head_commit.message }}
+          git_server: "github.com"
