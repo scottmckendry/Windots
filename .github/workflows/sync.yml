@@ -19,7 +19,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
         with:
           source_file: "nvim/" # Folder to copy
-          destination_repo: "scotmckendry/dots" # Target repo
+          destination_repo: "scottmckendry/dots" # Target repo
           destination_folder: "nvim/" # Folder where to copy it
           user_email: "39483124+scottmckendry@users.noreply.github.com"
           user_name: "Scott McKendry"
