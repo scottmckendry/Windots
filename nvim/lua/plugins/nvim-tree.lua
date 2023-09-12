@@ -2,10 +2,10 @@ return {
   "nvim-tree/nvim-tree.lua",
   cmd = { "NvimTreeToggle" },
   keys = {
-    { "<leader>ee", ":NvimTreeToggle<CR>",         { desc = "Toggle file explorer" } },
-    { "<leader>ef", ":NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" } },
-    { "<leader>ec", ":NvimTreeCollapse<CR>",       { desc = "Collapse file explorer" } },
-    { "<leader>er", ":NvimTreeRefresh<CR>",        { desc = "Refresh file explorer" } },
+    { "<leader>ee", ":NvimTreeToggle<CR>",         desc = "Toggle file explorer",                 silent = true },
+    { "<leader>ef", ":NvimTreeFindFileToggle<CR>", desc = "Toggle file explorer on current file", silent = true },
+    { "<leader>ec", ":NvimTreeCollapse<CR>",       desc = "Collapse file explorer",               silent = true },
+    { "<leader>er", ":NvimTreeRefresh<CR>",        desc = "Refresh file explorer",                silent = true },
   },
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
