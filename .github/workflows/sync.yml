@@ -22,5 +22,5 @@ jobs:
           destination_folder: "/" 
           user_email: "39483124+scottmckendry@users.noreply.github.com"
           user_name: "Scott McKendry"
-          commit_message: ${{ github.event.head_commit.message }}
+          commit_message: "${{ github.event.head_commit.message }} [skip ci]"
           git_server: "github.com"
