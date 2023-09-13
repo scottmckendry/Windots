@@ -43,10 +43,9 @@ An elevated powershell session is required to run the setup script in order to c
 
 ## Screenshots:
 
-![screenshot](./nvim/screenshot.png)
+![image](https://github.com/scottmckendry/Windots/assets/39483124/7cc4018b-256d-4857-8636-2a83a45da0ad)
 
-
-![screenshot](./nvim/screenshot2.png) 
+![image](https://github.com/scottmckendry/Windots/assets/39483124/83a433b8-6c0a-4da8-9621-653ab4e0f210)
 
 <hr>
 
