@@ -2,7 +2,7 @@
   <a href="https://scottmckendry.tech">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://scottmckendry.tech/content/images/2023/09/logo-white.png">
-      <img src="https://scottmckendry.tech/content/images/2022/11/2-transparent-3.png" height="128">
+      <img src="https://scottmckendry.tech/content/images/size/w600/2023/01/icon1-transparent.png" height="128">
     </picture>
     <h1 align="center">Windots</h1>
   </a>
