@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://scottmckendry.tech">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://scottmckendry.tech/content/images/2023/09/logo-white.png">
-      <img src="https://scottmckendry.tech/content/images/size/w600/2023/01/icon1-transparent.png" height="100">
+      <source media="(prefers-color-scheme: dark)" srcset="https://blog-eci.pages.dev/img/logo/icon2transparent.png">
+      <img src="https://scottmckendry.tech/img/logo/icon1transparent.png" height="100">
     </picture>
     <h1 align="center">Windots</h1>
   </a>
@@ -30,14 +30,14 @@ Installs and configures:
 - PowerShell (7) Profile
 - Windows Terminal
 
-An elevated powershell session is required to run the setup script in order to create symbolic links and install depedencies.
+An elevated PowerShell session is required to run the setup script in order to create symbolic links and install dependencies.
 
 ## Pre-requisites
 - [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3#install-powershell-using-winget-recommended)
 - [Git](https://winget.run/pkg/Git/Git)
 
 ## Installation
-1. Clone the repository to your preferrred location.
+1. Clone the repository to your preferred location.
 2. Run `Setup.ps1` from an elevated PowerShell prompt. 
 
 
