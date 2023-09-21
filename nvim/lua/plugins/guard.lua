@@ -1,5 +1,8 @@
 return {
   "nvimdev/guard.nvim",
+  dependencies = {
+    "nvimdev/guard-collection",
+  },
   event = "BufReadPre",
   config = function()
     local ft = require("guard.filetype")

@@ -69,5 +69,16 @@ return {
     require("lspconfig").powershell_es.setup({
       cmd = { "pwsh", "-NoLogo", "-Command", command },
     })
+
+    -- Ltex LS (LanguageTool)
+    local ltex_cmd = vim.fn.stdpath("data") .. "/mason/packages/ltex-ls/ltex-ls-16.0.0/bin/ltex-ls"
+    require("lspconfig").ltex.setup({
+      cmd = { ltex_cmd },
+      settings = {
+        ltex = {
+          language = "en-GB",
+        }
+      }
+    })
   end
 }

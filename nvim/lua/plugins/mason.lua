@@ -15,6 +15,10 @@ return {
       "dockerfile-language-server",
       "docker-compose-language-service",
       "powershell-editor-services",
+      "ltex-ls",
+    },
+    registries = {
+      "github:scottmckendry/mason-registry"
     },
   },
   config = function(_, opts)
