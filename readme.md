@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://scottmckendry.tech">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://blog-eci.pages.dev/img/logo/icon2transparent.png">
+      <source media="(prefers-color-scheme: dark)" srcset="https://scottmckendry.tech/img/logo/icon2transparent.png">
       <img src="https://scottmckendry.tech/img/logo/icon1transparent.png" height="100">
     </picture>
     <h1 align="center">Windots</h1>
