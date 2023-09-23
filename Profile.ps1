@@ -219,7 +219,7 @@ function Show-Command {
 function Get-OrCreateSecret {
     <# 
     .SYNOPSIS
-        Gets secret from local vault or creates it if it doesn't exist. Requires SecretManagement and SecretStore modules and a local vault to be created.
+        Gets secret from local vault or creates it if it does not exist. Requires SecretManagement and SecretStore modules and a local vault to be created.
         Install Modules with:
             Install-Module Microsoft.PowerShell.SecretManagement, Microsoft.PowerShell.SecretStore
         Create local vault with:
@@ -229,7 +229,7 @@ function Get-OrCreateSecret {
         https://devblogs.microsoft.com/powershell/secretmanagement-and-secretstore-are-generally-available/
     
     .PARAMETER secretName
-        Name of the secret to get or create. It's recommended to use the username or public key / client id as secret name to make it easier to identify the secret later.
+        Name of the secret to get or create. It is recommended to use the username or public key / client id as secret name to make it easier to identify the secret later.
     
     .EXAMPLE
         $password = Get-OrCreateSecret -secretName $username
@@ -304,7 +304,7 @@ Start-ThreadJob -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch -
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/material.omp.json" | Invoke-Expression
+Invoke-Expression (&starship init powershell)
 
 "$($stopwatch.ElapsedMilliseconds)ms`tPrompt initialised" | Out-File -FilePath $logPath -Append
 

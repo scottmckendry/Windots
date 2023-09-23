@@ -20,8 +20,8 @@ if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
 if (!(Get-Command "git" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Git.Git
 }
-if (!(Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
-    winget install -e -h --id=JanDeDobbeleer.OhMyPosh
+if (!(Get-Command "starship" -ErrorAction SilentlyContinue)) {
+    winget install -e --id Starship.Starship
 }
 if (!(Get-Command "nvim" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id Neovim.Neovim
