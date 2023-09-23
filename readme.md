@@ -32,16 +32,18 @@ Installs and configures:
 
 An elevated PowerShell session is required to run the setup script in order to create symbolic links and install dependencies.
 
-## Pre-requisites
+## Pre-requisites ✅
 - [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3#install-powershell-using-winget-recommended)
 - [Git](https://winget.run/pkg/Git/Git)
 
-## Installation
+## Installation 🚀
 1. Clone the repository to your preferred location.
 2. Run `Setup.ps1` from an elevated PowerShell prompt. 
 
+## Contributing 🤝
+Pull requests and issues are welcome. If you have any questions or suggestions, please open an issue or reach out to me on [Twitter](https://twitter.com/scott_mckendry).
 
-## Screenshots:
+## Screenshots 📸
 
 ![image](https://github.com/scottmckendry/Windots/assets/39483124/7cc4018b-256d-4857-8636-2a83a45da0ad)
 

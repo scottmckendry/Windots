@@ -6,8 +6,6 @@ return {
   opts = {
     ensure_installed = {
       "stylua",
-      "shfmt",
-      "json-lsp",
       "gopls",
       "goimports-reviser",
       "golines",
