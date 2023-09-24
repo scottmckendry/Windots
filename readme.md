@@ -27,7 +27,7 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 
 ## 🎉 Features
 - **Automated Dependency Installation:** Utilises [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) and [Chocolatey](https://chocolatey.org/) for streamlined installation of required dependencies.
-- **Automated Update Checks:** Regularly checks for updates using git. If updates are pending, a notification is when starting a new PowerShell session.
+- **Automated Update Checks:** Regularly checks for updates using git. If updates are pending, a notification is displayed when starting a new PowerShell session.
 
 ![image](https://github.com/scottmckendry/Windots/assets/39483124/89598017-6315-4054-ae56-be1f827c32a4)
 
