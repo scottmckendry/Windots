@@ -23,24 +23,22 @@
   </a>
 </p>
 
-A collection of scripts and configurations, commonly referred to as dotfiles, for Windows.
+My personal Windows-friendly dotfiles. Supports automatic installation of dependencies and configuration of Windows Terminal, Neovim, and PowerShell Core.
 
-Installs and configures:
-- Neovim
-- PowerShell (7) Profile
-- Windows Terminal
+## 🎉 Features
+- **Automated Dependency Installation:** Utilises [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) and [Chocolatey](https://chocolatey.org/) for streamlined installation of required dependencies.
+- **Automated Update Checks:** Regularly checks for updates using git. If updates are pending, a notification is when starting a new PowerShell session.
+- **Centralized Configuration:** Brings together scattered Windows configuration files into one organized location for easy access and management.
 
-An elevated PowerShell session is required to run the setup script in order to create symbolic links and install dependencies.
-
-## Pre-requisites ✅
+## ✅ Pre-requisites
 - [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3#install-powershell-using-winget-recommended)
 - [Git](https://winget.run/pkg/Git/Git)
 
-## Installation 🚀
+## 🚀 Installation
 1. Clone the repository to your preferred location.
 2. Run `Setup.ps1` from an elevated PowerShell prompt. 
 
-## Contributing 🤝
+## 🤝 Contributing
 Pull requests and issues are welcome. If you have any questions or suggestions, please open an issue or reach out to me on [Twitter](https://twitter.com/scott_mckendry).
 
 ## Screenshots 📸
