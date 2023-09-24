@@ -41,7 +41,9 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 ## 🤝 Contributing
 Pull requests and issues are welcome. If you have any questions or suggestions, please open an issue or reach out to me on [Twitter](https://twitter.com/scott_mckendry).
 
-## Screenshots 📸
+## 📸 Screenshots
+
+![image](https://github.com/scottmckendry/Windots/assets/39483124/8358f3e7-8b60-46d7-93b4-47fc1fa21b36)
 
 ![image](https://github.com/scottmckendry/Windots/assets/39483124/7cc4018b-256d-4857-8636-2a83a45da0ad)
 
