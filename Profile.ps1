@@ -294,8 +294,10 @@ function Show-ThisIsFine {
 "$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append
 
 # Custom Environment Variables
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 $ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
+$ENV:STARSHIP_CONFIG = "$ENV:WindotsLocalRepo\starship\starship.toml"
 
 # Check for Git updates while prompt is loading
 Start-ThreadJob -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
