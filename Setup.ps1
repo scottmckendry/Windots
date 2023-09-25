@@ -8,6 +8,15 @@ $requiredModules = @(
     "Terminal-Icons"
 )
 
+# Linked Files (Destination => Source)
+$symlinks = @{
+    "$PROFILE.CurrentUserAllHosts" = ".\Profile.ps1"
+    "$HOME\AppData\Local\nvim" = ".\nvim"
+    "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" = ".\windowsterminal\settings.json"
+    "$HOME\.gitconfig" = ".\.gitconfig"
+    "$HOME\AppData\Roaming\lazygit" = ".\lazygit"
+}
+
 # Set working directory
 Set-Location $PSScriptRoot
 
@@ -64,13 +73,12 @@ if (Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Pro
     Remove-Item "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\" -Recurse -Force
 }
 
-# Create Symbolic Links for Profile, Neovim, Windows Terminal and gitconfig
+# Create Symbolic Links
 Write-Host "Creating Symbolic Links..."
-
-New-Item -ItemType SymbolicLink -Path "$PROFILE.CurrentUserAllHosts" -Target (Resolve-Path .\Profile.ps1) -Force | Out-Null
-New-Item -ItemType SymbolicLink -Path "$HOME\AppData\Local\nvim" -Target (Resolve-Path .\nvim) -Force | Out-Null
-New-Item -ItemType SymbolicLink -Path "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -Target (Resolve-Path .\windowsterminal\settings.json) -Force | Out-Null
-New-Item -ItemType SymbolicLink -Path "$HOME\.gitconfig" -Target (Resolve-Path .\.gitconfig) -Force | Out-Null
+foreach ($symlink in $symlinks.GetEnumerator()) {
+    Get-Item -Path $symlink.Key -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+    New-Item -ItemType SymbolicLink -Path $symlink.Key -Target (Resolve-Path $symlink.Value) -Force | Out-Null
+}
 
 # Install Required PowerShell Modules
 Write-Host "Installing missing PowerShell Modules..."
