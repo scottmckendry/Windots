@@ -1,14 +1,14 @@
 local map = function(modes, lhs, rhs, opts)
-  local options = { silent = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  if type(modes) == "string" then
-    modes = { modes }
-  end
-  for _, mode in ipairs(modes) do
-    vim.keymap.set(mode, lhs, rhs, options)
-  end
+    local options = { silent = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    if type(modes) == "string" then
+        modes = { modes }
+    end
+    for _, mode in ipairs(modes) do
+        vim.keymap.set(mode, lhs, rhs, options)
+    end
 end
 
 -- better up/down
@@ -91,12 +91,12 @@ map("n", "<leader>cl", ":LspInfo<cr>", { desc = "LSP Info" })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 map("n", "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end,
-  { desc = "Goto Definition" })
+    { desc = "Goto Definition" })
 map("n", "gr", ":Telescope lsp_references<cr>", { desc = "Goto References" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
 map("n", "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end,
-  { desc = "Goto Implementation" })
+    { desc = "Goto Implementation" })
 map("n", "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end,
-  { desc = "Goto Type Definition" })
+    { desc = "Goto Type Definition" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })

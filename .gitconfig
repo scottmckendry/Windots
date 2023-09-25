@@ -3,11 +3,11 @@
 	email = 39483124+scottmckendry@users.noreply.github.com
 
 [core]
-  editor = nvim
+    editor = nvim
 
 [alias]
-  co = checkout
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    co = checkout
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 
 [fetch]
-  prune = true
+    prune = true

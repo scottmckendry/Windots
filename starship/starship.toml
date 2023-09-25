@@ -1,23 +1,22 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-
 add_newline = false
 
 [character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[ ](bold red)"
+    success_symbol = "[❯](bold green)"
+    error_symbol = "[ ](bold red)"
 
 [cmd_duration]
-min_time = 200
-show_milliseconds = true
+    min_time = 200
+    show_milliseconds = true
 
 [golang]
-symbol = " "
+    symbol = " "
 
 [git_metrics]
-disabled = false
+    disabled = false
 
 [line_break]
-disabled = true
+    disabled = true
 
 [jobs]
-disabled = true
+    disabled = true

@@ -1,140 +1,140 @@
 {
-  "$help": "https://aka.ms/terminal-documentation",
-  "$schema": "https://aka.ms/terminal-profiles-schema",
-  "actions": [
-    {
-      "command": {
-        "action": "copy",
-        "singleLine": false
-      },
-      "keys": "ctrl+c"
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [
+        {
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+d"
+        }
+    ],
+    "alwaysShowTabs": true,
+    "centerOnLaunch": true,
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "launchMode": "maximizedFocus",
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
+        "defaults": {
+            "colorScheme": "Tokyo Night",
+            "font": {
+                "face": "JetBrainsMono Nerd Font",
+                "size": 9.2
+            },
+            "opacity": 100,
+            "padding": "2, 2, 0, 0",
+            "scrollbarState": "hidden",
+            "useAcrylic": false
+        },
+        "list": [
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
+                "commandline": "pwsh.exe --nologo",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
+            }
+        ]
     },
-    {
-      "command": "paste",
-      "keys": "ctrl+v"
-    },
-    {
-      "command": "find",
-      "keys": "ctrl+shift+f"
-    },
-    {
-      "command": {
-        "action": "splitPane",
-        "split": "auto",
-        "splitMode": "duplicate"
-      },
-      "keys": "alt+shift+d"
-    }
-  ],
-  "alwaysShowTabs": true,
-  "centerOnLaunch": true,
-  "copyFormatting": "none",
-  "copyOnSelect": false,
-  "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-  "launchMode": "maximizedFocus",
-  "newTabMenu": [
-    {
-      "type": "remainingProfiles"
-    }
-  ],
-  "profiles": {
-    "defaults": {
-      "colorScheme": "Tokyo Night",
-      "font": {
-        "face": "JetBrainsMono Nerd Font",
-        "size": 9.2
-      },
-      "opacity": 100,
-      "padding": "2, 2, 0, 0",
-      "scrollbarState": "hidden",
-      "useAcrylic": false
-    },
-    "list": [
-      {
-        "commandline": "%SystemRoot%\\System32\\cmd.exe",
-        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-        "hidden": false,
-        "name": "Command Prompt"
-      },
-      {
-        "commandline": "pwsh.exe --nologo",
-        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-        "hidden": false,
-        "name": "PowerShell",
-        "source": "Windows.Terminal.PowershellCore"
-      }
-    ]
-  },
-  "schemes": [
-    {
-      "name": "Catppuccin Mocha",
-      "cursorColor": "#F5E0DC",
-      "selectionBackground": "#585B70",
-      "background": "#1E1E2E",
-      "foreground": "#CDD6F4",
-      "black": "#45475A",
-      "red": "#F38BA8",
-      "green": "#A6E3A1",
-      "yellow": "#F9E2AF",
-      "blue": "#89B4FA",
-      "purple": "#F5C2E7",
-      "cyan": "#94E2D5",
-      "white": "#BAC2DE",
-      "brightBlack": "#585B70",
-      "brightRed": "#F38BA8",
-      "brightGreen": "#A6E3A1",
-      "brightYellow": "#F9E2AF",
-      "brightBlue": "#89B4FA",
-      "brightPurple": "#F5C2E7",
-      "brightCyan": "#94E2D5",
-      "brightWhite": "#A6ADC8"
-    },
-    {
-      "name": "Tokyo Night Storm",
-      "background": "#24283b",
-      "black": "#1d202f",
-      "blue": "#7aa2f7",
-      "brightBlack": "#414868",
-      "brightBlue": "#7aa2f7",
-      "brightCyan": "#7dcfff",
-      "brightGreen": "#9ece6a",
-      "brightPurple": "#9d7cd8",
-      "brightRed": "#f7768e",
-      "brightWhite": "#c0caf5",
-      "brightYellow": "#e0af68",
-      "cursorColor": "#c0caf5",
-      "cyan": "#7dcfff",
-      "foreground": "#c0caf5",
-      "green": "#9ece6a",
-      "purple": "#bb9af7",
-      "red": "#f7768e",
-      "selectionBackground": "#2e3c64",
-      "white": "#a9b1d6",
-      "yellow": "#e0af68"
-    },
-    {
-      "name": "Tokyo Night",
-      "background": "#1a1b26",
-      "black": "#15161e",
-      "blue": "#7aa2f7",
-      "brightBlack": "#414868",
-      "brightBlue": "#7aa2f7",
-      "brightCyan": "#7dcfff",
-      "brightGreen": "#9ece6a",
-      "brightPurple": "#9d7cd8",
-      "brightRed": "#f7768e",
-      "brightWhite": "#c0caf5",
-      "brightYellow": "#e0af68",
-      "cursorColor": "#c0caf5",
-      "cyan": "#7dcfff",
-      "foreground": "#c0caf5",
-      "green": "#9ece6a",
-      "purple": "#bb9af7",
-      "red": "#f7768e",
-      "selectionBackground": "#283457",
-      "white": "#a9b1d6",
-      "yellow": "#e0af68"
-    }
-  ],
-  "showTabsInTitlebar": true
+    "schemes": [
+        {
+            "name": "Catppuccin Mocha",
+            "cursorColor": "#F5E0DC",
+            "selectionBackground": "#585B70",
+            "background": "#1E1E2E",
+            "foreground": "#CDD6F4",
+            "black": "#45475A",
+            "red": "#F38BA8",
+            "green": "#A6E3A1",
+            "yellow": "#F9E2AF",
+            "blue": "#89B4FA",
+            "purple": "#F5C2E7",
+            "cyan": "#94E2D5",
+            "white": "#BAC2DE",
+            "brightBlack": "#585B70",
+            "brightRed": "#F38BA8",
+            "brightGreen": "#A6E3A1",
+            "brightYellow": "#F9E2AF",
+            "brightBlue": "#89B4FA",
+            "brightPurple": "#F5C2E7",
+            "brightCyan": "#94E2D5",
+            "brightWhite": "#A6ADC8"
+        },
+        {
+            "name": "Tokyo Night Storm",
+            "background": "#24283b",
+            "black": "#1d202f",
+            "blue": "#7aa2f7",
+            "brightBlack": "#414868",
+            "brightBlue": "#7aa2f7",
+            "brightCyan": "#7dcfff",
+            "brightGreen": "#9ece6a",
+            "brightPurple": "#9d7cd8",
+            "brightRed": "#f7768e",
+            "brightWhite": "#c0caf5",
+            "brightYellow": "#e0af68",
+            "cursorColor": "#c0caf5",
+            "cyan": "#7dcfff",
+            "foreground": "#c0caf5",
+            "green": "#9ece6a",
+            "purple": "#bb9af7",
+            "red": "#f7768e",
+            "selectionBackground": "#2e3c64",
+            "white": "#a9b1d6",
+            "yellow": "#e0af68"
+        },
+        {
+            "name": "Tokyo Night",
+            "background": "#1a1b26",
+            "black": "#15161e",
+            "blue": "#7aa2f7",
+            "brightBlack": "#414868",
+            "brightBlue": "#7aa2f7",
+            "brightCyan": "#7dcfff",
+            "brightGreen": "#9ece6a",
+            "brightPurple": "#9d7cd8",
+            "brightRed": "#f7768e",
+            "brightWhite": "#c0caf5",
+            "brightYellow": "#e0af68",
+            "cursorColor": "#c0caf5",
+            "cyan": "#7dcfff",
+            "foreground": "#c0caf5",
+            "green": "#9ece6a",
+            "purple": "#bb9af7",
+            "red": "#f7768e",
+            "selectionBackground": "#283457",
+            "white": "#a9b1d6",
+            "yellow": "#e0af68"
+        }
+    ],
+    "showTabsInTitlebar": true
 }
