@@ -100,3 +100,11 @@ map("n", "gy", function() require("telescope.builtin").lsp_type_definitions({ re
     { desc = "Goto Type Definition" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+
+-- Neovide specific
+if vim.g.neovide then
+    map({ "n", "v" }, "<C-c>", '"+y', { desc = "Copy to clipboard" })
+    map({ "n", "v" }, "<C-x>", '"+x', { desc = "Cut to clipboard" })
+    map({ "n", "v" }, "<C-v>", '"+gP', { desc = "Paste from clipboard" })
+    map({ "i", 't' }, "<C-v>", '<esc>"+gP', { desc = "Paste from clipboard" })
+end

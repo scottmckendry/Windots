@@ -37,6 +37,9 @@ Set-Alias -Name ll -Value Get-ChildItemPretty
 Set-Alias -Name la -Value Get-ChildItemPretty
 Set-Alias -Name l -Value Get-ChildItemPretty
 Set-Alias -Name tif Show-ThisIsFine
+Set-Alias -Name nvim -Value Start-Neovide
+Set-Alias -Name vim -Value Start-Neovide
+Set-Alias -Name vi -Value Start-Neovide
 
 "$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 
@@ -289,6 +292,25 @@ function Show-ThisIsFine {
     #>
     Write-Verbose "Running thisisfine.ps1"
     Invoke-Expression (Get-Content "$env:WindotsLocalRepo\art\thisisfine.ps1" -Raw)
+}
+
+function Start-Neovide {
+    <#
+    .SYNOPSIS
+        Starts Neovide with the specified file.
+        Alias: nvim, vim, vi
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $false, Position = 0)]
+        [string]$File
+    )
+    Write-Verbose "Starting Neovide"
+    if ($File) {
+        Start-Process neovide -ArgumentList "--multigrid $File"
+        return
+    }
+    Start-Process neovide -ArgumentList "--multigrid"
 }
 
 "$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append

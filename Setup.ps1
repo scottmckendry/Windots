@@ -22,7 +22,7 @@ Set-Location $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
 
-# Install dependencies - pwsh, git, OMP, neovim, choco, zig, ripgrep, fd, sed, lazygit
+# Install dependencies - pwsh, git, starship, neovim, choco, zig, ripgrep, fd, sed, lazygit, neovide
 if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Microsoft.PowerShell
 }
@@ -57,12 +57,16 @@ if (!(Get-Command "sed" -ErrorAction SilentlyContinue)) {
 if (!(Get-Command "lazygit" -ErrorAction SilentlyContinue)) {
     choco install -y lazygit
 }
+if (!(Get-Command "neovide" -ErrorAction SilentlyContinue)) {
+    choco install -y neovide
+}
 
 # Create Custom NVIM shotcut
 if (!(Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")) {
     $wshShell = New-Object -ComObject WScript.Shell
     $shortcut = $wshShell.CreateShortcut("$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")
-    $shortcut.TargetPath = "C:\Program Files\Neovim\bin\nvim.exe"
+    $shortcut.TargetPath = "C:\Program Files\Neovide\Neovide.exe"
+    $shortcut.Arguments = "--multigrid"
     $shortcut.workingDirectory = (Resolve-Path ..) # Set working directory to parent directory of this script (likely where you keep all Git Projects)
     $shortcut.IconLocation = "C:\Program Files\Neovim\bin\nvim-qt.exe,0" # Steal icon from nvim-qt.exe
     $shortcut.Save()
