@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - main
+      
+  workflow_dispatch:
 
 name: Sync to dots
 
@@ -18,6 +20,32 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
         with:
           source_file: "nvim/"
+          destination_repo: "scottmckendry/dots"
+          destination_folder: "/" 
+          user_email: "39483124+scottmckendry@users.noreply.github.com"
+          user_name: "Scott McKendry"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
+          git_server: "github.com"
+
+      - name: Sync Starship
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "starship/"
+          destination_repo: "scottmckendry/dots"
+          destination_folder: "/" 
+          user_email: "39483124+scottmckendry@users.noreply.github.com"
+          user_name: "Scott McKendry"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
+          git_server: "github.com"
+          
+      - name: Sync Lazygit
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "lazygit/"
           destination_repo: "scottmckendry/dots"
           destination_folder: "/" 
           user_email: "39483124+scottmckendry@users.noreply.github.com"
