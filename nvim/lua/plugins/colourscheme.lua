@@ -1,5 +1,5 @@
 -- Set transparency
-local is_transparent = false
+local is_transparent = true -- Set to false to disable transparency in 🪟
 if vim.fn.has("unix") == 1 then
     is_transparent = true
 end
@@ -10,11 +10,19 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            require("nightfox").setup({
-                options = {
-                    transparent = is_transparent,
-                }
-            })
+            if is_transparent then
+                require("nightfox").setup({
+                    options = {
+                        transparent = true,
+                    },
+                    groups = {
+                        all = {
+                            NormalFloat = { fg = "fg1", bg = "NONE" },
+                            WhichKeyFloat = { fg = "fg1", bg = "NONE" },
+                        }
+                    }
+                })
+            end
             vim.cmd("colorscheme carbonfox")
         end,
     },

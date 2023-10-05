@@ -65,8 +65,7 @@ if (!(Get-Command "neovide" -ErrorAction SilentlyContinue)) {
 if (!(Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")) {
     $wshShell = New-Object -ComObject WScript.Shell
     $shortcut = $wshShell.CreateShortcut("$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")
-    $shortcut.TargetPath = "C:\Program Files\Neovide\Neovide.exe"
-    $shortcut.Arguments = "--multigrid"
+    $shortcut.TargetPath = "C:\Program Files\Neovim\bin\nvim.exe"
     $shortcut.workingDirectory = (Resolve-Path ..) # Set working directory to parent directory of this script (likely where you keep all Git Projects)
     $shortcut.IconLocation = "C:\Program Files\Neovim\bin\nvim-qt.exe,0" # Steal icon from nvim-qt.exe
     $shortcut.Save()

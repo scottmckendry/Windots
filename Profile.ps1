@@ -37,9 +37,9 @@ Set-Alias -Name ll -Value Get-ChildItemPretty
 Set-Alias -Name la -Value Get-ChildItemPretty
 Set-Alias -Name l -Value Get-ChildItemPretty
 Set-Alias -Name tif Show-ThisIsFine
-Set-Alias -Name nvim -Value Start-Neovide
-Set-Alias -Name vim -Value Start-Neovide
-Set-Alias -Name vi -Value Start-Neovide
+# Set-Alias -Name nvim -Value Start-Neovide
+Set-Alias -Name vim -Value nvim
+Set-Alias -Name vi -Value nvim
 
 "$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 
