@@ -14,6 +14,8 @@ return {
             "docker-compose-language-service",
             "powershell-editor-services",
             "ltex-ls",
+            "omnisharp",
+            "json-lsp",
         },
         registries = {
             "github:scottmckendry/mason-registry"

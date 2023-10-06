@@ -36,6 +36,16 @@ return {
         -- Docker Compose
         require("lspconfig").docker_compose_language_service.setup({})
 
+        -- C#
+        local omnisharp_path = vim.fn.stdpath("data") .. "/mason/packages/omnisharp/libexec/omnisharp.dll"
+        require("lspconfig").omnisharp.setup({
+            cmd = { "dotnet", omnisharp_path },
+            enable_ms_build_load_projects_on_demand = true,
+        })
+
+        -- JSON
+        require("lspconfig").jsonls.setup({})
+
         -- Lua
         require("lspconfig").lua_ls.setup {
             on_init = function(client)

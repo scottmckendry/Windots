@@ -9,4 +9,13 @@ return {
     keys = {
         { "<leader>ee", ":Neotree toggle<CR>", desc = "Toggle file explorer", silent = true },
     },
+    config = function()
+        require("neo-tree").setup({
+            window = {
+                mappings = {
+                    ["<space>"] = "none",
+                }
+            }
+        })
+    end,
 }

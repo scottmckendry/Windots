@@ -42,12 +42,12 @@
             "colorScheme": "Tokyo Night",
             "font": {
                 "face": "JetBrainsMono Nerd Font",
-                "size": 9.2
+                "size": 10
             },
-            "opacity": 90,
-            "padding": "2, 2, 0, 0",
+            "opacity": 85,
+            "padding": "5",
             "scrollbarState": "hidden",
-            "useAcrylic": false
+            "useAcrylic": true
         },
         "list": [
             {
