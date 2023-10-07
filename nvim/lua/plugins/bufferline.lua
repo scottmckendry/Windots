@@ -7,20 +7,17 @@ return {
     },
     opts = {
         options = {
-            diagnostics = "nvim_lsp",
+            indicator = { style = "none" },
+            buffer_close_icon = "",
+            separator_style = { "", "" },
             always_show_bufferline = false,
             offsets = {
                 {
                     filetype = "neo-tree",
-                    text = "Neo-tree",
-                    highlight = "Directory",
-                    text_align = "left",
+                    text = "Explorer",
+                    text_align = "center",
                 },
             },
-            style_preset = {
-                "no_italic",
-                "minimal",
-            }
         },
     },
 }

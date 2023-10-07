@@ -1,22 +1,29 @@
-local get_hlgroup = require("core.utils").get_hlgroup
-local colours = {
-    bg = get_hlgroup("Normal").bg,
-    fg = get_hlgroup("Normal").fg,
-    light_grey = "#565f89",
-    green = "#9ece6a",
-    yellow = "#e0af68",
-    blue = "#7aa2f7",
-    magenta = "#bb9af7",
-    red = "#f7768e",
-    cyan = "#7dcfff",
-    orange = "#ff9e64",
-}
 return {
     "nvim-lualine/lualine.nvim",
-    event = "BufWinEnter",
+    event = "VeryLazy",
     opts = function()
+        local get_hlgroup = require("core.utils").get_hlgroup
+        local colours = {
+            bg = get_hlgroup("Normal").bg,
+            fg = "#f8f8f2",
+            grey = "#565f89",
+            green = "#9ece6a",
+            yellow = "#e0af68",
+            blue = "#7aa2f7",
+            magenta = "#bb9af7",
+            red = "#f7768e",
+            cyan = "#7dcfff",
+            orange = "#ff9e64",
+        }
+        local copilot_colours = {
+            [""] = { fg = colours.grey, bg = colours.bg },
+            ["Normal"] = { fg = colours.grey, bg = colours.bg },
+            ["Warning"] = { fg = colours.red, bg = colours.bg },
+            ["InProgress"] = { fg = colours.yellow, bg = colours.bg },
+        }
         return {
             options = {
+                component_separators = { left = " ", right = " " },
                 theme = {
                     normal = {
                         a = { fg = colours.blue, bg = colours.bg },
@@ -26,10 +33,18 @@ return {
                         y = { fg = colours.magenta, bg = colours.bg },
                         z = { fg = colours.grey, bg = colours.bg },
                     },
-                    insert = { a = { fg = colours.green, bg = colours.bg } },
-                    visual = { a = { fg = colours.magenta, bg = colours.bg } },
-                    replace = { a = { fg = colours.red, bg = colours.bg } },
-                    terminal = { a = { fg = colours.blue, bg = colours.bg } },
+                    insert = {
+                        a = { fg = colours.green, bg = colours.bg },
+                        z = { fg = colours.grey, bg = colours.bg },
+                    },
+                    visual = {
+                        a = { fg = colours.magenta, bg = colours.bg },
+                        z = { fg = colours.grey, bg = colours.bg },
+                    },
+                    terminal = {
+                        a = { fg = colours.blue, bg = colours.bg },
+                        z = { fg = colours.grey, bg = colours.bg },
+                    },
                 },
 
                 globalstatus = true,
@@ -61,11 +76,30 @@ return {
                         end,
                     },
                 },
-                lualine_x = { "diff" },
+                lualine_x = {
+                    {
+                        function()
+                            local icon = " "
+                            local status = require("copilot.api").status.data
+                            return icon .. (status.message or "")
+                        end,
+                        cond = function()
+                            local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
+                            return ok and #clients > 0
+                        end,
+                        color = function()
+                            if not package.loaded["copilot"] then
+                                return
+                            end
+                            local status = require("copilot.api").status.data
+                            return copilot_colours[status.status] or copilot_colours[""]
+                        end,
+                    },
+                    { "diff" },
+                },
                 lualine_y = {
                     {
                         "progress",
-                        separator = " ",
                         padding = { left = 1, right = 0 }
                     },
                     {
