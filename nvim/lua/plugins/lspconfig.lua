@@ -47,6 +47,9 @@ return {
         -- JSON
         require("lspconfig").jsonls.setup({})
 
+        -- HTML
+        require("lspconfig").html.setup({})
+
         -- Lua
         require("lspconfig").lua_ls.setup {
             on_init = function(client)

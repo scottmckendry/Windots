@@ -16,6 +16,8 @@ return {
             "ltex-ls",
             "omnisharp",
             "json-lsp",
+            "html-lsp",
+            "prettier",
         },
         registries = {
             "github:scottmckendry/mason-registry"

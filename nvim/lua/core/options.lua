@@ -19,6 +19,7 @@ opt.number = true
 opt.relativenumber = true
 opt.ignorecase = true
 opt.cursorline = true
+opt.clipboard = "unnamedplus"
 opt.termguicolors = true
 opt.confirm = true
 opt.mouse = "a"

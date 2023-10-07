@@ -24,9 +24,6 @@ return {
             bg_alt = "#2a2e36"
         end
 
-        -- Write telescope colours to output
-        print("Telescope colours: ", bg, bg_alt, green, red)
-
         -- Create table of colours for telescope for pretty borderless theme
         local telescope_colours = {
             TelescopeBorder = { fg = bg_alt, bg = bg },

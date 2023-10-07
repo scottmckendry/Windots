@@ -42,7 +42,7 @@ return {
                         z = { fg = colours.grey, bg = colours.bg },
                     },
                     terminal = {
-                        a = { fg = colours.blue, bg = colours.bg },
+                        a = { fg = colours.orange, bg = colours.bg },
                         z = { fg = colours.grey, bg = colours.bg },
                     },
                 },
@@ -74,6 +74,7 @@ return {
                             return package.loaded["nvim-navic"] and
                                 require("nvim-navic").is_available()
                         end,
+                        color = { fg = colours.grey, bg = colours.bg },
                     },
                 },
                 lualine_x = {
@@ -100,16 +101,15 @@ return {
                 lualine_y = {
                     {
                         "progress",
-                        padding = { left = 1, right = 0 }
                     },
                     {
                         "location",
-                        padding = { left = 0, right = 1 }
+                        color = { fg = colours.cyan, bg = colours.bg },
                     },
                 },
                 lualine_z = {
                     function()
-                        return "  " .. os.date("%X")
+                        return "  " .. os.date("%X") .. " 📎"
                     end,
                 },
             },
