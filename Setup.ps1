@@ -22,7 +22,7 @@ Set-Location $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
 
-# Install dependencies - pwsh, git, starship, neovim, choco, zig, ripgrep, fd, sed, lazygit, neovide
+# Install dependencies - pwsh, git, starship, neovim, choco, zig, ripgrep, fd, sed, lazygit, neovide, bat
 if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
     winget install -e -h --id=Microsoft.PowerShell
 }
@@ -59,6 +59,9 @@ if (!(Get-Command "lazygit" -ErrorAction SilentlyContinue)) {
 }
 if (!(Get-Command "neovide" -ErrorAction SilentlyContinue)) {
     choco install -y neovide
+}
+if (!(Get-Command "bat" -ErrorAction SilentlyContinue)) {
+    choco install -y bat
 }
 
 # Create Custom NVIM shotcut

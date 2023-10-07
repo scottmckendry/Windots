@@ -40,6 +40,7 @@ Set-Alias -Name tif Show-ThisIsFine
 # Set-Alias -Name nvim -Value Start-Neovide
 Set-Alias -Name vim -Value nvim
 Set-Alias -Name vi -Value nvim
+Set-Alias -Name cat -Value bat
 
 "$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 

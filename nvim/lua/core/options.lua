@@ -18,12 +18,12 @@ end
 opt.number = true
 opt.relativenumber = true
 opt.ignorecase = true
-opt.clipboard = "unnamedplus"
 opt.cursorline = true
 opt.termguicolors = true
 opt.confirm = true
 opt.mouse = "a"
-opt.undofile = true -- Persistent undo
+opt.undofile = true
+opt.fillchars:append { eob = " " }
 
 -- Set tab width
 opt.tabstop = 4
