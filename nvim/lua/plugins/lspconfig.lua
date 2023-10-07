@@ -3,9 +3,10 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
-        "mason.nvim",
+        "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
+        "smiteshp/nvim-navic",
     },
     config = function()
         -- Go
