@@ -11,8 +11,7 @@ return {
 				css = { "prettier" },
 			},
 
-			format_on_save = {
-				timeout_ms = 5000,
+			format_after_save = {
 				lsp_fallback = true,
 			},
 
