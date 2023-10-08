@@ -9,6 +9,7 @@ return {
                 html = { "prettier" },
                 javascript = { "prettier" },
                 css = { "prettier" },
+                json = { "prettier" },
             },
 
             format_after_save = {
@@ -26,5 +27,9 @@ return {
         -- Override stylua's default indent type
         table.insert(require("conform.formatters.stylua").args, "--indent-type")
         table.insert(require("conform.formatters.stylua").args, "Spaces")
+
+        -- Override prettier's default indent type
+        table.insert(require("conform.formatters.prettier").args, "--tab-width")
+        table.insert(require("conform.formatters.prettier").args, "4")
     end,
 }
