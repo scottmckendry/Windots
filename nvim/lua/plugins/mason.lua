@@ -5,22 +5,22 @@ return {
     build = ":MasonUpdate",
     opts = {
         ensure_installed = {
-            "stylua",
-            "gopls",
+            "bicep-lsp",
+            "docker-compose-language-service",
+            "dockerfile-language-server",
             "goimports-reviser",
             "golines",
-            "bicep-lsp",
-            "dockerfile-language-server",
-            "docker-compose-language-service",
-            "powershell-editor-services",
+            "gopls",
+            "html-lsp",
+            "json-lsp",
             "ltex-ls",
             "omnisharp",
-            "json-lsp",
-            "html-lsp",
+            "powershell-editor-services",
             "prettier",
+            "stylua",
         },
         registries = {
-            "github:scottmckendry/mason-registry"
+            "github:scottmckendry/mason-registry",
         },
     },
     config = function(_, opts)

@@ -18,28 +18,30 @@ return {
     cmd = { "TSUpdateSync" },
     keys = {
         { "<c-space>", desc = "Increment selection" },
-        { "<bs>",      desc = "Decrement selection", mode = "x" },
+        { "<bs>", desc = "Decrement selection", mode = "x" },
     },
     opts = {
         highlight = { enable = true },
         indent = { enable = true },
         ensure_installed = {
-            "html",
-            "http",
+            "bash",
+            "bicep",
             "gitignore",
             "go",
             "gomod",
             "gosum",
             "gowork",
-            "bicep",
+            "html",
+            "http",
             "json",
             "lua",
             "luadoc",
             "luap",
             "markdown",
             "markdown_inline",
-            "yaml",
+            "regex",
             "toml",
+            "yaml",
         },
         incremental_selection = {
             enable = true,
@@ -72,8 +74,7 @@ return {
                     if opts.textobjects[mod] and opts.textobjects[mod].enable then
                         local Loader = require("lazy.core.loader")
                         Loader.disabled_rtp_plugins["nvim-treesitter-textobjects"] = nil
-                        local plugin = require("lazy.core.config").plugins
-                            ["nvim-treesitter-textobjects"]
+                        local plugin = require("lazy.core.config").plugins["nvim-treesitter-textobjects"]
                         require("lazy.core.loader").source_runtime(plugin.dir, "plugin")
                         break
                     end

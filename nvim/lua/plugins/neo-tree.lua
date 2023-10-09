@@ -7,15 +7,16 @@ return {
     },
     cmd = { "Neotree" },
     keys = {
-        { "<leader>ee", ":Neotree toggle<CR>", desc = "Toggle file explorer", silent = true },
+        { "<leader>ee", ":Neotree toggle position=right<CR>", desc = "Toggle file explorer", silent = true },
     },
     config = function()
         require("neo-tree").setup({
+            close_if_last_window = true,
             window = {
                 mappings = {
                     ["<space>"] = "none",
-                }
-            }
+                },
+            },
         })
     end,
 }
