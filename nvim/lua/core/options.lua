@@ -24,7 +24,6 @@ opt.termguicolors = true
 opt.confirm = true
 opt.mouse = "a"
 opt.undofile = true
-opt.fillchars:append({ eob = " " })
 opt.swapfile = false
 
 -- Set tab width

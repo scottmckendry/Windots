@@ -4,6 +4,19 @@ if vim.fn.has("unix") == 1 then
     is_transparent = true
 end
 
+if is_transparent then
+    vim.opt.fillchars:append({
+        horiz = " ",
+        horizup = " ",
+        horizdown = " ",
+        vert = " ",
+        vertleft = " ",
+        vertright = " ",
+        verthoriz = " ",
+        eob = " ",
+    })
+end
+
 return {
     {
         "EdenEast/nightfox.nvim",
@@ -19,8 +32,8 @@ return {
                         all = {
                             NormalFloat = { fg = "fg1", bg = "NONE" },
                             WhichKeyFloat = { fg = "fg1", bg = "NONE" },
-                        }
-                    }
+                        },
+                    },
                 })
             end
             vim.cmd("colorscheme carbonfox")
@@ -42,5 +55,5 @@ return {
             end
             -- vim.cmd("colorscheme tokyonight-night")
         end,
-    }
+    },
 }

@@ -52,7 +52,7 @@ return {
             },
             sections = {
                 lualine_a = { { "mode", icon = "" } },
-                lualine_b = { { "branch", icon = "" } },
+                lualine_b = { { "branch", icon = "" } },
                 lualine_c = {
                     {
                         "diagnostics",
@@ -66,18 +66,24 @@ return {
                     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
                     {
                         "filename",
-                        symbols = { modified = "  ", readonly = "", unnamed = "" }
+                        symbols = { modified = "  ", readonly = "", unnamed = "" },
                     },
                     {
-                        function() return require("nvim-navic").get_location() end,
+                        function()
+                            return require("nvim-navic").get_location()
+                        end,
                         cond = function()
-                            return package.loaded["nvim-navic"] and
-                                require("nvim-navic").is_available()
+                            return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
                         end,
                         color = { fg = colours.grey, bg = colours.bg },
                     },
                 },
                 lualine_x = {
+                    {
+                        require("lazy.status").updates,
+                        cond = require("lazy.status").has_updates,
+                        color = { fg = colours.green },
+                    },
                     {
                         function()
                             local icon = " "
