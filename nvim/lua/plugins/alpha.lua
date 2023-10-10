@@ -4,23 +4,24 @@ return {
     opts = function()
         local dashboard = require("alpha.themes.dashboard")
         local logo = [[
-                                             
-      ████ ██████           █████      ██
-     ███████████             █████ 
-     █████████ ███████████████████ ███   ███████████
-    █████████  ███    █████████████ █████ ██████████████
-   █████████ ██████████ █████████ █████ █████ ████ █████
- ███████████ ███    ███ █████████ █████ █████ ████ █████
-██████  █████████████████████ ████ █████ █████ ████ ██████
+           ▄ ▄
+       ▄   ▄▄▄     ▄ ▄▄▄ ▄ ▄
+       █ ▄ █▄█ ▄▄▄ █ █▄█ █ █
+    ▄▄ █▄█▄▄▄█ █▄█▄█▄▄█▄▄█ █
+  ▄ █▄▄█ ▄ ▄▄ ▄█ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+  █▄▄▄▄ ▄▄▄ █ ▄ ▄▄▄ ▄ ▄▄▄ ▄ ▄ █ ▄
+▄ █ █▄█ █▄█ █ █ █▄█ █ █▄█ ▄▄▄ █ █
+█▄█ ▄ █▄▄█▄▄█ █ ▄▄█ █ ▄ █ █▄█▄█ █
+    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█ █▄█▄▄▄█
 ]]
 
         dashboard.section.header.val = vim.split(logo, "\n")
         dashboard.section.buttons.val = {
-            dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-            dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-            dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-            dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-            dashboard.button("e", " " .. " Explore", ":Neotree toggle <CR>"),
+            dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+            dashboard.button("n", "󰙴 " .. " New file", ":ene <BAR> startinsert <CR>"),
+            dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
+            dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
+            dashboard.button("e", " " .. " Explore", ":Neotree toggle position=right<CR>"),
             dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
             dashboard.button("q", " " .. " Quit", ":qa<CR>"),
         }
@@ -55,8 +56,12 @@ return {
             callback = function()
                 local stats = require("lazy").stats()
                 local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-                local version = "  󰥱 v" ..
-                    vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
+                local version = "  󰥱 v"
+                    .. vim.version().major
+                    .. "."
+                    .. vim.version().minor
+                    .. "."
+                    .. vim.version().patch
                 local plugins = "⚡ loaded " .. stats.count .. " plugins in " .. ms .. "ms"
                 local datetime = os.date("        %a, %d %b          %H:%M")
                 local footer = version .. "\t" .. plugins .. "\n \n" .. datetime .. "\n"

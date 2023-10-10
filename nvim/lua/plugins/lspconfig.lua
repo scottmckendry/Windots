@@ -50,35 +50,37 @@ return {
         -- HTML
         require("lspconfig").html.setup({})
 
+        -- YAML
+        require("lspconfig").yamlls.setup({})
+
         -- Lua
-        require("lspconfig").lua_ls.setup {
+        require("lspconfig").lua_ls.setup({
             on_init = function(client)
                 local path = client.workspace_folders[1].name
-                if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-                    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+                if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+                    client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
                         Lua = {
                             runtime = {
-                                version = 'LuaJIT'
+                                version = "LuaJIT",
                             },
                             workspace = {
                                 checkThirdParty = false,
-                                library = vim.api.nvim_get_runtime_file("", true)
-                            }
-                        }
+                                library = vim.api.nvim_get_runtime_file("", true),
+                            },
+                        },
                     })
 
-                    client.notify("workspace/didChangeConfiguration",
-                        { settings = client.config.settings })
+                    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
                 end
                 return true
-            end
-        }
+            end,
+        })
 
         -- PowerShell
         local bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/"
-        local temp_path = vim.fn.stdpath "cache"
+        local temp_path = vim.fn.stdpath("cache")
         local command_fmt =
-        [[& '%s/PowerShellEditorServices/Start-EditorServices.ps1' -BundledModulesPath '%s' -LogPath '%s/powershell_es.log' -SessionDetailsPath '%s/powershell_es.session.json' -FeatureFlags @() -AdditionalModules @() -HostName nvim -HostProfileId 0 -HostVersion 1.0.0 -Stdio -LogLevel Verbose]]
+            [[& '%s/PowerShellEditorServices/Start-EditorServices.ps1' -BundledModulesPath '%s' -LogPath '%s/powershell_es.log' -SessionDetailsPath '%s/powershell_es.session.json' -FeatureFlags @() -AdditionalModules @() -HostName nvim -HostProfileId 0 -HostVersion 1.0.0 -Stdio -LogLevel Verbose]]
         local command = command_fmt:format(bundle_path, bundle_path, temp_path, temp_path)
         require("lspconfig").powershell_es.setup({
             cmd = { "pwsh", "-NoLogo", "-Command", command },
@@ -91,8 +93,8 @@ return {
             settings = {
                 ltex = {
                     language = "en-GB",
-                }
-            }
+                },
+            },
         })
-    end
+    end,
 }

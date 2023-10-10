@@ -1,6 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
-    lazy = false,
+    cmd = "Telescope",
     branch = "0.1.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -12,7 +12,7 @@ return {
 
         -- Get current theme colours
         local get_hlgroup = require("core.utils").get_hlgroup
-        local normal = get_hlgroup "Normal"
+        local normal = get_hlgroup("Normal")
         local fg, bg = normal.fg, normal.bg
         local bg_alt = get_hlgroup("Visual").bg
         local green = get_hlgroup("String").fg
@@ -49,7 +49,7 @@ return {
             pickers = {
                 colorscheme = {
                     enable_preview = true,
-                }
+                },
             },
             defaults = {
                 prompt_prefix = "   ",
@@ -76,7 +76,7 @@ return {
                 mappings = {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-                        ["<C-j>"] = actions.move_selection_next,     -- move to next result
+                        ["<C-j>"] = actions.move_selection_next, -- move to next result
                         ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     },
                 },

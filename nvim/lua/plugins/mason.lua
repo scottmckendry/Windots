@@ -18,6 +18,7 @@ return {
             "powershell-editor-services",
             "prettier",
             "stylua",
+            "yaml-language-server",
         },
         registries = {
             "github:scottmckendry/mason-registry",

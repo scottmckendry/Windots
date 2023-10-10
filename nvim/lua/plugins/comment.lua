@@ -1,7 +1,7 @@
 return {
     "numToStr/comment.nvim",
-    event = "VeryLazy",
+    event = "BufReadPre",
     config = function()
-        require('Comment').setup()
+        require("Comment").setup()
     end,
 }
