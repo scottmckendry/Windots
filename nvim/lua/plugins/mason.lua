@@ -14,6 +14,7 @@ return {
             "html-lsp",
             "json-lsp",
             "ltex-ls",
+            "lua-language-server",
             "omnisharp",
             "powershell-editor-services",
             "prettier",

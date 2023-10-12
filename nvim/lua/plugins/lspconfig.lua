@@ -77,13 +77,13 @@ return {
         })
 
         -- PowerShell
-        local bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/"
-        local temp_path = vim.fn.stdpath("cache")
-        local command_fmt =
-            [[& '%s/PowerShellEditorServices/Start-EditorServices.ps1' -BundledModulesPath '%s' -LogPath '%s/powershell_es.log' -SessionDetailsPath '%s/powershell_es.session.json' -FeatureFlags @() -AdditionalModules @() -HostName nvim -HostProfileId 0 -HostVersion 1.0.0 -Stdio -LogLevel Verbose]]
-        local command = command_fmt:format(bundle_path, bundle_path, temp_path, temp_path)
+        local mason_registry = require("mason-registry")
+        local bundle_path = mason_registry.get_package("powershell-editor-services"):get_install_path()
         require("lspconfig").powershell_es.setup({
-            cmd = { "pwsh", "-NoLogo", "-Command", command },
+            bundle_path = bundle_path,
+            settings = {
+                bundle_path = bundle_path,
+            },
         })
 
         -- Ltex LS (LanguageTool)

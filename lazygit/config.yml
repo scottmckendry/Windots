@@ -5,7 +5,6 @@ gui:
     showBottomLine: false
     border: rounded
     mouseEvents: false
-    windowSize: half
     theme:
         activeBorderColor:
             - cyan
