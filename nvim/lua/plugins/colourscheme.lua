@@ -36,7 +36,7 @@ return {
                     },
                 })
             end
-            vim.cmd("colorscheme carbonfox")
+            -- vim.cmd("colorscheme carbonfox")
         end,
     },
     {
@@ -53,7 +53,20 @@ return {
                     },
                 })
             end
-            -- vim.cmd("colorscheme tokyonight-night")
+            vim.cmd("colorscheme tokyonight")
+        end,
+    },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                flavor = "mocha",
+                transparent_background = is_transparent,
+            })
+            -- vim.cmd("colorscheme catppuccin")
         end,
     },
 }

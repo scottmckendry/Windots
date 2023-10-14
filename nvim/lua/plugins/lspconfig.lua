@@ -9,11 +9,11 @@ return {
         "smiteshp/nvim-navic",
     },
     config = function()
+        vim.lsp.set_log_level("trace")
+        require("vim.lsp.log").set_format_func(vim.inspect)
+
         -- Go
         require("lspconfig").gopls.setup({
-            cmd = { "gopls" },
-            filetypes = { "go", "gomod", "gowork", "gotmpl" },
-            root_dir = require("lspconfig/util").root_pattern("go.mod", ".git"),
             settings = {
                 gopls = {
                     completeUnimported = true,
@@ -81,9 +81,6 @@ return {
         local bundle_path = mason_registry.get_package("powershell-editor-services"):get_install_path()
         require("lspconfig").powershell_es.setup({
             bundle_path = bundle_path,
-            settings = {
-                bundle_path = bundle_path,
-            },
         })
 
         -- Ltex LS (LanguageTool)
