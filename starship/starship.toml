@@ -14,7 +14,8 @@ add_newline = false
 
 [git_metrics]
     disabled = false
-    format = '[ $added]($added_style) [ $deleted]($deleted_style) '
+    format = '([ $added]($added_style) [ $deleted]($deleted_style) )'
+    only_nonzero_diffs = true
 
 [line_break]
     disabled = true
