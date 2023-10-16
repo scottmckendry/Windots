@@ -14,6 +14,7 @@ add_newline = false
 
 [git_metrics]
     disabled = false
+    format = '[ $added]($added_style) [ $deleted]($deleted_style) '
 
 [line_break]
     disabled = true
