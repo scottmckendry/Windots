@@ -9,8 +9,8 @@ return {
         "smiteshp/nvim-navic",
     },
     config = function()
-        vim.lsp.set_log_level("trace")
-        require("vim.lsp.log").set_format_func(vim.inspect)
+        -- vim.lsp.set_log_level("trace")
+        -- require("vim.lsp.log").set_format_func(vim.inspect)
 
         -- Go
         require("lspconfig").gopls.setup({
