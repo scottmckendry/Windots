@@ -1,19 +1,33 @@
 return {
     "iamcco/markdown-preview.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
     cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
     init = function()
         vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = { "markdown" },
     config = function()
-        -- Can't get lazy build to work ¯\_(ツ)_/¯
-        -- This first time loading the plugin, there will be a significant delay becuase the function is synchronous, but after that it shouldn't be noticeable
-        -- TODO: Either figure out how to get lazy build to work, or figure out how to make this asynchronous
+        local job = require("plenary.job")
         local install_path = vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim/app"
-        local node_modules = install_path .. "/node_modules"
-        if vim.fn.empty(vim.fn.glob(node_modules)) > 0 then
-            vim.cmd("!cd " .. install_path .. " && npm install")
+        local cmd = "bash"
+
+        if vim.fn.has("win64") == 1 then
+            cmd = "pwsh"
         end
+
+        job:new({
+            command = cmd,
+            args = { "-c", "npm install && git restore ." },
+            cwd = install_path,
+            on_exit = function()
+                print("Finished installing markdown-preview.nvim")
+            end,
+            on_stderr = function(_, data)
+                print(data)
+            end,
+        }):start()
 
         -- Options
         vim.g.mkdp_auto_close = 0
