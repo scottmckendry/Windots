@@ -30,14 +30,12 @@ Set-Alias -Name ff -Value Find-File
 Set-Alias -Name grep -Value Find-String
 Set-Alias -Name touch -Value New-File
 Set-Alias -Name df -Value Get-Volume
-# Set-Alias -Name sed -Value Set-String # Replaced by sed.exe
 Set-Alias -Name which -Value Show-Command
 Set-Alias -Name ls -Value Get-ChildItemPretty
 Set-Alias -Name ll -Value Get-ChildItemPretty
 Set-Alias -Name la -Value Get-ChildItemPretty
 Set-Alias -Name l -Value Get-ChildItemPretty
 Set-Alias -Name tif Show-ThisIsFine
-# Set-Alias -Name nvim -Value Start-Neovide
 Set-Alias -Name vim -Value nvim
 Set-Alias -Name vi -Value nvim
 Set-Alias -Name cat -Value bat
@@ -186,27 +184,6 @@ function New-File {
     New-Item -ItemType File -Name $Name -Path $PWD | Out-Null
 }
 
-function Set-String {
-    <#
-    .SYNOPSIS
-        Replaces a string in a file. Alias: sed (deprecated, use sed.exe instead)
-    .EXAMPLE
-        Set-String -File "C:\Users\Scott\Documents\test.txt" -Find "Hello" -Replace "Goodbye"
-    .EXAMPLE
-        sed test.txt Hello Goodbye
-    #>
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]$File,
-        [Parameter(Mandatory = $true, Position = 1)]
-        [string]$Find,
-        [Parameter(Mandatory = $true, Position = 2)]
-        [string]$Replace
-    )
-    Write-Verbose "Replacing '$Find' with '$Replace' in '$File'"
-    (Get-Content $File).replace("$Find", $Replace) | Set-Content $File
-}
 function Show-Command {
     <#
     .SYNOPSIS
@@ -220,6 +197,7 @@ function Show-Command {
     Write-Verbose "Showing definition of '$Name'"
     Get-Command $Name | Select-Object -ExpandProperty Definition
 }
+
 function Get-OrCreateSecret {
     <# 
     .SYNOPSIS
@@ -272,7 +250,7 @@ function Get-OrCreateSecret {
 function Get-ChildItemPretty {
     <#
     .SYNOPSIS
-        Drop in replacement for Get-ChildItem that lazy loads the Terminal-Icons Module first. This improves profile start up time dramatically.
+        Runs eza with a specific set of arguments. Plus some line breaks before and after the output.
         Alias: ls, ll, la, l
     #>
     [CmdletBinding()]
@@ -280,10 +258,10 @@ function Get-ChildItemPretty {
         [Parameter(Mandatory = $false, Position = 0)]
         [string]$Path = $PWD
     )
-    Write-Verbose "Importing Terminal-Icons module"
-    Import-Module Terminal-Icons -ErrorAction SilentlyContinue
-    Write-Verbose "Showing children of '$Path'"
-    Get-ChildItem $Path | Format-Table -AutoSize
+
+    Write-Host ""
+    eza -l --header --icons --hyperlink --time-style relative $Path
+    Write-Host ""
 }
 
 function Show-ThisIsFine {
@@ -293,25 +271,6 @@ function Show-ThisIsFine {
     #>
     Write-Verbose "Running thisisfine.ps1"
     Invoke-Expression (Get-Content "$env:WindotsLocalRepo\art\thisisfine.ps1" -Raw)
-}
-
-function Start-Neovide {
-    <#
-    .SYNOPSIS
-        Starts Neovide with the specified file.
-        Alias: nvim, vim, vi
-    #>
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory = $false, Position = 0)]
-        [string]$File
-    )
-    Write-Verbose "Starting Neovide"
-    if ($File) {
-        Start-Process neovide -ArgumentList "--multigrid $File"
-        return
-    }
-    Start-Process neovide -ArgumentList "--multigrid"
 }
 
 "$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append

@@ -3,11 +3,6 @@
  
 #Requires -RunAsAdministrator
 
-# Required PowerShell Modules
-$requiredModules = @(
-    "Terminal-Icons"
-)
-
 # Linked Files (Destination => Source)
 $symlinks = @{
     "$PROFILE.CurrentUserAllHosts" = ".\Profile.ps1"
@@ -23,7 +18,7 @@ Set-Location $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
 
-# Install dependencies - pwsh, git, starship, neovim, choco, zig, ripgrep, fd, sed, lazygit, neovide, bat, nodejs
+# Install dependencies - Powershell, git, starship, node, eza, choco, zig, rg, fd, sed, lazygit, nvim, bat
 if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
     winget install -e --id=Microsoft.PowerShell
 }
@@ -35,6 +30,9 @@ if (!(Get-Command "starship" -ErrorAction SilentlyContinue)) {
 }
 if (!(Get-Command "npm" -ErrorAction SilentlyContinue)) {
     winget install -e --id OpenJS.NodeJS
+}
+if (!(Get-Command "eza" -ErrorAction SilentlyContinue)) {
+    winget install -e --id=eza-community.eza
 }
 if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
     winget install -e --id=Chocolatey.Chocolatey
@@ -120,11 +118,3 @@ git config --global --unset user.email | Out-Null
 git config --global --unset user.name | Out-Null
 git config --global user.email $currentGitEmail | Out-Null
 git config --global user.name $currentGitName | Out-Null
-
-# Install Required PowerShell Modules
-Write-Host "Installing missing PowerShell Modules..."
-foreach ($module in $requiredModules){
-    if (!(Get-Module -ListAvailable -Name $module -ErrorAction SilentlyContinue)) {
-        Install-Module $module -Scope CurrentUser -Force
-    }
-}
