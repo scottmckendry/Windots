@@ -1,13 +1,10 @@
-[user]
-	name = Scott McKendry
-	email = 39483124+scottmckendry@users.noreply.github.com
-
 [core]
     editor = nvim
-
 [alias]
     co = checkout
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-
 [fetch]
     prune = true
+[user]
+	email = 39483124+scottmckendry@users.noreply.github.com
+	name = Scott McKendry
