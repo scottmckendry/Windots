@@ -280,6 +280,7 @@ function Show-ThisIsFine {
 $ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
 $ENV:STARSHIP_CONFIG = "$ENV:WindotsLocalRepo\starship\starship.toml"
+$ENV:_ZO_DATA_DIR = $ENV:WindotsLocalRepo
 
 # Check for Git updates while prompt is loading
 Start-ThreadJob -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
@@ -289,6 +290,7 @@ Start-ThreadJob -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch -
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Invoke-Expression (&starship init powershell)
+Invoke-Expression (& { ( zoxide init powershell --cmd cd | Out-String ) })
 
 "$($stopwatch.ElapsedMilliseconds)ms`tPrompt initialised" | Out-File -FilePath $logPath -Append
 

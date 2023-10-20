@@ -18,7 +18,7 @@ Set-Location $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
 
-# Install dependencies - Powershell, git, starship, node, eza, choco, zig, rg, fd, sed, lazygit, nvim, bat
+# Install dependencies - Powershell, git, starship, node, eza, choco, zig, rg, fd, sed, lazygit, nvim, bat, fzf, zoxide
 if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
     winget install -e --id=Microsoft.PowerShell
 }
@@ -62,6 +62,13 @@ if (!(Get-Command "nvim" -ErrorAction SilentlyContinue)) {
 if (!(Get-Command "bat" -ErrorAction SilentlyContinue)) {
     choco install -y bat
 }
+if (!(Get-Command "fzf" -ErrorAction SilentlyContinue)) {
+    choco install -y fzf
+}
+if (!(Get-Command "zoxide" -ErrorAction SilentlyContinue)) {
+    choco install -y zoxide
+}
+
 
 # Create Custom NVIM shotcut
 if (!(Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")) {
