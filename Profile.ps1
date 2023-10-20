@@ -22,7 +22,7 @@ $logPath = "$env:USERPROFILE/Profile.log"
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 "`n$($stopwatch.ElapsedMilliseconds)ms`tProfile load started" | Out-File -FilePath $logPath -Append
 
-# Aliases & Custom Envioronment Variables
+# Aliases
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Set-Alias -Name su -Value Start-AdminSession
 Set-Alias -Name up -Value Update-Profile
@@ -275,7 +275,7 @@ function Show-ThisIsFine {
 
 "$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append
 
-# Custom Environment Variables
+# Environment Variables
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 $ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
@@ -298,5 +298,4 @@ Invoke-Expression (& { ( zoxide init powershell --cmd cd | Out-String ) })
 Get-LatestProfile
 
 $stopwatch.Stop()
-
 "$($stopwatch.ElapsedMilliseconds)ms`tProfile load complete" | Out-File -FilePath $logPath -Append
