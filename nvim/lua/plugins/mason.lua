@@ -22,7 +22,7 @@ return {
             "yaml-language-server",
         },
         registries = {
-            "github:scottmckendry/mason-registry",
+            "github:mason-org/mason-registry",
         },
     },
     config = function(_, opts)
