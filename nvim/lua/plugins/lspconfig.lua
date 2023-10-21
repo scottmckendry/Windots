@@ -81,6 +81,9 @@ return {
         local bundle_path = mason_registry.get_package("powershell-editor-services"):get_install_path()
         require("lspconfig").powershell_es.setup({
             bundle_path = bundle_path,
+            init_options = {
+                enableProfileLoading = false,
+            },
         })
 
         -- Ltex LS (LanguageTool)
