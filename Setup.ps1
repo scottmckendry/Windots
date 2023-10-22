@@ -1,6 +1,4 @@
 # Setup script for Windots
-# Author: Scott McKendry
- 
 #Requires -RunAsAdministrator
 
 # Linked Files (Destination => Source)
@@ -12,63 +10,47 @@ $symlinks = @{
     "$HOME\AppData\Roaming\lazygit" = ".\lazygit"
 }
 
+# Winget & choco dependencies (cmd => package name)
+$wingetDeps = @{
+    "pwsh" = "Microsoft.PowerShell"
+    "git" = "Git.Git"
+    "starship" = "Starship.Starship"
+    "npm" = "OpenJS.NodeJS"
+    "eza" = "eza-community.eza"
+    "java" = "Microsoft.OpenJDK.21"
+    "choco" = "Chocolatey.Chocolatey"
+}
+$chocoDeps = @{
+    "zig" = "zig"
+    "rg" = "ripgrep"
+    "fd" = "fd"
+    "sed" = "sed"
+    "lazygit" = "lazygit"
+    "nvim" = "neovim"
+    "bat" = "bat"
+    "fzf" = "fzf"
+    "zoxide" = "zoxide"
+}
+
 # Set working directory
 Set-Location $PSScriptRoot
 [Environment]::CurrentDirectory = $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
+foreach ($wingetDep in $wingetDeps.GetEnumerator()) {
+    if (!(Get-Command $wingetDep.Key -ErrorAction SilentlyContinue)) {
+        winget install -e --id $wingetDep.Value
+    }
+}
 
-# Install dependencies - Powershell, git, starship, node, eza, choco, zig, rg, fd, sed, lazygit, nvim, bat, fzf, zoxide
-if (!(Get-Command "pwsh" -ErrorAction SilentlyContinue)) {
-    winget install -e --id=Microsoft.PowerShell
-}
-if (!(Get-Command "git" -ErrorAction SilentlyContinue)) {
-    winget install -e --id=Git.Git
-}
-if (!(Get-Command "starship" -ErrorAction SilentlyContinue)) {
-    winget install -e --id Starship.Starship
-}
-if (!(Get-Command "npm" -ErrorAction SilentlyContinue)) {
-    winget install -e --id OpenJS.NodeJS
-}
-if (!(Get-Command "eza" -ErrorAction SilentlyContinue)) {
-    winget install -e --id=eza-community.eza
-}
-if (!(Get-Command "choco" -ErrorAction SilentlyContinue)) {
-    winget install -e --id=Chocolatey.Chocolatey
-}
 # Path Refresh
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
-# Choco Deps
-if (!(Get-Command "zig" -ErrorAction SilentlyContinue)) {
-    choco install -y zig
+foreach ($chocoDep in $chocoDeps.GetEnumerator()) {
+    if (!(Get-Command $chocoDep.Key -ErrorAction SilentlyContinue)) {
+        choco install -y $chocoDep.Value
+    }
 }
-if (!(Get-Command "rg" -ErrorAction SilentlyContinue)) {
-    choco install -y ripgrep
-}
-if (!(Get-Command "fd" -ErrorAction SilentlyContinue)) {
-    choco install -y fd
-}
-if (!(Get-Command "sed" -ErrorAction SilentlyContinue)) {
-    choco install -y sed
-}
-if (!(Get-Command "lazygit" -ErrorAction SilentlyContinue)) {
-    choco install -y lazygit
-}
-if (!(Get-Command "nvim" -ErrorAction SilentlyContinue)) {
-    choco install -y neovim
-}
-if (!(Get-Command "bat" -ErrorAction SilentlyContinue)) {
-    choco install -y bat
-}
-if (!(Get-Command "fzf" -ErrorAction SilentlyContinue)) {
-    choco install -y fzf
-}
-if (!(Get-Command "zoxide" -ErrorAction SilentlyContinue)) {
-    choco install -y zoxide
-}
-
 
 # Create Custom NVIM shotcut
 if (!(Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")) {
