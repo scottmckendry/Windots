@@ -8,47 +8,51 @@ $symlinks = @{
     "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" = ".\windowsterminal\settings.json"
     "$HOME\.gitconfig" = ".\.gitconfig"
     "$HOME\AppData\Roaming\lazygit" = ".\lazygit"
+    "$HOME\AppData\Roaming\AltSnap\AltSnap.ini" = ".\AltSnap.ini"
 }
 
 # Winget & choco dependencies (cmd => package name)
-$wingetDeps = @{
-    "pwsh" = "Microsoft.PowerShell"
-    "git" = "Git.Git"
-    "starship" = "Starship.Starship"
-    "npm" = "OpenJS.NodeJS"
-    "eza" = "eza-community.eza"
-    "java" = "Microsoft.OpenJDK.21"
-    "choco" = "Chocolatey.Chocolatey"
-}
-$chocoDeps = @{
-    "zig" = "zig"
-    "rg" = "ripgrep"
-    "fd" = "fd"
-    "sed" = "sed"
-    "lazygit" = "lazygit"
-    "nvim" = "neovim"
-    "bat" = "bat"
-    "fzf" = "fzf"
-    "zoxide" = "zoxide"
-}
+$wingetDeps = @(
+    "Chocolatey.Chocolatey",
+    "eza-community.eza",
+    "Git.Git",
+    "Microsoft.OpenJDK.21",
+    "OpenJS.NodeJS",
+    "Microsoft.PowerShell",
+    "Starship.Starship"
+)
+$chocoDeps = @(
+    "altsnap"
+    "bat"
+    "fd"
+    "fzf"
+    "lazygit"
+    "neovim"
+    "ripgrep"
+    "sed"
+    "zig"
+    "zoxide"
+)
 
 # Set working directory
 Set-Location $PSScriptRoot
 [Environment]::CurrentDirectory = $PSScriptRoot
 
 Write-Host "Installing missing dependencies..."
-foreach ($wingetDep in $wingetDeps.GetEnumerator()) {
-    if (!(Get-Command $wingetDep.Key -ErrorAction SilentlyContinue)) {
-        winget install -e --id $wingetDep.Value
+$installedWingetDeps = winget list | Out-String
+foreach ($wingetDep in $wingetDeps) {
+    if ($installedWingetDeps -notmatch $wingetDep) {
+        winget install -e --id $wingetDep
     }
 }
 
 # Path Refresh
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
-foreach ($chocoDep in $chocoDeps.GetEnumerator()) {
-    if (!(Get-Command $chocoDep.Key -ErrorAction SilentlyContinue)) {
-        choco install -y $chocoDep.Value
+$installedChocoDeps = (choco list --limit-output --id-only).Split("`n")
+foreach ($chocoDep in $chocoDeps) {
+    if ($installedChocoDeps -notcontains $chocoDep) {
+        choco install $chocoDep -y
     }
 }
 
