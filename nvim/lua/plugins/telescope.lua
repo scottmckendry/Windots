@@ -50,6 +50,10 @@ return {
                 colorscheme = {
                     enable_preview = true,
                 },
+
+                find_files = {
+                    hidden = true,
+                },
             },
             defaults = {
                 prompt_prefix = "   ",
@@ -80,6 +84,7 @@ return {
                         ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     },
                 },
+                file_ignore_patterns = { ".git%p" },
             },
         })
     end,

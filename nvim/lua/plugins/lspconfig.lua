@@ -92,6 +92,7 @@ return {
             cmd = { ltex_cmd },
             settings = {
                 ltex = {
+                    checkFrequency = "save",
                     language = "en-GB",
                 },
             },
