@@ -260,7 +260,7 @@ function Get-ChildItemPretty {
     )
 
     Write-Host ""
-    eza -l --header --icons --hyperlink --time-style relative $Path
+    eza -a -l --header --icons --hyperlink --time-style relative $Path
     Write-Host ""
 }
 
