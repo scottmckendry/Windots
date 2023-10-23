@@ -8,7 +8,7 @@ $symlinks = @{
     "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" = ".\windowsterminal\settings.json"
     "$HOME\.gitconfig" = ".\.gitconfig"
     "$HOME\AppData\Roaming\lazygit" = ".\lazygit"
-    "$HOME\AppData\Roaming\AltSnap\AltSnap.ini" = ".\AltSnap.ini"
+    "$HOME\AppData\Roaming\AltSnap\AltSnap.ini" = ".\altsnap\AltSnap.ini"
 }
 
 # Winget & choco dependencies (cmd => package name)
@@ -111,3 +111,5 @@ git config --global --unset user.email | Out-Null
 git config --global --unset user.name | Out-Null
 git config --global user.email $currentGitEmail | Out-Null
 git config --global user.name $currentGitName | Out-Null
+
+.\altsnap\createTask.ps1 | Out-Null
