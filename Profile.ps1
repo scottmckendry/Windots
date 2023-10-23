@@ -1,17 +1,17 @@
-<# 
-                      7#G~                  
-                    7BB7J#P~                
-                 .?BG!   .?#G!              
-                :B@J       .?BB7            
-             ::  :Y#P~        7BB?.         
-           ^Y#?    :J#G~        !GB?.       
-          !&@!       .?#G!        J@B:      
-       ~^  ^Y#5^       .7BB7    .PB?.  ~^   
-    .!GB7    :Y#5^        !GB7.  ^.    Y#5^ 
+<#
+                      7#G~
+                    7BB7J#P~
+                 .?BG!   .?#G!
+                :B@J       .?BB7
+             ::  :Y#P~        7BB?.
+           ^Y#?    :J#G~        !GB?.
+          !&@!       .?#G!        J@B:
+       ~^  ^Y#5^       .7BB7    .PB?.  ~^
+    .!GB7    :Y#5^        !GB7.  ^.    Y#5^
     7&&~       !@@G~       .P@#J.       J@B^
-     :J#G~   ~P#J^?#G!   .?#G~~P#Y:  .7BB7  
-       .?BG7P#J.   .7BB7J#P~    ^5#Y?BG!    
-         .?BJ.        7#G~        ^5B!      
+     :J#G~   ~P#J^?#G!   .?#G~~P#Y:  .7BB7
+       .?BG7P#J.   .7BB7J#P~    ^5#Y?BG!
+         .?BJ.        7#G~        ^5B!
 
     Author: Scott McKendry
     Description: PowersShell Profile containing aliases and functions to be loaded when a new PowerShell session is started.
@@ -43,12 +43,12 @@ Set-Alias -Name us -Value Update-Software
 
 "$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 
-# Putting the FUN in Functions 😎
+# Putting the FUN in Functions
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function Find-WindotsRepository {
     <#
     .SYNOPSIS
-        Finds the local Windots repository. 
+        Finds the local Windots repository.
     #>
     [CmdletBinding()]
     param (
@@ -57,7 +57,7 @@ function Find-WindotsRepository {
     )
 
     Write-Verbose "Resolving the symbolic link for the profile"
-    $profileSymbolicLink = Get-ChildItem $ProfilePath | Where-Object FullName -eq $PROFILE.CurrentUserAllHosts
+    $profileSymbolicLink = Get-ChildItem $ProfilePath | Where-Object FullName -EQ $PROFILE.CurrentUserAllHosts
     return Split-Path $profileSymbolicLink.Target
 }
 function Get-LatestProfile {
@@ -82,11 +82,11 @@ function Get-LatestProfile {
         Write-Host "Your PowerShell profile is out of date with the latest commit. To update it, run Update-Profile." -ForegroundColor Yellow
         Set-Location $currentWorkingDirectory
     }
-} 
+}
 function Start-AdminSession {
     <#
     .SYNOPSIS
-        Starts a new PowerShell session with elevated rights. Alias: su 
+        Starts a new PowerShell session with elevated rights. Alias: su
     #>
     Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command &{Set-Location $PWD}"
 }
@@ -109,7 +109,7 @@ function Update-Profile {
 
     Write-Verbose "Reverting to previous working directory"
     Set-Location $currentWorkingDirectory
-    
+
     Write-Verbose "Re-running profile script from $($PROFILE.CurrentUserAllHosts)"
     .$PROFILE.CurrentUserAllHosts
 }
@@ -134,7 +134,7 @@ function Find-File {
         [Parameter(ValueFromPipeline, Mandatory = $true, Position = 0)]
         [string]$SearchTerm
     )
-    
+
     Write-Verbose "Searching for '$SearchTerm' in current directory and subdirectories"
     $result = Get-ChildItem -Recurse -Filter "*$SearchTerm*" -ErrorAction SilentlyContinue
 
@@ -210,7 +210,7 @@ function Show-Command {
 }
 
 function Get-OrCreateSecret {
-    <# 
+    <#
     .SYNOPSIS
         Gets secret from local vault or creates it if it does not exist. Requires SecretManagement and SecretStore modules and a local vault to be created.
         Install Modules with:
@@ -220,13 +220,13 @@ function Get-OrCreateSecret {
             Set-SecretStoreConfiguration -Authentication None -Confirm:$False
 
         https://devblogs.microsoft.com/powershell/secretmanagement-and-secretstore-are-generally-available/
-    
+
     .PARAMETER secretName
         Name of the secret to get or create. It is recommended to use the username or public key / client id as secret name to make it easier to identify the secret later.
-    
+
     .EXAMPLE
         $password = Get-OrCreateSecret -secretName $username
-    
+
     .EXAMPLE
         $clientSecret = Get-OrCreateSecret -secretName $clientId
 
@@ -293,15 +293,15 @@ $ENV:STARSHIP_CONFIG = "$ENV:WindotsLocalRepo\starship\starship.toml"
 $ENV:_ZO_DATA_DIR = $ENV:WindotsLocalRepo
 
 # Check for Git updates while prompt is loading
-Start-ThreadJob -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
+Start-Job -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
 
 "$($stopwatch.ElapsedMilliseconds)ms`tGit fetch job started" | Out-File -FilePath $logPath -Append
 
-Start-ThreadJob -ScriptBlock {
+Start-Job -ScriptBlock {
     $wingetUpdatesString = winget list --upgrade-available | Out-String
     $chocoUpdatesString = choco upgrade all --noop | Out-String
     if ($wingetUpdatesString -match "upgrades available" -or $chocoUpdatesString -notmatch "can upgrade 0/") {
-        $ENV:UpdatesPending = "  "
+        $ENV:UpdatesPending = "`u{eb29}  "
     }
     else {
         $ENV:UpdatesPending = ""
@@ -322,3 +322,4 @@ Get-LatestProfile
 
 $stopwatch.Stop()
 "$($stopwatch.ElapsedMilliseconds)ms`tProfile load complete" | Out-File -FilePath $logPath -Append
+
