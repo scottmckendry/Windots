@@ -39,6 +39,7 @@ Set-Alias -Name tif Show-ThisIsFine
 Set-Alias -Name vim -Value nvim
 Set-Alias -Name vi -Value nvim
 Set-Alias -Name cat -Value bat
+Set-Alias -Name us -Value Update-Software
 
 "$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
 
@@ -56,7 +57,7 @@ function Find-WindotsRepository {
     )
 
     Write-Verbose "Resolving the symbolic link for the profile"
-    $profileSymbolicLink = Get-ChildItem $ProfilePath | Where-Object FullName -EQ $PROFILE.CurrentUserAllHosts
+    $profileSymbolicLink = Get-ChildItem $ProfilePath | Where-Object FullName -eq $PROFILE.CurrentUserAllHosts
     return Split-Path $profileSymbolicLink.Target
 }
 function Get-LatestProfile {
@@ -111,6 +112,16 @@ function Update-Profile {
     
     Write-Verbose "Re-running profile script from $($PROFILE.CurrentUserAllHosts)"
     .$PROFILE.CurrentUserAllHosts
+}
+
+function Update-Software {
+    <#
+    .SYNOPSIS
+        Updates all software installed via Winget & Chocolatey. Alias: us
+    #>
+    Write-Verbose "Updating software installed via Winget & Chocolatey"
+    Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -Command &{winget upgrade --all && choco upgrade all -y}"
+    $ENV:UpdatesPending = ''
 }
 
 function Find-File {
@@ -277,7 +288,6 @@ function Show-ThisIsFine {
 
 # Environment Variables
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-$ENV:IsAdmin = (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
 $ENV:STARSHIP_CONFIG = "$ENV:WindotsLocalRepo\starship\starship.toml"
 $ENV:_ZO_DATA_DIR = $ENV:WindotsLocalRepo
@@ -286,6 +296,19 @@ $ENV:_ZO_DATA_DIR = $ENV:WindotsLocalRepo
 Start-ThreadJob -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
 
 "$($stopwatch.ElapsedMilliseconds)ms`tGit fetch job started" | Out-File -FilePath $logPath -Append
+
+Start-ThreadJob -ScriptBlock {
+    $wingetUpdatesString = winget list --upgrade-available | Out-String
+    $chocoUpdatesString = choco upgrade all --noop | Out-String
+    if ($wingetUpdatesString -match "upgrades available" -or $chocoUpdatesString -notmatch "can upgrade 0/") {
+        $ENV:UpdatesPending = "  "
+    }
+    else {
+        $ENV:UpdatesPending = ""
+    }
+} | Out-Null
+
+"$($stopwatch.ElapsedMilliseconds)ms`tUpdate check job started" | Out-File -FilePath $logPath -Append
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

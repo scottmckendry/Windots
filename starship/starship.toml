@@ -22,3 +22,9 @@ add_newline = false
 
 [jobs]
     disabled = true
+
+[env_var.UpdatesPending]
+    variable = 'UpdatesPending'
+    format = '[$env_value]($style)'
+    default = ''
+    style = 'bold cyan'
