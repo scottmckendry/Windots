@@ -2,6 +2,7 @@ return {
     "stevearc/conform.nvim",
     event = "BufReadPre",
     config = function()
+        vim.g.disable_autoformat = false
         local lsp_fallback = setmetatable({
             bicep = "always",
         }, {
@@ -23,6 +24,9 @@ return {
             },
 
             format_after_save = function(buf)
+                if vim.g.disable_autoformat then
+                    return
+                end
                 return {
                     lsp_fallback = lsp_fallback[vim.bo[buf].filetype],
                 }
@@ -40,10 +44,10 @@ return {
                         "-NoProfile",
                         "-NonInteractive",
                         "-Command",
-                        "Invoke-Formatter",
-                        "( Get-Content -Raw -Path",
+                        "(Invoke-Formatter",
+                        "(Get-Content -Raw -Path",
                         "$FILENAME",
-                        ")",
+                        ")).Trim()",
                     },
                 },
             },
@@ -56,5 +60,13 @@ return {
         -- Override prettier's default indent type
         table.insert(require("conform.formatters.prettier").args, "--tab-width")
         table.insert(require("conform.formatters.prettier").args, "4")
+
+        -- Toggle format on save
+        vim.api.nvim_create_user_command("ConformToggle", function()
+            vim.g.disable_autoformat = not vim.g.disable_autoformat
+            print("Conform " .. (vim.g.disable_autoformat and "disabled" or "enabled"))
+        end, {
+            desc = "Toggle format on save",
+        })
     end,
 }
