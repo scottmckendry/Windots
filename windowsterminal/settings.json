@@ -47,8 +47,8 @@
                 "face": "JetBrainsMono Nerd Font",
                 "size": 10
             },
-            "opacity": 70,
-            "padding": "8",
+            "opacity": 80,
+            "padding": "10",
             "scrollbarState": "hidden",
             "useAcrylic": true
         },
