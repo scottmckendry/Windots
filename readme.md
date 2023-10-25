@@ -26,7 +26,7 @@
 My personal Windows-friendly dotfiles. Supports automatic installation of dependencies and configuration of Windows Terminal, Neovim, PowerShell Core and more!
 
 ## 🎉 Features
-- **Automated Dependency Installation:** Utilises [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) and [Chocolatey](https://chocolatey.org/) for streamlined installation of required dependencies.
+- **Automated Dependency Installation:** Utilises [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) and [Chocolatey](https://chocolatey.org/) for streamlined installation of required dependencies. Checks and notifies pending software updates with a 📦 icon in the prompt.
 - **Automated Update Checks:** Regularly checks for updates using git. If updates are pending, a notification is displayed when starting a new PowerShell session.
 
 ![image](https://github.com/scottmckendry/Windots/assets/39483124/89598017-6315-4054-ae56-be1f827c32a4)
@@ -38,7 +38,8 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 - [Git](https://winget.run/pkg/Git/Git)
 
 ## 🚀 Installation
-> 💥 **Warning:** Existing configuration files will be overwritten. Please make a backup of any files you wish to keep before proceeding.
+> [!WARNING]\
+> Under _**active development**_, expect changes. Existing configuration files will be overwritten. Please make a backup of any files you wish to keep before proceeding.
 
 1. Clone the repository to your preferred location.
 2. Run `Setup.ps1` from an elevated PowerShell prompt. 
