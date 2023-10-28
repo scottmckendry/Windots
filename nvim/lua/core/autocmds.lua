@@ -6,7 +6,7 @@ local general = augroup("General Settings", { clear = true })
 
 autocmd("BufEnter", {
     callback = function()
-        vim.opt.formatoptions:remove { "c", "r", "o" }
+        vim.opt.formatoptions:remove({ "c", "r", "o" })
     end,
     group = general,
     desc = "Disable New Line Comment",
@@ -26,8 +26,18 @@ autocmd("BufEnter", {
     pattern = "*.bicepparam",
     callback = function()
         vim.bo.filetype = "bicep"
-        vim.cmd("call timer_start(2000, { tid -> execute('w') })") -- Force write after 2 seconds to dismiss erroneous syntax errors
     end,
     group = general,
     desc = "Set bicepparam filetype to bicep",
+})
+
+autocmd("BufWritePost", {
+    pattern = "*.bicep*",
+    callback = function()
+        local winview = vim.fn.winsaveview()
+        vim.cmd([[%s/\n\n}/\r}/ge]])
+        vim.fn.winrestview(winview)
+    end,
+    group = general,
+    desc = "Remove weird new lines added by LSP formatting",
 })
