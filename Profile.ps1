@@ -18,9 +18,25 @@
 #>
 
 # Initialise logging - helpful for debugging slow profile load times
-$logPath = "$env:USERPROFILE/Profile.log"
-$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-"`n$($stopwatch.ElapsedMilliseconds)ms`tProfile load started" | Out-File -FilePath $logPath -Append
+$enableLog = $false
+
+if ($enableLog) {
+    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+    $logPath = "$env:USERPROFILE/Profile.log"
+}
+function Add-ProfileLogEntry {
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Message
+    )
+
+    if (!$enableLog) {
+        return
+    }
+
+    "`n$($stopwatch.ElapsedMilliseconds)ms`t$Message" | Out-File -FilePath $logPath -Append
+}
+Add-ProfileLogEntry "Starting profile load"
 
 # Aliases
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -41,7 +57,7 @@ Set-Alias -Name vi -Value nvim
 Set-Alias -Name cat -Value bat
 Set-Alias -Name us -Value Update-Software
 
-"$($stopwatch.ElapsedMilliseconds)ms`tAliases set" | Out-File -FilePath $logPath -Append
+Add-ProfileLogEntry "Aliases loaded"
 
 # Putting the FUN in Functions
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -284,7 +300,7 @@ function Show-ThisIsFine {
     Invoke-Expression (Get-Content "$env:WindotsLocalRepo\art\thisisfine.ps1" -Raw)
 }
 
-"$($stopwatch.ElapsedMilliseconds)ms`tFunctions loaded" | Out-File -FilePath $logPath -Append
+Add-ProfileLogEntry -Message "Functions loaded"
 
 # Environment Variables
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -295,7 +311,7 @@ $ENV:_ZO_DATA_DIR = $ENV:WindotsLocalRepo
 # Check for Git updates while prompt is loading
 Start-Job -ScriptBlock { Set-Location $ENV:WindotsLocalRepo && git fetch --all } | Out-Null
 
-"$($stopwatch.ElapsedMilliseconds)ms`tGit fetch job started" | Out-File -FilePath $logPath -Append
+Add-ProfileLogEntry -Message "Git fetch job started"
 
 Start-ThreadJob -ScriptBlock {
     <#
@@ -314,18 +330,18 @@ Start-ThreadJob -ScriptBlock {
     }
 } | Out-Null
 
-"$($stopwatch.ElapsedMilliseconds)ms`tUpdate check job started" | Out-File -FilePath $logPath -Append
+Add-ProfileLogEntry -Message "Update check job started"
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Invoke-Expression (&starship init powershell)
 Invoke-Expression (& { ( zoxide init powershell --cmd cd | Out-String ) })
 
-"$($stopwatch.ElapsedMilliseconds)ms`tPrompt initialised" | Out-File -FilePath $logPath -Append
+Add-ProfileLogEntry -Message "Prompt setup complete"
 
 # Check for updates
 Get-LatestProfile
 
-$stopwatch.Stop()
-"$($stopwatch.ElapsedMilliseconds)ms`tProfile load complete" | Out-File -FilePath $logPath -Append
+$enableLog ? $stopwatch.Stop() : $null
+Add-ProfileLogEntry -Message "Profile load complete"
 
