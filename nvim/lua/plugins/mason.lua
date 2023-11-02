@@ -19,6 +19,7 @@ return {
             "powershell-editor-services",
             "prettier",
             "stylua",
+            "tailwindcss-language-server",
             "yaml-language-server",
         },
         registries = {

@@ -50,6 +50,9 @@ return {
         -- HTML
         require("lspconfig").html.setup({})
 
+        -- Tailwind CSS
+        require("lspconfig").tailwindcss.setup({})
+
         -- YAML
         require("lspconfig").yamlls.setup({})
 
