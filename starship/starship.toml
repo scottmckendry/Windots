@@ -12,6 +12,9 @@ add_newline = false
 [golang]
     symbol = " "
 
+[nodejs]
+    detect_extensions = []
+
 [git_metrics]
     disabled = false
     format = '(([ $added]($added_style)) ([ $deleted]($deleted_style)) )'
