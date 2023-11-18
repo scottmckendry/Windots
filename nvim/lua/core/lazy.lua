@@ -22,6 +22,9 @@ require("lazy").setup({
     },
     install = { colorscheme = { "tokyonight" } },
     checker = { enabled = true },
+    dev = {
+        path = "~/git",
+    },
     performance = {
         rtp = {
             disabled_plugins = {

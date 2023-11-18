@@ -36,7 +36,7 @@ return {
                     },
                 })
             end
-            vim.cmd("colorscheme nordfox")
+            -- vim.cmd("colorscheme nordfox")
         end,
     },
     {
@@ -53,7 +53,7 @@ return {
                     },
                 })
             end
-            -- vim.cmd("colorscheme tokyonight")
+            vim.cmd("colorscheme tokyonight")
         end,
     },
     {
