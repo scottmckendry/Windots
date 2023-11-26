@@ -77,6 +77,9 @@ return {
             if is_transparent then
                 require("dracula").setup({
                     transparent_bg = true,
+                    overrides = {
+                        BufferLineFill = {},
+                    },
                 })
             end
             vim.cmd("colorscheme dracula")
