@@ -28,11 +28,8 @@ return {
                         view = "mini",
                     },
                 },
-                presets = {
-                    bottom_search = true,
-                    command_palette = true,
-                    long_message_to_split = true,
-                    inc_rename = true,
+                cmdline = {
+                    view = "cmdline",
                 },
 
                 views = {
@@ -43,9 +40,6 @@ return {
                     },
                 },
             })
-            vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = "#bb9af7", bg = "none" })
-            vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle", { fg = "#7dcfff", bg = "none" })
-            vim.api.nvim_set_hl(0, "NoiceCmdlinePopupIcon", { fg = "#7dcfff", bg = "none" })
         end,
     },
     {
