@@ -53,7 +53,7 @@ return {
                     },
                 })
             end
-            vim.cmd("colorscheme tokyonight")
+            -- vim.cmd("colorscheme tokyonight")
         end,
     },
     {
@@ -67,6 +67,19 @@ return {
                 transparent_background = is_transparent,
             })
             -- vim.cmd("colorscheme catppuccin")
+        end,
+    },
+    {
+        "Mofiqul/dracula.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            if is_transparent then
+                require("dracula").setup({
+                    transparent_bg = true,
+                })
+            end
+            vim.cmd("colorscheme dracula")
         end,
     },
 }
