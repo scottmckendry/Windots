@@ -54,12 +54,14 @@ return {
         })
 
         -- Override stylua's default indent type
-        table.insert(require("conform.formatters.stylua").args, "--indent-type")
-        table.insert(require("conform.formatters.stylua").args, "Spaces")
+        require("conform").formatters.stylua = {
+            prepend_args = { "--indent-type", "Spaces" },
+        }
 
         -- Override prettier's default indent type
-        table.insert(require("conform.formatters.prettier").args, "--tab-width")
-        table.insert(require("conform.formatters.prettier").args, "4")
+        require("conform").formatters.prettier = {
+            args = { "--tab-width", "4" },
+        }
 
         -- Toggle format on save
         vim.api.nvim_create_user_command("ConformToggle", function()
