@@ -13,14 +13,17 @@ return {
         })
         require("conform").setup({
             formatters_by_ft = {
+                bicep = { "trim_whitespace", "trim_newlines" },
+                css = { "prettier" },
                 go = { "goimports_reviser", "gofmt", "golines" },
-                lua = { "stylua" },
                 html = { "prettier" },
                 javascript = { "prettier" },
-                css = { "prettier" },
                 json = { "prettier" },
+                lua = { "stylua" },
+                markdown = { "prettier" },
                 ps1 = { "powershell", "trim_whitespace", "trim_newlines" },
-                bicep = { "trim_whitespace", "trim_newlines" },
+                scss = { "prettier" },
+                yaml = { "prettier" },
             },
 
             format_after_save = function(buf)
@@ -60,7 +63,7 @@ return {
 
         -- Override prettier's default indent type
         require("conform").formatters.prettier = {
-            args = { "--tab-width", "4" },
+            prepend_args = { "--tab-width", "4" },
         }
 
         -- Toggle format on save
