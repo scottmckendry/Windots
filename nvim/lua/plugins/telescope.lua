@@ -1,7 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    branch = "0.1.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
@@ -84,7 +83,11 @@ return {
                         ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     },
                 },
-                file_ignore_patterns = { ".git%p" },
+            },
+            pickers = {
+                find_files = {
+                    file_ignore_patterns = { ".git%p" },
+                },
             },
         })
     end,
