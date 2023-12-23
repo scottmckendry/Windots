@@ -2,48 +2,36 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function()
-        local get_hlgroup = require("core.utils").get_hlgroup
-        local colours = {
-            bg = get_hlgroup("Normal").bg,
-            fg = "#f8f8f2",
-            grey = "#565f89",
-            green = "#9ece6a",
-            yellow = "#e0af68",
-            blue = "#7aa2f7",
-            magenta = "#bb9af7",
-            red = "#f7768e",
-            cyan = "#7dcfff",
-            orange = "#ff9e64",
-        }
-        local copilot_colours = {
-            [""] = { fg = colours.grey, bg = colours.bg },
-            ["Normal"] = { fg = colours.grey, bg = colours.bg },
-            ["Warning"] = { fg = colours.red, bg = colours.bg },
-            ["InProgress"] = { fg = colours.yellow, bg = colours.bg },
+        local colors = require("cyberdream.colors").default
+        local copilot_colors = {
+            [""] = { fg = colors.grey, bg = colors.none },
+            ["Normal"] = { fg = colors.grey, bg = colors.none },
+            ["Warning"] = { fg = colors.red, bg = colors.none },
+            ["InProgress"] = { fg = colors.yellow, bg = colors.none },
         }
         return {
             options = {
                 component_separators = { left = " ", right = " " },
                 theme = {
                     normal = {
-                        a = { fg = colours.blue, bg = colours.bg },
-                        b = { fg = colours.cyan, bg = colours.bg },
-                        c = { fg = colours.fg, bg = colours.bg },
-                        x = { fg = colours.fg, bg = colours.bg },
-                        y = { fg = colours.magenta, bg = colours.bg },
-                        z = { fg = colours.grey, bg = colours.bg },
+                        a = { fg = colors.blue, bg = colors.none },
+                        b = { fg = colors.cyan, bg = colors.none },
+                        c = { fg = colors.fg, bg = colors.none },
+                        x = { fg = colors.fg, bg = colors.none },
+                        y = { fg = colors.magenta, bg = colors.none },
+                        z = { fg = colors.grey, bg = colors.none },
                     },
                     insert = {
-                        a = { fg = colours.green, bg = colours.bg },
-                        z = { fg = colours.grey, bg = colours.bg },
+                        a = { fg = colors.green, bg = colors.none },
+                        z = { fg = colors.grey, bg = colors.none },
                     },
                     visual = {
-                        a = { fg = colours.magenta, bg = colours.bg },
-                        z = { fg = colours.grey, bg = colours.bg },
+                        a = { fg = colors.magenta, bg = colors.none },
+                        z = { fg = colors.grey, bg = colors.none },
                     },
                     terminal = {
-                        a = { fg = colours.orange, bg = colours.bg },
-                        z = { fg = colours.grey, bg = colours.bg },
+                        a = { fg = colors.orange, bg = colors.none },
+                        z = { fg = colors.grey, bg = colors.none },
                     },
                 },
 
@@ -75,14 +63,14 @@ return {
                         cond = function()
                             return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
                         end,
-                        color = { fg = colours.grey, bg = colours.bg },
+                        color = { fg = colors.grey, bg = colors.none },
                     },
                 },
                 lualine_x = {
                     {
                         require("lazy.status").updates,
                         cond = require("lazy.status").has_updates,
-                        color = { fg = colours.green },
+                        color = { fg = colors.green },
                     },
                     {
                         function()
@@ -99,7 +87,7 @@ return {
                                 return
                             end
                             local status = require("copilot.api").status.data
-                            return copilot_colours[status.status] or copilot_colours[""]
+                            return copilot_colors[status.status] or copilot_colors[""]
                         end,
                     },
                     { "diff" },
@@ -110,7 +98,7 @@ return {
                     },
                     {
                         "location",
-                        color = { fg = colours.cyan, bg = colours.bg },
+                        color = { fg = colors.cyan, bg = colors.none },
                     },
                 },
                 lualine_z = {
