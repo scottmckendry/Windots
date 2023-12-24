@@ -4,19 +4,6 @@ if vim.fn.has("unix") == 1 then
     is_transparent = true
 end
 
-if is_transparent then
-    vim.opt.fillchars:append({
-        horiz = " ",
-        horizup = " ",
-        horizdown = " ",
-        vert = " ",
-        vertleft = " ",
-        vertright = " ",
-        verthoriz = " ",
-        eob = " ",
-    })
-end
-
 return {
     {
         "scottmckendry/cyberdream.nvim",
@@ -24,6 +11,11 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
+            require("cyberdream").setup({
+                transparent = is_transparent,
+                italic_comments = true,
+                hide_fillchars = true,
+            })
             vim.cmd("colorscheme cyberdream")
         end,
     },
