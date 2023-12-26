@@ -32,6 +32,7 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 ![image](https://github.com/scottmckendry/Windots/assets/39483124/89598017-6315-4054-ae56-be1f827c32a4)
 
 - **Centralized Configuration:** Brings together scattered Windows configuration files into one organized location for easy access and management.
+- **Tailored Colour Scheme:** Powered by my very own [CYBERDREAM](https://github.com/scottmckendry/cyberdream.nvim) colourscheme - high-contrast and vibrant for optimal _Eye Stimulation™_.
 
 ## ✅ Pre-requisites
 - [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3#install-powershell-using-winget-recommended)
@@ -48,9 +49,10 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 Pull requests and issues are welcome. If you have any questions or suggestions, please open an issue or reach out to me on [Twitter](https://twitter.com/scott_mckendry).
 
 ## 📸 Screenshots
-![2023-10-15_16-47](https://github.com/scottmckendry/Windots/assets/39483124/13d40774-ea6f-421b-8e49-63f4399e342b)
-![2023-10-15_17-08](https://github.com/scottmckendry/Windots/assets/39483124/9e311916-36cf-42f4-ba1e-df63cc00b335)
-![2023-10-15_16-51](https://github.com/scottmckendry/Windots/assets/39483124/d849e56b-ebc5-4bb3-8dcb-07fb284eb6bf)
+![image](https://github.com/scottmckendry/Windots/assets/39483124/d37114a9-ffa8-4239-939e-f72f95a482ae)
+![image](https://github.com/scottmckendry/Windots/assets/39483124/bfe02fb4-b8c8-468e-8b89-b93dc0494e8b)
+![image](https://github.com/scottmckendry/Windots/assets/39483124/c99e16a1-c6ab-4e1d-99d9-64e9462b978b)
+
 
 <hr>
 
