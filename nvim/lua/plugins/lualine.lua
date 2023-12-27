@@ -3,6 +3,7 @@ return {
     event = "VeryLazy",
     opts = function()
         local colors = require("cyberdream.colors").default
+        local cyberdream = require("lualine.themes.cyberdream")
         local copilot_colors = {
             [""] = { fg = colors.grey, bg = colors.none },
             ["Normal"] = { fg = colors.grey, bg = colors.none },
@@ -12,29 +13,7 @@ return {
         return {
             options = {
                 component_separators = { left = " ", right = " " },
-                theme = {
-                    normal = {
-                        a = { fg = colors.blue, bg = colors.none },
-                        b = { fg = colors.cyan, bg = colors.none },
-                        c = { fg = colors.fg, bg = colors.none },
-                        x = { fg = colors.fg, bg = colors.none },
-                        y = { fg = colors.magenta, bg = colors.none },
-                        z = { fg = colors.grey, bg = colors.none },
-                    },
-                    insert = {
-                        a = { fg = colors.green, bg = colors.none },
-                        z = { fg = colors.grey, bg = colors.none },
-                    },
-                    visual = {
-                        a = { fg = colors.magenta, bg = colors.none },
-                        z = { fg = colors.grey, bg = colors.none },
-                    },
-                    terminal = {
-                        a = { fg = colors.orange, bg = colors.none },
-                        z = { fg = colors.grey, bg = colors.none },
-                    },
-                },
-
+                theme = cyberdream,
                 globalstatus = true,
                 disabled_filetypes = { statusline = { "dashboard", "alpha" } },
             },
