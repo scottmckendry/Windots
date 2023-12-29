@@ -24,6 +24,7 @@ require("lazy").setup({
     checker = { enabled = true },
     dev = {
         path = "~/git",
+        fallback = true,
     },
     performance = {
         rtp = {
