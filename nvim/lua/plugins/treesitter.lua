@@ -40,6 +40,7 @@ return {
             "markdown",
             "markdown_inline",
             "regex",
+            "templ",
             "toml",
             "yaml",
         },

@@ -20,6 +20,7 @@ return {
             "prettier",
             "stylua",
             "tailwindcss-language-server",
+            "templ",
             "yaml-language-server",
         },
         registries = {

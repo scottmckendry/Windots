@@ -22,15 +22,6 @@ autocmd("BufEnter", {
     desc = "Set Bicep Comment String",
 })
 
-autocmd("BufEnter", {
-    pattern = "*.bicepparam",
-    callback = function()
-        vim.bo.filetype = "bicep"
-    end,
-    group = general,
-    desc = "Set bicepparam filetype to bicep",
-})
-
 autocmd("BufWritePost", {
     pattern = "*.bicep*",
     callback = function()

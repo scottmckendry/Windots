@@ -9,9 +9,6 @@ return {
         "smiteshp/nvim-navic",
     },
     config = function()
-        -- vim.lsp.set_log_level("trace")
-        -- require("vim.lsp.log").set_format_func(vim.inspect)
-
         -- Go
         require("lspconfig").gopls.setup({
             settings = {
@@ -25,10 +22,23 @@ return {
             },
         })
 
+        -- Templ
+        require("lspconfig").templ.setup({})
+        vim.filetype.add({
+            extension = {
+                templ = "templ",
+            },
+        })
+
         -- Bicep
         local bicep_path = vim.fn.stdpath("data") .. "/mason/packages/bicep-lsp/bicep-lsp.cmd"
         require("lspconfig").bicep.setup({
             cmd = { bicep_path },
+        })
+        vim.filetype.add({
+            extension = {
+                bicepparam = "bicep",
+            },
         })
 
         -- Dockerfile
