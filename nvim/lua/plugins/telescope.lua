@@ -11,12 +11,8 @@ return {
 
         telescope.setup({
             pickers = {
-                colorscheme = {
-                    enable_preview = true,
-                },
-
                 find_files = {
-                    file_ignore_patterns = { ".git%p" },
+                    find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
                 },
             },
             defaults = {
