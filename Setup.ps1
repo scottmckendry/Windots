@@ -11,7 +11,7 @@ $symlinks = @{
     "$HOME\AppData\Roaming\AltSnap\AltSnap.ini"                                                     = ".\altsnap\AltSnap.ini"
 }
 
-# Winget & choco dependencies (cmd => package name)
+# Winget & choco dependencies
 $wingetDeps = @(
     "Chocolatey.Chocolatey"
     "eza-community.eza"
@@ -29,6 +29,7 @@ $chocoDeps = @(
     "gawk"
     "lazygit"
     "neovim"
+    "nerd-fonts-jetbrainsmono"
     "ripgrep"
     "sed"
     "zig"
@@ -70,32 +71,6 @@ if (!(Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\P
 # Delete OOTB Nvim Shortcuts (including QT)
 if (Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\") {
     Remove-Item "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Neovim\" -Recurse -Force
-}
-
-Write-Host "Installing Fonts..."
-# Get all installed font families
-[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
-$fontFamilies = (New-Object System.Drawing.Text.InstalledFontCollection).Families
-
-# Check if CaskaydiaCove NF is installed
-if ($fontFamilies -notcontains "JetBrainsMono NF") {
-    # Download and install CaskaydiaCove NF
-    $webClient = New-Object System.Net.WebClient
-    $webClient.DownloadFile("https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip", ".\JetBrainsMono.zip")
-
-    Expand-Archive -Path ".\JetBrainsMono.zip" -DestinationPath ".\JetBrainsMono" -Force
-    $destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-
-    $fonts = Get-ChildItem -Path ".\JetBrainsMono" -Recurse -Filter "*.ttf"
-    foreach ($font in $fonts) {
-        # Only install standard fonts (16 fonts instead of 90+)
-        if ($font.Name -like "JetBrainsMonoNerdFont-*.ttf") {
-            $destination.CopyHere($font.FullName, 0x10)
-        }
-    }
-
-    Remove-Item -Path ".\JetBrainsMono" -Recurse -Force
-    Remove-Item -Path ".\JetBrainsMono.zip" -Force
 }
 
 $currentGitEmail = (git config --global user.email)
