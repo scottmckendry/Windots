@@ -14,7 +14,7 @@ local telescopeEntryDisplayModule = require("telescope.pickers.entry_display")
 -- Obtain Filename icon width
 -- --------------------------
 -- INSIGHT: This width applies to all icons that represent a file type
-local fileTypeIconWidth = plenaryStrings.strdisplaywidth(devIcons.get_icon("fname", { default = true }))
+local fileTypeIconWidth = plenaryStrings.strdisplaywidth("")
 
 ---- Helper functions ----
 
