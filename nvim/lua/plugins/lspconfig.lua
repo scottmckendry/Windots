@@ -63,6 +63,9 @@ return {
         -- Tailwind CSS
         require("lspconfig").tailwindcss.setup({})
 
+        -- Taplo
+        require("lspconfig").taplo.setup({})
+
         -- YAML
         require("lspconfig").yamlls.setup({})
 

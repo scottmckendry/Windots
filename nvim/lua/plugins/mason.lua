@@ -20,6 +20,7 @@ return {
             "prettier",
             "stylua",
             "tailwindcss-language-server",
+            "taplo",
             "templ",
             "yaml-language-server",
         },

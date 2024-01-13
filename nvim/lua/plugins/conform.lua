@@ -23,6 +23,7 @@ return {
                 markdown = { "prettier" },
                 ps1 = { "powershell", "trim_whitespace", "trim_newlines" },
                 scss = { "prettier" },
+                toml = { "taplo" },
                 yaml = { "prettier" },
             },
 
@@ -64,6 +65,17 @@ return {
         -- Override prettier's default indent type
         require("conform").formatters.prettier = {
             prepend_args = { "--tab-width", "4" },
+        }
+
+        -- Override taplo's default indent type + other options
+        require("conform").formatters.taplo = {
+            args = {
+                "format",
+                "-",
+                "--option",
+                'indent_string="    "',
+                "indent_entries=true",
+            },
         }
 
         -- Toggle format on save
