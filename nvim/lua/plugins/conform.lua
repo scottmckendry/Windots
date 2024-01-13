@@ -67,17 +67,6 @@ return {
             prepend_args = { "--tab-width", "4" },
         }
 
-        -- Override taplo's default indent type + other options
-        require("conform").formatters.taplo = {
-            args = {
-                "format",
-                "-",
-                "--option",
-                'indent_string="    "',
-                "indent_entries=true",
-            },
-        }
-
         -- Toggle format on save
         vim.api.nvim_create_user_command("ConformToggle", function()
             vim.g.disable_autoformat = not vim.g.disable_autoformat
