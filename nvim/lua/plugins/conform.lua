@@ -20,7 +20,7 @@ return {
                 javascript = { "prettier" },
                 json = { "prettier" },
                 lua = { "stylua" },
-                markdown = { "prettier" },
+                markdown = { "markdownlint-cli2" },
                 ps1 = { "powershell", "trim_whitespace", "trim_newlines" },
                 scss = { "prettier" },
                 toml = { "taplo" },

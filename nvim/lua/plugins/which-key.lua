@@ -13,12 +13,13 @@ return {
             ["<leader>e"] = { name = "+explorer" },
             ["<leader>f"] = { name = "+file/find" },
             ["<leader>g"] = { name = "+git" },
+            ["<leader>o"] = { name = "+obsidian" },
             ["<leader>s"] = { name = "+search" },
             ["<leader>u"] = { name = "+ui" },
             ["<leader>w"] = { name = "+windows" },
             ["<leader>x"] = { name = "+diagnostics/quickfix" },
             ["<leader><Tab>"] = { name = "+tabs" },
-        }
+        },
     },
     config = function(_, opts)
         local wk = require("which-key")

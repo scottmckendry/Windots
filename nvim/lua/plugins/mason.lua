@@ -15,6 +15,7 @@ return {
             "json-lsp",
             "ltex-ls",
             "lua-language-server",
+            "markdownlint-cli2",
             "omnisharp",
             "powershell-editor-services",
             "prettier",
