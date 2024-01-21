@@ -21,25 +21,3 @@ autocmd("BufEnter", {
     group = general,
     desc = "Set Bicep Comment String",
 })
-
-autocmd("BufWritePost", {
-    pattern = "*.bicep*",
-    callback = function()
-        local winview = vim.fn.winsaveview()
-        vim.cmd([[%s/\n\n}/\r}/ge]])
-        vim.fn.winrestview(winview)
-    end,
-    group = general,
-    desc = "Remove weird new lines added by LSP formatting",
-})
-
-autocmd("BufWritePost", {
-    pattern = "*.ps1",
-    callback = function()
-        local winview = vim.fn.winsaveview()
-        vim.cmd([[%s/\n\%$//ge]])
-        vim.fn.winrestview(winview)
-    end,
-    group = general,
-    desc = "Remove extra new lines at the end of formatted PowerShell files",
-})
