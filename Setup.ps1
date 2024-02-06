@@ -14,11 +14,12 @@ $symlinks = @{
 # Winget & choco dependencies
 $wingetDeps = @(
     "Chocolatey.Chocolatey"
-    "eza-community.eza"
+    "Eza-community.Eza"
     "Git.Git"
+    "GitHub.Cli"
     "Microsoft.OpenJDK.21"
-    "OpenJS.NodeJS"
     "Microsoft.PowerShell"
+    "OpenJS.NodeJS"
     "Starship.Starship"
 )
 $chocoDeps = @(
