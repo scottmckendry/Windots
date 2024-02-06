@@ -1,6 +1,5 @@
 return {
     "scottmckendry/dashboard-nvim",
-    dependencies = { "m00qek/baleia.nvim" },
     event = "VimEnter",
     dev = true,
     config = function()
