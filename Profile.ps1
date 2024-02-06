@@ -104,7 +104,7 @@ function Start-AdminSession {
     .SYNOPSIS
         Starts a new PowerShell session with elevated rights. Alias: su
     #>
-    Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command &{Set-Location $PWD}"
+    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD"
 }
 
 function Update-Profile {
@@ -121,7 +121,7 @@ function Update-Profile {
     git pull | Out-Null
 
     Write-Verbose "Rerunning setup script to capture any new dependencies."
-    Start-Process pwsh -Verb runAs -WorkingDirectory $PWD -ArgumentList "-Command .\Setup.ps1"
+    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -Command .\Setup.ps1"
 
     Write-Verbose "Reverting to previous working directory"
     Set-Location $currentWorkingDirectory
@@ -136,7 +136,7 @@ function Update-Software {
         Updates all software installed via Winget & Chocolatey. Alias: us
     #>
     Write-Verbose "Updating software installed via Winget & Chocolatey"
-    Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -Command &{winget upgrade --all && choco upgrade all -y}"
+    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -Command &{winget upgrade --all && choco upgrade all -y}"
     $ENV:UpdatesPending = ''
 }
 
