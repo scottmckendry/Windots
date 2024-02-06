@@ -34,6 +34,7 @@ $chocoDeps = @(
     "nerd-fonts-jetbrainsmono"
     "ripgrep"
     "sed"
+    "wezterm"
     "zig"
     "zoxide"
 )
