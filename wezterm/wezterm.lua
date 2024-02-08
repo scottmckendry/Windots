@@ -19,7 +19,7 @@ config.cursor_blink_rate = 250
 
 -- Colors
 config.colors = require("cyberdream")
-
+config.force_reverse_video_cursor = true
 -- Shell
 config.default_prog = { "pwsh", "-NoLogo" }
 
