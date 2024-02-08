@@ -115,6 +115,23 @@ end, { desc = "Goto Type Definition" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
+-- Lazygit
+map("n", "<leader>gg", function()
+    local term = require("toggleterm.terminal").Terminal
+    local lazygit = term:new({
+        cmd = "lazygit",
+        dir = "git_dir",
+        direction = "float",
+        float_opts = {
+            border = "none",
+            -- fullscreen
+            width = vim.o.columns,
+            height = vim.o.lines,
+        },
+    })
+    lazygit:toggle()
+end, { desc = "Lazygit" })
+
 -- Neovide specific
 if vim.g.neovide then
     map({ "n", "v" }, "<C-c>", '"+y', { desc = "Copy to clipboard" })
