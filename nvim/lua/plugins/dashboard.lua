@@ -3,24 +3,6 @@ return {
     event = "VimEnter",
     dev = true,
     config = function()
-        local logo = [[
-▀▄   ▄▀      ▄▄▄████▄▄▄      ▄██▄       ▀▄   ▄▀      ▄▄▄████▄▄▄      ▄██▄
- ▄█▀███▀█▄    ███▀▀██▀▀███   ▄█▀██▀█▄    ▄█▀███▀█▄    ███▀▀██▀▀███   ▄█▀██▀█▄
-█▀███████▀█   ▀▀███▀▀███▀▀   ▀█▀██▀█▀   █▀███████▀█   ▀▀███▀▀███▀▀   ▀█▀██▀█▀
-▀ ▀▄▄ ▄▄▀ ▀    ▀█▄ ▀▀ ▄█▀    ▀▄    ▄▀   ▀ ▀▄▄ ▄▄▀ ▀    ▀█▄ ▀▀ ▄█▀    ▀▄    ▄▀
-
-▄ ▀▄   ▄▀ ▄    ▄▄▄████▄▄▄      ▄██▄     ▄ ▀▄   ▄▀ ▄    ▄▄▄████▄▄▄      ▄██▄  
-█▄█▀███▀█▄█   ███▀▀██▀▀███   ▄█▀██▀█▄   █▄█▀███▀█▄█   ███▀▀██▀▀███   ▄█▀██▀█▄
-▀█████████▀   ▀▀▀██▀▀██▀▀▀   ▀▀█▀▀█▀▀   ▀█████████▀   ▀▀▀██▀▀██▀▀▀   ▀▀█▀▀█▀▀
- ▄▀     ▀▄    ▄▄▀▀ ▀▀ ▀▀▄▄   ▄▀▄▀▀▄▀▄    ▄▀     ▀▄    ▄▄▀▀ ▀▀ ▀▀▄▄   ▄▀▄▀▀▄▀▄
-]]
-        logo = vim.split(logo, "\n")
-        local header = { os.date("%A, %d %B %Y"), os.date("%I:%M %p"), "" }
-        for _, elm in ipairs(header) do
-            table.insert(logo, elm)
-        end
-
-        -- Override DashboardHeader Highlight
         vim.cmd("highlight DashboardHeader guifg=#ffffff")
         require("dashboard").setup({
             theme = "hyper",
@@ -28,7 +10,7 @@ return {
                 statusline = false,
             },
             config = {
-                header = logo,
+                week_header = { enable = true },
                 shortcut = {
                     {
                         icon = "󰒲  ",
@@ -73,7 +55,7 @@ return {
                 },
                 project = { enable = false },
                 mru = { enable = false },
-                footer = { "“If the only tool you have is a hammer, everything looks like a nail”" },
+                footer = {},
             },
         })
     end,
