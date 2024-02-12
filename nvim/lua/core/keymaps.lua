@@ -132,6 +132,11 @@ map("n", "<leader>gg", function()
     lazygit:toggle()
 end, { desc = "Lazygit" })
 
+-- Rest-nvim
+map("n", "<leader>rr", ":lua require('rest-nvim').run()<CR>", { desc = "Run HTTP Request" })
+map("n", "<leader>rl", ":lua require('rest-nvim').last()<CR>", { desc = "Run Last HTTP Request" })
+map("n", "<leader>rp", ":lua require('rest-nvim').run(true)<CR>", { desc = "Preview HTTP Request" })
+
 -- Neovide specific
 if vim.g.neovide then
     map({ "n", "v" }, "<C-c>", '"+y', { desc = "Copy to clipboard" })

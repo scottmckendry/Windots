@@ -12,6 +12,7 @@ return {
             "golines",
             "gopls",
             "html-lsp",
+            "jq",
             "json-lsp",
             "ltex-ls",
             "lua-language-server",
