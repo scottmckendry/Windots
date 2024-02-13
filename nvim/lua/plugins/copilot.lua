@@ -7,6 +7,11 @@ return {
         require("copilot").setup({
             suggestion = {
                 auto_trigger = true,
+                keymap = {
+                    accept = "<M-l>",
+                    accept_line = "<M-L>",
+                    accept_word = "<M-;>",
+                },
             },
             panel = { enabled = false },
             filetypes = {
