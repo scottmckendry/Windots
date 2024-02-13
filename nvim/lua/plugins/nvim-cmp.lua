@@ -21,9 +21,32 @@ return {
 
         cmp.setup({
             window = {
-                completion = cmp.config.window.bordered({}),
-                documentation = cmp.config.window.bordered({}),
-                scrollbar = false,
+                completion = {
+                    border = {
+                        { "󱐋", "WarningMsg" },
+                        { "─", "Comment" },
+                        { "╮", "Comment" },
+                        { "│", "Comment" },
+                        { "╯", "Comment" },
+                        { "─", "Comment" },
+                        { "╰", "Comment" },
+                        { "│", "Comment" },
+                    },
+                    scrollbar = false,
+                },
+                documentation = {
+                    border = {
+                        { "", "DiagnosticHint" },
+                        { "─", "Comment" },
+                        { "╮", "Comment" },
+                        { "│", "Comment" },
+                        { "╯", "Comment" },
+                        { "─", "Comment" },
+                        { "╰", "Comment" },
+                        { "│", "Comment" },
+                    },
+                    scrollbar = false,
+                },
             },
             completion = {
                 completeopt = "menu,menuone,preview,noselect",
