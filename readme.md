@@ -49,10 +49,10 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 Pull requests and issues are welcome. If you have any questions or suggestions, please open an issue or reach out to me on [Twitter](https://twitter.com/scott_mckendry).
 
 ## 📸 Screenshots
-![image](https://github.com/scottmckendry/Windots/assets/39483124/d37114a9-ffa8-4239-939e-f72f95a482ae)
-![image](https://github.com/scottmckendry/Windots/assets/39483124/bfe02fb4-b8c8-468e-8b89-b93dc0494e8b)
-![image](https://github.com/scottmckendry/Windots/assets/39483124/c99e16a1-c6ab-4e1d-99d9-64e9462b978b)
-
+![image](https://github.com/scottmckendry/Windots/assets/39483124/e1189c49-9273-4e08-a6ce-39fa32777f7e)
+![image](https://github.com/scottmckendry/Windots/assets/39483124/dd1e1a22-dc28-4b9b-ac1b-05540a7d45ae)
+![image](https://github.com/scottmckendry/Windots/assets/39483124/8d22a088-45f8-4058-8ac0-ea8a675ff0c0)
+![image](https://github.com/scottmckendry/Windots/assets/39483124/24ea9762-489b-43ab-86f9-03199941e7ce)
 
 <hr>
 
