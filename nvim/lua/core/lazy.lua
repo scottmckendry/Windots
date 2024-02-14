@@ -20,7 +20,10 @@ require("lazy").setup({
         lazy = true,
         version = false,
     },
-    install = { colorscheme = { "tokyonight" } },
+    install = {
+        missing = true,
+        colorscheme = { "cyberdream" },
+    },
     checker = { enabled = true },
     dev = {
         path = "~/git",
