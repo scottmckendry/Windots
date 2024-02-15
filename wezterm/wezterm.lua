@@ -3,7 +3,13 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- Font
-config.font = wezterm.font("JetBrainsMono Nerd Font")
+config.font = wezterm.font_with_fallback({
+    {
+        family = "JetBrainsMono Nerd Font",
+        weight = "DemiBold",
+    },
+    "Segoe UI Emoji",
+})
 config.font_size = 10
 
 -- Window
@@ -20,6 +26,7 @@ config.cursor_blink_rate = 250
 -- Colors
 config.colors = require("cyberdream")
 config.force_reverse_video_cursor = true
+
 -- Shell
 config.default_prog = { "pwsh", "-NoLogo" }
 
