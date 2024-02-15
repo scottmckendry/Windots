@@ -26,6 +26,7 @@ opt.mouse = "a"
 opt.undofile = true
 opt.swapfile = false
 opt.conceallevel = 1
+opt.scrolloff = 12
 
 -- Set tab width
 opt.tabstop = 4
