@@ -76,29 +76,7 @@ function Find-WindotsRepository {
     $profileSymbolicLink = Get-ChildItem $ProfilePath | Where-Object FullName -EQ $PROFILE.CurrentUserAllHosts
     return Split-Path $profileSymbolicLink.Target
 }
-# function Get-LatestProfile {
-#     <#
-#     .SYNOPSIS
-#         Checks the Github repository for the latest commit date and compares to the local version.
-#         If the profile is out of date, instructions are displayed on how to update it.
-#     #>
-#
-#     Write-Verbose "Checking for updates to the profile"
-#     $currentWorkingDirectory = $PWD
-#     Set-Location $ENV:WindotsLocalRepo
-#     $gitStatus = git status
-#
-#     if ($gitStatus -like "*Your branch is up to date with*") {
-#         Write-Verbose "Profile is up to date"
-#         Set-Location $currentWorkingDirectory
-#         return
-#     }
-#     else {
-#         Write-Verbose "Profile is out of date"
-#         Write-Host "Your PowerShell profile is out of date with the latest commit. To update it, run Update-Profile." -ForegroundColor Yellow
-#         Set-Location $currentWorkingDirectory
-#     }
-# }
+
 function Start-AdminSession {
     <#
     .SYNOPSIS
@@ -309,7 +287,7 @@ $ENV:STARSHIP_CONFIG = "$ENV:WindotsLocalRepo\starship\starship.toml"
 $ENV:_ZO_DATA_DIR = $ENV:WindotsLocalRepo
 $ENV:OBSIDIAN_PATH = "$HOME\iCloudDrive\iCloud~md~obsidian\Obsidian"
 
-# Check for Git updates while prompt is loading
+# Check for Windots and software updates while prompt is loading
 Start-ThreadJob -ScriptBlock {
     Set-Location -Path $ENV:WindotsLocalRepo
     $gitUpdates = git fetch && git status
@@ -348,9 +326,6 @@ Invoke-Expression (&starship init powershell)
 Invoke-Expression (& { ( zoxide init powershell --cmd cd | Out-String ) })
 
 Add-ProfileLogEntry -Message "Prompt setup complete"
-
-# Check for updates
-# Get-LatestProfile
 
 $enableLog ? $stopwatch.Stop() : $null
 Add-ProfileLogEntry -Message "Profile load complete"
