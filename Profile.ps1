@@ -137,7 +137,7 @@ function Update-Software {
     #>
     Write-Verbose "Updating software installed via Winget & Chocolatey"
     Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -Command &{winget upgrade --all && choco upgrade all -y}"
-    $ENV:UpdatesPending = ''
+    $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
 }
 
 function Find-File {
@@ -312,13 +312,12 @@ $ENV:OBSIDIAN_PATH = "$HOME\iCloudDrive\iCloud~md~obsidian\Obsidian"
 # Check for Git updates while prompt is loading
 Start-ThreadJob -ScriptBlock {
     Set-Location -Path $ENV:WindotsLocalRepo
-    $gitUpdates = git fetch --dry-run 2>&1
-    if ($gitUpdates -match "up to date") {
-        $ENV:GitUpdatesPending = ""
+    $gitUpdates = git fetch && git status
+    if ($gitUpdates -match "behind") {
+        $ENV:DOTFILES_UPDATE_AVAILABLE = "`u{db86}`u{dd1b} "
     }
-    # \uf234
     else {
-        $ENV:GitUpdatesPending = "`u{f234}  "
+        $ENV:DOTFILES_UPDATE_AVAILABLE = ""
     }
 } | Out-Null
 
@@ -334,10 +333,10 @@ Start-ThreadJob -ScriptBlock {
     $wingetUpdatesString = Start-Job -ScriptBlock { winget list --upgrade-available | Out-String } | Wait-Job | Receive-Job
     $chocoUpdatesString = Start-Job -ScriptBlock { choco upgrade all --noop | Out-String } | Wait-Job | Receive-Job
     if ($wingetUpdatesString -match "upgrades available" -or $chocoUpdatesString -notmatch "can upgrade 0/") {
-        $ENV:UpdatesPending = "`u{eb29}  "
+        $ENV:SOFTWARE_UPDATE_AVAILABLE = "`u{eb29} "
     }
     else {
-        $ENV:UpdatesPending = ""
+        $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
     }
 } | Out-Null
 
