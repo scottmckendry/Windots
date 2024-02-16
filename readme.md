@@ -1,4 +1,4 @@
-<p align="center"> 
+ <p align="center"> 
   <a href="https://scottmckendry.tech">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://scottmckendry.tech/img/logo/icon2transparent.png">
@@ -27,9 +27,9 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 
 ## 🎉 Features
 - **Automated Dependency Installation:** Utilises [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) and [Chocolatey](https://chocolatey.org/) for streamlined installation of required dependencies. Checks and notifies pending software updates with a 📦 icon in the prompt.
-- **Automated Update Checks:** Regularly checks for updates using git. If updates are pending, a notification is displayed when starting a new PowerShell session.
-
-![image](https://github.com/scottmckendry/Windots/assets/39483124/89598017-6315-4054-ae56-be1f827c32a4)
+- **Automated Update Checks:** Regularly checks for updates using git. If updates are pending, an icon is displayed when starting a new PowerShell session.
+  
+  ![image](https://github.com/scottmckendry/Windots/assets/39483124/e84d0294-5662-4d7c-b1ae-88a1f26ca9fd)
 
 - **Centralized Configuration:** Brings together scattered Windows configuration files into one organized location for easy access and management.
 - **Tailored Colour Scheme:** Powered by my very own [CYBERDREAM](https://github.com/scottmckendry/cyberdream.nvim) colourscheme - high-contrast and vibrant for optimal _Eye Stimulation™_.
