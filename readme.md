@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center"> 
   <a href="https://scottmckendry.tech">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://scottmckendry.tech/img/logo/icon2transparent.png">
