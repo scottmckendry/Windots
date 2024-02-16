@@ -2,32 +2,38 @@
 add_newline = false
 
 [character]
-    success_symbol = "[❯](bold green)"
-    error_symbol = "[ ](bold red)"
+success_symbol = "[❯](bold green)"
+error_symbol = "[ ](bold red)"
 
 [cmd_duration]
-    min_time = 200
-    show_milliseconds = true
+min_time = 200
+show_milliseconds = true
 
 [golang]
-    symbol = " "
+symbol = " "
 
 [nodejs]
-    detect_extensions = []
+detect_extensions = []
 
 [git_metrics]
-    disabled = false
-    format = '(([ $added]($added_style)) ([ $deleted]($deleted_style)) )'
-    only_nonzero_diffs = true
+disabled = false
+format = '(([ $added]($added_style)) ([ $deleted]($deleted_style)) )'
+only_nonzero_diffs = true
 
 [line_break]
-    disabled = true
+disabled = true
 
 [jobs]
-    disabled = true
+disabled = true
 
-[env_var.UpdatesPending]
-    variable = 'UpdatesPending'
-    format = '[$env_value]($style)'
-    default = ''
-    style = 'bold cyan'
+[env_var.SOFTWARE_UPDATE_AVAILABLE]
+variable = 'SOFTWARE_UPDATE_AVAILABLE'
+format = '[$env_value]($style)'
+default = ''
+style = 'bold cyan'
+
+[env_var.DOTFILES_UPDATE_AVAILABLE]
+variable = 'DOTFILES_UPDATE_AVAILABLE'
+format = '[$env_value]($style)'
+default = ''
+style = 'bold cyan'
