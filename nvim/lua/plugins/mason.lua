@@ -20,6 +20,7 @@ return {
             "omnisharp",
             "powershell-editor-services",
             "prettier",
+            "shfmt",
             "stylua",
             "tailwindcss-language-server",
             "taplo",
