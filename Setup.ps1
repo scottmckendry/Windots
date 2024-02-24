@@ -39,6 +39,12 @@ $chocoDeps = @(
     "zoxide"
 )
 
+# PS Modules
+$psModules = @(
+    "ps-color-scripts"
+    "ps-prettifier"
+)
+
 # Set working directory
 Set-Location $PSScriptRoot
 [Environment]::CurrentDirectory = $PSScriptRoot
@@ -58,6 +64,13 @@ $installedChocoDeps = (choco list --limit-output --id-only).Split("`n")
 foreach ($chocoDep in $chocoDeps) {
     if ($installedChocoDeps -notcontains $chocoDep) {
         choco install $chocoDep -y
+    }
+}
+
+# Install PS Modules
+foreach ($psModule in $psModules) {
+    if (!(Get-Module -ListAvailable -Name $psModule)) {
+        Install-Module -Name $psModule -Force -AcceptLicense -Scope CurrentUser
     }
 }
 
