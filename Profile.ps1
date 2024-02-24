@@ -275,7 +275,7 @@ function Show-ThisIsFine {
         Displays the "This is fine" meme in the console. Alias: tif
     #>
     Write-Verbose "Running thisisfine.ps1"
-    Invoke-Expression (Get-Content "$env:WindotsLocalRepo\art\thisisfine.ps1" -Raw)
+    Show-ColorScript -Name thisisfine
 }
 
 Add-ProfileLogEntry -Message "Functions loaded"
