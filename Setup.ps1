@@ -42,7 +42,7 @@ $chocoDeps = @(
 # PS Modules
 $psModules = @(
     "ps-color-scripts"
-    "ps-prettifier"
+    "PSScriptAnalyzer"
 )
 
 # Set working directory
