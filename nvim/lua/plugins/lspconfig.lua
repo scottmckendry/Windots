@@ -9,6 +9,22 @@ return {
         "smiteshp/nvim-navic",
     },
     config = function()
+        local mason_registry = require("mason-registry")
+        local no_config_servers = {
+            "docker_compose_language_service",
+            "dockerls",
+            "html",
+            "jsonls",
+            "tailwindcss",
+            "taplo",
+            "yamlls",
+        }
+
+        -- Run setup for no_config_servers
+        for _, server in pairs(no_config_servers) do
+            require("lspconfig")[server].setup({})
+        end
+
         -- Go
         require("lspconfig").gopls.setup({
             settings = {
@@ -41,33 +57,12 @@ return {
             },
         })
 
-        -- Dockerfile
-        require("lspconfig").dockerls.setup({})
-
-        -- Docker Compose
-        require("lspconfig").docker_compose_language_service.setup({})
-
         -- C#
         local omnisharp_path = vim.fn.stdpath("data") .. "/mason/packages/omnisharp/libexec/omnisharp.dll"
         require("lspconfig").omnisharp.setup({
             cmd = { "dotnet", omnisharp_path },
             enable_ms_build_load_projects_on_demand = true,
         })
-
-        -- JSON
-        require("lspconfig").jsonls.setup({})
-
-        -- HTML
-        require("lspconfig").html.setup({})
-
-        -- Tailwind CSS
-        require("lspconfig").tailwindcss.setup({})
-
-        -- Taplo
-        require("lspconfig").taplo.setup({})
-
-        -- YAML
-        require("lspconfig").yamlls.setup({})
 
         -- Lua
         require("lspconfig").lua_ls.setup({
@@ -93,7 +88,6 @@ return {
         })
 
         -- PowerShell
-        local mason_registry = require("mason-registry")
         local bundle_path = mason_registry.get_package("powershell-editor-services"):get_install_path()
         require("lspconfig").powershell_es.setup({
             bundle_path = bundle_path,
