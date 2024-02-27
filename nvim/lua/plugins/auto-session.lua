@@ -11,9 +11,17 @@ return {
         },
     },
     config = function()
+        local close_neotree = function()
+            require("neo-tree.sources.manager").close_all()
+        end
+
         require("auto-session").setup({
             session_lens = {
                 winblend = 0,
+            },
+
+            pre_save_cmds = {
+                close_neotree,
             },
         })
     end,
