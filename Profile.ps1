@@ -325,6 +325,19 @@ Add-ProfileLogEntry -Message "Update check job started"
 Invoke-Expression (&starship init powershell)
 Invoke-Expression (& { ( zoxide init powershell --cmd cd | Out-String ) })
 
+$colors = @{
+    "Operator"         = "`e[35m" # Purple
+    "Parameter"        = "`e[36m" # Cyan
+    "String"           = "`e[32m" # Green
+    "Command"          = "`e[34m" # Blue
+    "Variable"         = "`e[37m" # White
+    "Comment"          = "`e[38;5;244m" # Gray
+    "InlinePrediction" = "`e[38;5;244m" # Gray
+}
+Set-PSReadLineOption -Colors $colors
+Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+Set-PSReadLineOption -PredictionViewStyle ListView
+
 Add-ProfileLogEntry -Message "Prompt setup complete"
 
 $enableLog ? $stopwatch.Stop() : $null
