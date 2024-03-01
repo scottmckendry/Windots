@@ -28,6 +28,14 @@ return {
                         view = "mini",
                     },
                 },
+                messages = {
+                    view = "mini",
+                    view_error = "mini",
+                    view_warn = "mini",
+                },
+                notify = {
+                    view = "mini",
+                },
                 cmdline = {
                     view = "cmdline",
                 },
