@@ -334,9 +334,11 @@ $colors = @{
     "Comment"          = "`e[38;5;244m" # Gray
     "InlinePrediction" = "`e[38;5;244m" # Gray
 }
+
 Set-PSReadLineOption -Colors $colors
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
-Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineOption -PredictionViewStyle InlineView
+Import-Module -Name CompletionPredictor
 
 Add-ProfileLogEntry -Message "Prompt setup complete"
 
