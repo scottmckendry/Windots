@@ -114,7 +114,7 @@ function Update-Software {
         Updates all software installed via Winget & Chocolatey. Alias: us
     #>
     Write-Verbose "Updating software installed via Winget & Chocolatey"
-    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -Command &{winget upgrade --all && choco upgrade all -y}"
+    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -Command &{winget upgrade --all --include-unknown --silent --verbose && choco upgrade all -y}"
     $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
 }
 
