@@ -27,6 +27,8 @@ opt.undofile = true
 opt.swapfile = false
 opt.conceallevel = 1
 opt.scrolloff = 12
+opt.wrap = true
+opt.linebreak = true
 
 -- Set tab width
 opt.tabstop = 4
