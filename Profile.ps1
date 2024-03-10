@@ -338,6 +338,7 @@ $colors = @{
 Set-PSReadLineOption -Colors $colors
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle InlineView
+Set-PSReadLineKeyHandler -Function AcceptSuggestion -Key Alt+l
 Import-Module -Name CompletionPredictor
 
 Add-ProfileLogEntry -Message "Prompt setup complete"
