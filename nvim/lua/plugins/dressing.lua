@@ -1,14 +1,11 @@
 return {
     "stevearc/dressing.nvim",
-    lazy = true,
-    init = function()
-        vim.ui.select = function(...)
-            require("lazy").load({ plugins = { "dressing.nvim" } })
-            return vim.ui.select(...)
-        end
-        vim.ui.input = function(...)
-            require("lazy").load({ plugins = { "dressing.nvim" } })
-            return vim.ui.input(...)
-        end
-    end,
+    lazy = false,
+    opts = {
+        input = {
+            insert_only = false,
+            start_in_insert = false,
+            mappings = { i = { ["<C-c>"] = false } },
+        },
+    },
 }
