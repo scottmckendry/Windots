@@ -57,7 +57,7 @@ Pull requests and issues are welcome. If you have any questions or suggestions, 
 <hr>
 
 <p align="center">
-  <a href="https://scottmckendry.tech/the-ultimate-powershell-profile/">
-    <img alt="Static Badge" src="https://img.shields.io/badge/Blog_Post-Go?style=for-the-badge&label=%F0%9F%92%ADRead&color=%237aa2f7">
+  <a href="https://scottmckendry.tech/tags/dotfiles/">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Blog_Posts-Go?style=for-the-badge&label=%F0%9F%92%ADRead&color=%237aa2f7">
   </a>
 </p>
