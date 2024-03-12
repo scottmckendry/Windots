@@ -88,15 +88,17 @@ function Start-AdminSession {
 function Update-Profile {
     <#
     .SYNOPSIS
-        Downloads the latest version of the PowerShell profile from Github, updates the PowerShell profile with the latest version and reruns the setup script.
-        Note that functions won't be updated, this requires a full restart. Alias: up
+        Gets the latest changes from git, reruns the setup script and reloads the profile.
+        Note that functions won't be updated, this requires a full PS session restart. Alias: up
     #>
     Write-Verbose "Storing current working directory in memory"
     $currentWorkingDirectory = $PWD
 
     Write-Verbose "Updating local profile from Github repository"
     Set-Location $ENV:WindotsLocalRepo
+    git stash | Out-Null
     git pull | Out-Null
+    git stash pop | Out-Null
 
     Write-Verbose "Rerunning setup script to capture any new dependencies."
     Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -Command .\Setup.ps1"
