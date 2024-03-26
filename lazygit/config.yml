@@ -2,13 +2,27 @@
 notARepository: skip
 gui:
     nerdFontsVersion: "3"
-    showBottomLine: false
     border: rounded
     mouseEvents: false
+
     theme:
         activeBorderColor:
-            - cyan
+            - "#5ef1ff"
         inactiveBorderColor:
-            - magenta
+            - "#7b8496"
+        searchingActiveBorderColor:
+            - "#ff5ef1"
+        optionsTextColor:
+            - "#3c4048"
+        selectedLineBgColor:
+            - "#3c4048"
+        cherryPickedCommitBgColor:
+            - "#3c4048"
+        cherryPickedCommitFgColor:
+            - "#ff5ea0"
+        unstagedChangesColor:
+            - "#ffbd5e"
+        defaultFgColor:
+            - "#ffffff"
 git:
     parseEmoji: true
