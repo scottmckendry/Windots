@@ -13,6 +13,7 @@ return {
         return {
             options = {
                 component_separators = { left = " ", right = " " },
+                section_separators = { left = " ", right = " " },
                 theme = cyberdream,
                 globalstatus = true,
                 disabled_filetypes = { statusline = { "dashboard", "alpha" } },
