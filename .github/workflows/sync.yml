@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Sync Neovim
-        uses: scottmckendry/repo-files-clean-copy-syncn@main
+        uses: scottmckendry/repo-files-clean-copy-sync@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
         with:
@@ -28,7 +28,7 @@ jobs:
           git_server: "github.com"
 
       - name: Sync Starship
-        uses: scottmckendry/repo-files-clean-copy-syncn@main
+        uses: scottmckendry/repo-files-clean-copy-sync@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
         with:
