@@ -1,7 +1,6 @@
 return {
     "stevearc/conform.nvim",
     event = "BufReadPre",
-    dev = true,
     config = function()
         vim.g.disable_autoformat = false
         require("conform").setup({
