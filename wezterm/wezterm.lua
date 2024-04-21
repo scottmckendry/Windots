@@ -13,8 +13,8 @@ config.font = wezterm.font_with_fallback({
 config.font_size = 10
 
 -- Window
-config.initial_rows = 38
-config.initial_cols = 150
+config.initial_rows = 45
+config.initial_cols = 180
 config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.75
