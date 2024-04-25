@@ -18,6 +18,7 @@ $wingetDeps = @(
     "Eza-community.Eza"
     "Git.Git"
     "GitHub.Cli"
+    "mbuilov.sed"
     "Microsoft.OpenJDK.21"
     "Microsoft.PowerShell"
     "OpenJS.NodeJS"
@@ -32,7 +33,6 @@ $chocoDeps = @(
     "lazygit"
     "nerd-fonts-jetbrainsmono"
     "ripgrep"
-    "sed"
     "wezterm"
     "zig"
     "zoxide"
@@ -75,7 +75,6 @@ foreach ($psModule in $psModules) {
 }
 
 # Install Neovim Nightly
-choco uninstall neovim -y | Out-Null # Remove choco version if installed
 if (!(Test-Path "$env:ProgramFiles\Neovim\bin\nvim.exe")) {
     Write-Host "Installing Neovim Nightly..."
     $msiUrl = "https://github.com/neovim/neovim/releases/download/nightly/nvim-win64.msi"
@@ -109,3 +108,7 @@ git config --global user.email $currentGitEmail | Out-Null
 git config --global user.name $currentGitName | Out-Null
 
 .\altsnap\createTask.ps1 | Out-Null
+
+# Cleanup old dependencies (if any)
+choco uninstall neovim -y | Out-Null
+choco uninstall sed -y | Out-Null
