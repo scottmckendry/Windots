@@ -120,9 +120,9 @@ function Update-Software {
         winget upgrade --all --include-unknown --silent --verbose && `
         choco upgrade all -y && `
         Write-Host 'Downloading latest version of Neovim...' -ForegroundColor Cyan && `
-        Invoke-WebRequest https://github.com/neovim/neovim/releases/download/nightly/nvim-win64.msi -OutFile $PSScriptRoot\nvim-win64.msi -UseBasicParsing && `
+        Invoke-WebRequest https://github.com/neovim/neovim/releases/download/nightly/nvim-win64.msi -OutFile $env:TEMP\nvim-win64.msi -UseBasicParsing && `
         Write-Host 'Starting installer...' -ForegroundColor Cyan && `
-        Start-Process -FilePath $PSScriptRoot\nvim-win64.msi -ArgumentList '/quiet' -Wait
+        Start-Process -FilePath $env:TEMP\nvim-win64.msi -ArgumentList '/quiet' -Wait
     }"
     $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
 }
