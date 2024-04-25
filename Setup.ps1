@@ -30,7 +30,6 @@ $chocoDeps = @(
     "fzf"
     "gawk"
     "lazygit"
-    "neovim"
     "nerd-fonts-jetbrainsmono"
     "ripgrep"
     "sed"
@@ -75,14 +74,15 @@ foreach ($psModule in $psModules) {
     }
 }
 
-# Create Custom NVIM shotcut
-if (!(Test-Path "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")) {
-    $wshShell = New-Object -ComObject WScript.Shell
-    $shortcut = $wshShell.CreateShortcut("$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\nvim.lnk")
-    $shortcut.TargetPath = "C:\tools\neovim\nvim-win64\bin\nvim.exe"
-    $shortcut.workingDirectory = (Resolve-Path ..) # Set working directory to parent directory of this script (likely where you keep all Git Projects)
-    $shortcut.IconLocation = "C:\tools\neovim\nvim-win64\bin\nvim-qt.exe,0" # Steal icon from nvim-qt.exe
-    $shortcut.Save()
+# Install Neovim Nightly
+choco uninstall neovim -y | Out-Null # Remove choco version if installed
+if (!(Test-Path "$env:ProgramFiles\Neovim\bin\nvim.exe")) {
+    Write-Host "Installing Neovim Nightly..."
+    $msiUrl = "https://github.com/neovim/neovim/releases/download/nightly/nvim-win64.msi"
+    $msiPath = "$PSScriptRoot\nvim-win64.msi"
+    Invoke-WebRequest -Uri $msiUrl -OutFile $msiPath
+    Start-Process -FilePath $msiPath -ArgumentList "/quiet" -Wait
+    Remove-Item $msiPath
 }
 
 # Delete OOTB Nvim Shortcuts (including QT)
@@ -109,4 +109,3 @@ git config --global user.email $currentGitEmail | Out-Null
 git config --global user.name $currentGitName | Out-Null
 
 .\altsnap\createTask.ps1 | Out-Null
-
