@@ -14,15 +14,15 @@ $symlinks = @{
 
 # Winget & choco dependencies
 $wingetDeps = @(
-    "Chocolatey.Chocolatey"
-    "Eza-community.Eza"
-    "Git.Git"
-    "GitHub.Cli"
+    "chocolatey.chocolatey"
+    "eza-community.eza"
+    "git.git"
+    "github.cli"
     "mbuilov.sed"
-    "Microsoft.OpenJDK.21"
-    "Microsoft.PowerShell"
-    "OpenJS.NodeJS"
-    "Starship.Starship"
+    "microsoft.openjdk.21"
+    "microsoft.powershell"
+    "openjs.nodejs"
+    "starship.starship"
 )
 $chocoDeps = @(
     "altsnap"
@@ -53,7 +53,7 @@ Write-Host "Installing missing dependencies..."
 $installedWingetDeps = winget list | Out-String
 foreach ($wingetDep in $wingetDeps) {
     if ($installedWingetDeps -notmatch $wingetDep) {
-        winget install -e --id $wingetDep
+        winget install --id $wingetDep
     }
 }
 
