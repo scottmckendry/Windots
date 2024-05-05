@@ -20,7 +20,13 @@ return {
                 yaml = { "prettier" },
             },
 
-            format_after_save = true,
+            format_after_save = function()
+                if vim.g.disable_autoformat then
+                    return
+                else
+                    return { lsp_fallback = true }
+                end
+            end,
 
             formatters = {
                 goimports_reviser = {
