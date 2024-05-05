@@ -37,7 +37,11 @@ return {
                     height = 0.80,
                     preview_cutoff = 120,
                 },
-                path_display = { "truncate " },
+                path_display = {
+                    filename_first = {
+                        reverse_directories = true,
+                    },
+                },
                 mappings = {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result

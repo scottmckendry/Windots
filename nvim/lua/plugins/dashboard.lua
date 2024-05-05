@@ -25,7 +25,7 @@ return {
                         icon_hl = "DiffChange",
                         desc = "Files ",
                         group = "Statement",
-                        action = "require('core.telescopePickers').prettyFilesPicker({ picker = 'find_files' })",
+                        action = "Telescope find_files",
                         key = "f",
                     },
                     {
@@ -33,7 +33,7 @@ return {
                         icon_hl = "DiffChange",
                         desc = "Recent ",
                         group = "DiffAdd",
-                        action = "require('core.telescopePickers').prettyFilesPicker({ picker = 'oldfiles' })",
+                        action = "Telescope oldfiles",
                         key = "r",
                     },
                     {
@@ -41,7 +41,7 @@ return {
                         icon_hl = "DiffChange",
                         desc = "Grep ",
                         group = "DiffDelete",
-                        action = "require('core.telescopePickers').prettyGrepPicker({ picker = 'live_grep' })",
+                        action = "Telescope live_grep",
                         key = "g",
                     },
                     {

@@ -47,21 +47,10 @@ map("n", "<leader>`", ":e #<cr>", { desc = "Switch to Other buffer" })
 map("n", "<leader>l", ":Lazy<cr>", { desc = "Lazy" })
 
 -- Telescope
-map("n", "<leader>ff", function()
-    require("core.telescopePickers").prettyFilesPicker({ picker = "find_files" })
-end, { desc = "Fuzzy find files" })
-
-map("n", "<leader>fr", function()
-    require("core.telescopePickers").prettyFilesPicker({ picker = "oldfiles" })
-end, { desc = "Fuzzy find recent files" })
-
-map("n", "<leader>fs", function()
-    require("core.telescopePickers").prettyGrepPicker({ picker = "live_grep" })
-end, { desc = "Find string in cwd" })
-
-map("n", "<leader>fc", function()
-    require("core.telescopePickers").prettyGrepPicker({ picker = "grep_string" })
-end, { desc = "Find string under cursor in cwd" })
+map("n", "<leader>ff", ":Telescope find_files<cr>", { desc = "Fuzzy find files" })
+map("n", "<leader>fr", ":Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
+map("n", "<leader>fs", ":Telescope live_grep<cr>", { desc = "Find string in CWD" })
+map("n", "<leader>fc", ":Telescope grep_string<cr>", { desc = "Find string under cursor in CWD" })
 
 --keywordprg
 map("n", "<leader>K", ":norm! K<cr>", { desc = "Keywordprg" })
