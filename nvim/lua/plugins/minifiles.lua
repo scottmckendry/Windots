@@ -4,7 +4,7 @@ return {
         {
             "<leader>ee",
             function()
-                require("mini.files").open(vim.uv.cwd(), true)
+                require("mini.files").open()
             end,
             desc = "Open mini.files (cwd)",
         },
@@ -12,8 +12,8 @@ return {
     config = function()
         require("mini.files").setup({
             windows = {
-                width_focus = 60,
-                width_nofocus = 60,
+                width_focus = 40,
+                width_nofocus = 40,
             },
         })
 
@@ -80,7 +80,7 @@ return {
         local function updateMiniWithGit(buf_id, gitStatusMap)
             vim.schedule(function()
                 local nlines = vim.api.nvim_buf_line_count(buf_id)
-                local cwd = vim.fn.getcwd() --  vim.fn.expand("%:p:h")
+                local cwd = vim.fn.getcwd()
                 local escapedcwd = escapePattern(cwd)
                 if vim.fn.has("win32") == 1 then
                     escapedcwd = escapedcwd:gsub("\\", "/")
