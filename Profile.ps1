@@ -118,11 +118,7 @@ function Update-Software {
     Write-Verbose "Updating software installed via Winget & Chocolatey"
     Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -Command &{`
         winget upgrade --all --include-unknown --silent --verbose && `
-        choco upgrade all -y && `
-        Write-Host 'Downloading latest version of Neovim...' -ForegroundColor Cyan && `
-        Invoke-WebRequest https://github.com/neovim/neovim/releases/download/nightly/nvim-win64.msi -OutFile $env:TEMP\nvim-win64.msi -UseBasicParsing && `
-        Write-Host 'Starting installer...' -ForegroundColor Cyan && `
-        Start-Process -FilePath $env:TEMP\nvim-win64.msi -ArgumentList '/quiet' -Wait
+        choco upgrade all -y
     }"
     $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
 }

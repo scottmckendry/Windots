@@ -21,6 +21,7 @@ $wingetDeps = @(
     "mbuilov.sed"
     "microsoft.openjdk.21"
     "microsoft.powershell"
+    "neovim.neovim"
     "openjs.nodejs"
     "starship.starship"
 )
@@ -72,16 +73,6 @@ foreach ($psModule in $psModules) {
     if (!(Get-Module -ListAvailable -Name $psModule)) {
         Install-Module -Name $psModule -Force -AcceptLicense -Scope CurrentUser
     }
-}
-
-# Install Neovim Nightly
-if (!(Test-Path "$env:ProgramFiles\Neovim\bin\nvim.exe")) {
-    Write-Host "Installing Neovim Nightly..."
-    $msiUrl = "https://github.com/neovim/neovim/releases/download/nightly/nvim-win64.msi"
-    $msiPath = "$PSScriptRoot\nvim-win64.msi"
-    Invoke-WebRequest -Uri $msiUrl -OutFile $msiPath
-    Start-Process -FilePath $msiPath -ArgumentList "/quiet" -Wait
-    Remove-Item $msiPath
 }
 
 # Delete OOTB Nvim Shortcuts (including QT)
