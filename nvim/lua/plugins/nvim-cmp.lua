@@ -48,29 +48,36 @@ return {
                     scrollbar = false,
                 },
             },
+
             completion = {
-                completeopt = "menu,menuone,preview,noselect",
+                completeopt = "menu,menuone,preview,noinsert",
             },
+
             snippet = {
                 expand = function(args)
-                    luasnip.lsp_expand(args.body)
+                    vim.snippet.expand(args.body)
                 end,
             },
-            mapping = cmp.mapping.preset.insert({
-                ["<C-k>"] = cmp.mapping.select_prev_item(),
-                ["<C-j>"] = cmp.mapping.select_next_item(),
-                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<C-e>"] = cmp.mapping.abort(),
-                ["<CR>"] = cmp.mapping.confirm({ select = false }),
-            }),
+
+            mapping = {
+                ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<C-y>"] = cmp.mapping(
+                    cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Insert,
+                        select = true,
+                    }),
+                    { "i", "c" }
+                ),
+            },
+
             sources = cmp.config.sources({
                 { name = "nvim_lsp", max_item_count = max_items },
                 { name = "luasnip", max_item_count = max_items },
                 { name = "buffer", max_item_count = max_items },
                 { name = "path", max_item_count = max_items },
             }),
+
             -- configure lspkind for vs-code like pictograms in completion menu
             formatting = {
                 format = lspkind.cmp_format({
@@ -95,5 +102,11 @@ return {
                 { name = "cmdline", max_item_count = max_items },
             }),
         })
+
+        vim.keymap.set({ "i", "s" }, "<C-k>", function()
+            if luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            end
+        end, { silent = true })
     end,
 }
