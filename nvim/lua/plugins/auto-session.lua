@@ -11,8 +11,8 @@ return {
         },
     },
     config = function()
-        local close_neotree = function()
-            require("neo-tree.sources.manager").close_all()
+        local close_minifiles = function()
+            require("mini.files").close()
         end
 
         require("auto-session").setup({
@@ -21,7 +21,7 @@ return {
             },
 
             pre_save_cmds = {
-                close_neotree,
+                close_minifiles,
             },
         })
     end,
