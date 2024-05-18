@@ -1,13 +1,20 @@
 "$schema" = 'https://starship.rs/config-schema.json'
+format = """$all $fill $cmd_duration
+$character"""
+
 add_newline = false
 
 [character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[ ](bold red)"
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
 
 [cmd_duration]
-min_time = 200
+min_time = 10
 show_milliseconds = true
+format = "[$duration](bright-black)"
+
+[fill]
+symbol = ' '
 
 [golang]
 symbol = " "
@@ -17,8 +24,10 @@ detect_extensions = []
 
 [git_metrics]
 disabled = false
-format = '(([ $added]($added_style)) ([ $deleted]($deleted_style)) )'
+format = '(([ $added ]($added_style))([ $deleted ]($deleted_style)))'
 only_nonzero_diffs = true
+added_style = 'green'
+deleted_style = 'red'
 
 [line_break]
 disabled = true
@@ -30,10 +39,10 @@ disabled = true
 variable = 'SOFTWARE_UPDATE_AVAILABLE'
 format = '[$env_value]($style)'
 default = ''
-style = 'bold cyan'
+style = 'cyan'
 
 [env_var.DOTFILES_UPDATE_AVAILABLE]
 variable = 'DOTFILES_UPDATE_AVAILABLE'
 format = '[$env_value]($style)'
 default = ''
-style = 'bold cyan'
+style = 'cyan'

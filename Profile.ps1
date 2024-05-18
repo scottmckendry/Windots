@@ -325,11 +325,16 @@ Start-ThreadJob -ScriptBlock {
     }
 } | Out-Null
 
+function Invoke-Starship-TransientFunction {
+    &starship module character
+}
+
 Add-ProfileLogEntry -Message "Update check job started"
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Invoke-Expression (&starship init powershell)
+Enable-TransientPrompt
 Invoke-Expression (& { ( zoxide init powershell --cmd cd | Out-String ) })
 
 $colors = @{
