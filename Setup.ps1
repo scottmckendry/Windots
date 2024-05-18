@@ -98,8 +98,8 @@ git config --global --unset user.name | Out-Null
 git config --global user.email $currentGitEmail | Out-Null
 git config --global user.name $currentGitName | Out-Null
 
-.\altsnap\createTask.ps1 | Out-Null
+# Install bat themes
+bat cache --clear
+bat cache --build
 
-# Cleanup old dependencies (if any)
-choco uninstall neovim -y | Out-Null
-choco uninstall sed -y | Out-Null
+.\altsnap\createTask.ps1 | Out-Null
