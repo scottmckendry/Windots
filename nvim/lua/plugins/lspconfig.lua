@@ -10,6 +10,19 @@ return {
     },
     config = function()
         local mason_registry = require("mason-registry")
+
+        -- Diagnostics
+        vim.diagnostic.config({
+            signs = true,
+            underline = true,
+            update_in_insert = true,
+            virtual_text = {
+                source = "if_many",
+                prefix = "●",
+            },
+        })
+
+        -- Run setup for no_config_servers
         local no_config_servers = {
             "docker_compose_language_service",
             "dockerls",
@@ -19,8 +32,6 @@ return {
             "taplo",
             "yamlls",
         }
-
-        -- Run setup for no_config_servers
         for _, server in pairs(no_config_servers) do
             require("lspconfig")[server].setup({})
         end
