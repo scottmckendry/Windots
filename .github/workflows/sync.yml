@@ -1,54 +1,31 @@
 on:
-  push:
-    branches:
-      - main
-      
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+
+    workflow_dispatch:
 
 name: Sync to dots
 
 jobs:
-  copy-file:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Sync Neovim
-        uses: scottmckendry/repo-files-clean-copy-sync@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
-        with:
-          source_file: "nvim/"
-          destination_repo: "scottmckendry/dots"
-          destination_folder: "/" 
-          user_email: "39483124+scottmckendry@users.noreply.github.com"
-          user_name: "Scott McKendry"
-          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
-          git_server: "github.com"
+    sync-files:
+        strategy:
+            matrix:
+                file: [nvim, starship, lazygit, bat]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
 
-      - name: Sync Starship
-        uses: scottmckendry/repo-files-clean-copy-sync@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
-        with:
-          source_file: "starship/"
-          destination_repo: "scottmckendry/dots"
-          destination_folder: "/" 
-          user_email: "39483124+scottmckendry@users.noreply.github.com"
-          user_name: "Scott McKendry"
-          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
-          git_server: "github.com"
-          
-      - name: Sync Lazygit
-        uses: scottmckendry/repo-files-clean-copy-sync@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
-        with:
-          source_file: "lazygit/"
-          destination_repo: "scottmckendry/dots"
-          destination_folder: "/" 
-          user_email: "39483124+scottmckendry@users.noreply.github.com"
-          user_name: "Scott McKendry"
-          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
-          git_server: "github.com"
+            - name: Sync ${{ matrix.file }}
+              uses: scottmckendry/repo-files-clean-copy-sync@main
+              env:
+                  API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+              with:
+                  source_file: "${{ matrix.file }}/"
+                  destination_repo: "scottmckendry/dots"
+                  destination_folder: "/"
+                  user_email: "39483124+scottmckendry@users.noreply.github.com"
+                  user_name: "Scott McKendry"
+                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
+                  git_server: "github.com"
