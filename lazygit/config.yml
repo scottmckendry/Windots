@@ -26,3 +26,6 @@ gui:
             - "#ffffff"
 git:
     parseEmoji: true
+    paging:
+        colorArg: never
+        useConfig: true
