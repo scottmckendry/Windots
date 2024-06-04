@@ -27,5 +27,5 @@ gui:
 git:
     parseEmoji: true
     paging:
-        colorArg: never
+        colorArg: always
         useConfig: true
