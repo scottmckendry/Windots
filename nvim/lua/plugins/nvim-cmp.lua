@@ -76,6 +76,7 @@ return {
                 { name = "luasnip", max_item_count = max_items },
                 { name = "buffer", max_item_count = max_items },
                 { name = "path", max_item_count = max_items },
+                { name = "lazydev", max_item_count = max_items, group_index = 0 },
             }),
 
             -- configure lspkind for vs-code like pictograms in completion menu
