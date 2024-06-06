@@ -5,6 +5,7 @@
 $symlinks = @{
     $PROFILE.CurrentUserAllHosts                                                                    = ".\Profile.ps1"
     "$HOME\AppData\Local\nvim"                                                                      = ".\nvim"
+    "$HOME\AppData\Local\fastfetch"                                                                 = ".\fastfetch"
     "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" = ".\windowsterminal\settings.json"
     "$HOME\.gitconfig"                                                                              = ".\.gitconfig"
     "$HOME\AppData\Roaming\lazygit"                                                                 = ".\lazygit"
@@ -16,6 +17,7 @@ $symlinks = @{
 $wingetDeps = @(
     "chocolatey.chocolatey"
     "eza-community.eza"
+    "fastfetch-cli.fastfetch"
     "git.git"
     "github.cli"
     "mbuilov.sed"
