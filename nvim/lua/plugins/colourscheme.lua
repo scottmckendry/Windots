@@ -9,6 +9,7 @@ return {
                 transparent = true,
                 italic_comments = true,
                 hide_fillchars = true,
+                terminal_colors = false,
             })
 
             vim.cmd("colorscheme cyberdream")
