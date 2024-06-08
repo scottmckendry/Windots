@@ -101,7 +101,7 @@ function Update-Profile {
     git stash pop | Out-Null
 
     Write-Verbose "Rerunning setup script to capture any new dependencies."
-    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -Command .\Setup.ps1"
+    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -NonInteractive -Command .\Setup.ps1"
 
     Write-Verbose "Reverting to previous working directory"
     Set-Location $currentWorkingDirectory
@@ -116,7 +116,7 @@ function Update-Software {
         Updates all software installed via Winget & Chocolatey. Alias: us
     #>
     Write-Verbose "Updating software installed via Winget & Chocolatey"
-    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -Command &{`
+    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -NonInteractive -Command &{`
         winget upgrade --all --include-unknown --silent --verbose && `
         choco upgrade all -y
     }"
