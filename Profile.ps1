@@ -356,4 +356,11 @@ Import-Module -Name CompletionPredictor
 Add-ProfileLogEntry -Message "Prompt setup complete"
 
 $enableLog ? $stopwatch.Stop() : $null
+
 Add-ProfileLogEntry -Message "Profile load complete"
+
+# Skip fastfetch for non-interactive shells and vim terminals
+if ([Environment]::GetCommandLineArgs().Contains("-NonInteractive") -or [Environment]::GetCommandLineArgs().Contains("-CustomPipeName")) {
+    return
+}
+fastfetch
