@@ -59,6 +59,7 @@ return {
                 layout = "float",
                 width = 0.6,
                 height = 0.7,
+                border = "rounded",
             },
             mappings = {
                 close = {
