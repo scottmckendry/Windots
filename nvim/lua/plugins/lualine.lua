@@ -3,7 +3,7 @@ return {
     event = "VeryLazy",
     opts = function()
         local colors = require("cyberdream.colors").default
-        local cyberdream = require("lualine.themes.cyberdream")
+        local cyberdream = require("lualine.themes.cyberdream").get_theme()
         local copilot_colors = {
             [""] = { fg = colors.grey, bg = colors.none },
             ["Normal"] = { fg = colors.grey, bg = colors.none },
