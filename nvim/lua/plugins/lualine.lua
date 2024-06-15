@@ -2,19 +2,19 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function()
-        local colors = require("cyberdream.colors").default
-        local cyberdream = require("lualine.themes.cyberdream").get_theme()
+        local utils = require("core.utils")
         local copilot_colors = {
-            [""] = { fg = colors.grey, bg = colors.none },
-            ["Normal"] = { fg = colors.grey, bg = colors.none },
-            ["Warning"] = { fg = colors.red, bg = colors.none },
-            ["InProgress"] = { fg = colors.yellow, bg = colors.none },
+            [""] = utils.get_hlgroup("Comment"),
+            ["Normal"] = utils.get_hlgroup("Comment"),
+            ["Warning"] = utils.get_hlgroup("DiagnosticError"),
+            ["InProgress"] = utils.get_hlgroup("DiagnosticWarn"),
         }
+
         return {
             options = {
                 component_separators = { left = " ", right = " " },
                 section_separators = { left = " ", right = " " },
-                theme = cyberdream,
+                theme = "auto",
                 globalstatus = true,
                 disabled_filetypes = { statusline = { "dashboard", "alpha" } },
             },
@@ -43,14 +43,14 @@ return {
                         cond = function()
                             return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
                         end,
-                        color = { fg = colors.grey, bg = colors.none },
+                        color = utils.get_hlgroup("Comment", nil),
                     },
                 },
                 lualine_x = {
                     {
                         require("lazy.status").updates,
                         cond = require("lazy.status").has_updates,
-                        color = { fg = colors.green },
+                        color = utils.get_hlgroup("DiffAdd"),
                     },
                     {
                         function()
@@ -78,7 +78,7 @@ return {
                     },
                     {
                         "location",
-                        color = { fg = colors.cyan, bg = colors.none },
+                        color = utils.get_hlgroup("DiffChange"),
                     },
                 },
                 lualine_z = {
