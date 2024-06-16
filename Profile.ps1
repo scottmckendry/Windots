@@ -56,6 +56,7 @@ Set-Alias -Name vim -Value nvim
 Set-Alias -Name vi -Value nvim
 Set-Alias -Name cat -Value bat
 Set-Alias -Name us -Value Update-Software
+Set-Alias -Name rm -Value Remove-ItemExtended
 
 Add-ProfileLogEntry "Aliases loaded"
 
@@ -281,6 +282,23 @@ function Show-ThisIsFine {
     #>
     Write-Verbose "Running thisisfine.ps1"
     Show-ColorScript -Name thisisfine
+}
+
+function Remove-ItemExtended {
+    <#
+    .SYNOPSIS
+        Removes an item and (optionally) all its children. Alias: rm
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $false)]
+        [switch]$rf,
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Path
+    )
+
+    Write-Verbose "Removing item '$Path' $($rf ? 'and all its children' : '')"
+    Remove-Item $Path -Recurse:$rf -Force:$rf
 }
 
 Add-ProfileLogEntry -Message "Functions loaded"
