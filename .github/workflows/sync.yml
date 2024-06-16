@@ -11,7 +11,7 @@ jobs:
     sync-files:
         strategy:
             matrix:
-                file: [nvim, starship, lazygit, bat]
+                file: [nvim, starship, lazygit, bat, fastfetch]
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
