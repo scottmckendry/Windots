@@ -18,6 +18,16 @@ function M.get_hlgroup(name, fallback)
     return fallback or {}
 end
 
+--- Remove a buffer by its number without affecting window layout
+--- @param buf? number The buffer number to delete
+function M.delete_buffer(buf)
+    if buf == nil or buf == 0 then
+        buf = vim.api.nvim_get_current_buf()
+    end
+
+    vim.api.nvim_command("bwipeout " .. buf)
+end
+
 --- Parse a given integer color to a hex value.
 function M.parse_hex(int_color)
     return string.format("#%x", int_color)
