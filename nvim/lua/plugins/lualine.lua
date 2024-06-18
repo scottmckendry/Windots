@@ -32,9 +32,18 @@ return {
                         },
                     },
                     { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+                    { "filename", padding = { left = 1, right = 0 } },
                     {
-                        "filename",
-                        symbols = { modified = "  ", readonly = "", unnamed = "" },
+                        function()
+                            local buffer_count = require("core.utils").get_buffer_count()
+
+                            return "+" .. buffer_count - 1 .. " "
+                        end,
+                        cond = function()
+                            return require("core.utils").get_buffer_count() > 1
+                        end,
+                        color = utils.get_hlgroup("Operator", nil),
+                        padding = { left = 0, right = 1 },
                     },
                     {
                         function()
@@ -82,9 +91,10 @@ return {
                     },
                 },
                 lualine_z = {
-                    function()
-                        return "  " .. os.date("%X") .. " 🚀 "
-                    end,
+                    {
+                        "datetime",
+                        style = "  %X",
+                    },
                 },
             },
 
