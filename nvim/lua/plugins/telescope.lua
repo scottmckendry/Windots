@@ -14,6 +14,15 @@ return {
                 find_files = {
                     find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
                 },
+                buffers = {
+                    theme = "cursor",
+                    previewer = false,
+                    mappings = {
+                        i = {
+                            ["<c-d>"] = "delete_buffer",
+                        },
+                    },
+                },
             },
             defaults = {
                 hidden = true,
