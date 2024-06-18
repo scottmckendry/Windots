@@ -10,7 +10,7 @@ return {
                 italic_comments = true,
                 hide_fillchars = true,
                 terminal_colors = false,
-                borderless_telescope = { border = false, style = "nvchad" },
+                borderless_telescope = { border = false, style = "flat" },
                 theme = {
                     variant = "auto",
                     overrides = function(colours)
