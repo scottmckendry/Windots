@@ -1,3 +1,5 @@
+local utils = require("core.utils")
+
 local map = function(modes, lhs, rhs, opts)
     local options = { silent = true }
     if opts then
@@ -36,12 +38,12 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Buffers
-map("n", "<S-h>", ":BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-map("n", "<S-l>", ":BufferLineCycleNext<cr>", { desc = "Next buffer" })
-map("n", "[b", ":BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-map("n", "]b", ":BufferLineCycleNext<cr>", { desc = "Next buffer" })
-map("n", "<leader>bb", ":e #<cr>", { desc = "Switch to Other buffer" })
-map("n", "<leader>`", ":e #<cr>", { desc = "Switch to Other buffer" })
+map("n", "<leader>bb", function()
+    utils.switch_to_previous_buffer()
+end, { desc = "Buffers" })
+map("n", "<leader>bd", function()
+    utils.delete_buffer()
+end, { desc = "Delete buffer" })
 
 -- lazy
 map("n", "<leader>l", ":Lazy<cr>", { desc = "Lazy" })
@@ -51,6 +53,8 @@ map("n", "<leader>ff", ":Telescope find_files<cr>", { desc = "Fuzzy find files" 
 map("n", "<leader>fr", ":Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
 map("n", "<leader>fs", ":Telescope live_grep<cr>", { desc = "Find string in CWD" })
 map("n", "<leader>fc", ":Telescope grep_string<cr>", { desc = "Find string under cursor in CWD" })
+map("n", "<leader>fb", ":Telescope buffers<cr>", { desc = "Fuzzy find buffers" })
+map("n", "<leader>ft", ":Telescope<cr>", { desc = "Other pickers..." })
 
 --keywordprg
 map("n", "<leader>K", ":norm! K<cr>", { desc = "Keywordprg" })
