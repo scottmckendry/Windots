@@ -4,6 +4,7 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
+        { "scottmckendry/telescope-resession.nvim", dev = true },
     },
     config = function()
         local telescope = require("telescope")
@@ -24,7 +25,19 @@ return {
             end
         end
 
+        local home_dir = os.getenv("HOME")
+        if vim.fn.has("win32") == 1 then
+            home_dir = "C:/Users/" .. vim.fn.expand("$USERNAME")
+        end
+
         telescope.setup({
+            extensions = {
+                resession = {
+                    path_substitutions = {
+                        { find = home_dir .. "/git/", replace = "󰊢 " },
+                    },
+                },
+            },
             pickers = {
                 find_files = {
                     find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
