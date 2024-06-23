@@ -5,10 +5,18 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         { "scottmckendry/telescope-resession.nvim", dev = true },
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build = function()
+                local install_path = vim.fn.stdpath("data") .. "/lazy/telescope-fzf-native.nvim"
+                vim.cmd("silent !cd " .. install_path .. " && make")
+            end,
+        },
     },
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
+        require("telescope").load_extension("fzf")
 
         local select_one_or_multi = function(prompt_bufnr)
             local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
