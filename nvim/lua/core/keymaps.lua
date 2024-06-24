@@ -130,11 +130,3 @@ end, { desc = "Lazygit" })
 -- Run...
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
-
--- Neovide specific
-if vim.g.neovide then
-    map({ "n", "v" }, "<C-c>", '"+y', { desc = "Copy to clipboard" })
-    map({ "n", "v" }, "<C-x>", '"+x', { desc = "Cut to clipboard" })
-    map({ "n", "v" }, "<C-v>", '"+gP', { desc = "Paste from clipboard" })
-    map({ "i", "t" }, "<C-v>", '<esc>"+gP', { desc = "Paste from clipboard" })
-end

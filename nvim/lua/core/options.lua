@@ -42,15 +42,3 @@ opt.guicursor = {
     "a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
     "sm:block-blinkwait175-blinkoff150-blinkon175",
 }
-
--- Neovide
-if vim.g.neovide then
-    vim.o.guifont = "JetBrainsMono Nerd Font:h9"
-    vim.g.neovide_fullscreen = true
-    vim.g.neovide_scroll_animation_length = 0.3
-
-    -- Set padding
-    vim.g.neovide_padding_top = 5
-    vim.g.neovide_padding_right = 5
-    vim.g.neovide_padding_left = 5
-end
