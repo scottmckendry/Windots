@@ -1,5 +1,10 @@
 local utils = require("core.utils")
 
+--- Map a key combination to a command
+---@param modes string|string[]: The mode(s) to map the key combination to
+---@param lhs string: The key combination to map
+---@param rhs string|function: The command to run when the key combination is pressed
+---@param opts table: Options to pass to the keymap
 local map = function(modes, lhs, rhs, opts)
     local options = { silent = true }
     if opts then
@@ -126,10 +131,9 @@ map("n", "<leader>gg", function()
     lazygit:toggle()
 end, { desc = "Lazygit" })
 
--- Rest-nvim
-map("n", "<leader>rr", ":lua require('rest-nvim').run()<CR>", { desc = "Run HTTP Request" })
-map("n", "<leader>rl", ":lua require('rest-nvim').last()<CR>", { desc = "Run Last HTTP Request" })
-map("n", "<leader>rp", ":lua require('rest-nvim').run(true)<CR>", { desc = "Preview HTTP Request" })
+-- Run...
+map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
+map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
 
 -- Neovide specific
 if vim.g.neovide then
