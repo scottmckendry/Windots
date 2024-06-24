@@ -43,12 +43,12 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Buffers
-map("n", "<leader>bb", function()
-    utils.switch_to_previous_buffer()
-end, { desc = "Buffers" })
-map("n", "<leader>bd", function()
-    utils.delete_buffer()
-end, { desc = "Delete buffer" })
+-- stylua: ignore start
+map("n", "<leader>bb", function() utils.switch_to_previous_buffer() end, { desc = "Buffers" })
+map("n", "<leader>bd", function() utils.delete_buffer() end, { desc = "Delete buffer" })
+map("n", "L", ":bnext<cr>", { desc = "Next buffer" })
+map("n", "H", ":bprevious<cr>", { desc = "Previous buffer" })
+-- stylua: ignore end
 
 -- lazy
 map("n", "<leader>l", ":Lazy<cr>", { desc = "Lazy" })
@@ -96,23 +96,19 @@ map("n", "<leader><tab>d", ":tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", ":tabprevious<cr>", { desc = "Previous Tab" })
 
 -- Code/LSP
+-- stylua: ignore start
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "<leader>cl", ":LspInfo<cr>", { desc = "LSP Info" })
-map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
-map("n", "gd", function()
-    require("telescope.builtin").lsp_definitions({ reuse_win = true })
-end, { desc = "Goto Definition" })
-map("n", "gr", ":Telescope lsp_references<cr>", { desc = "Goto References" })
-map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
-map("n", "gI", function()
-    require("telescope.builtin").lsp_implementations({ reuse_win = true })
-end, { desc = "Goto Implementation" })
-map("n", "gy", function()
-    require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
-end, { desc = "Goto Type Definition" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
 map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+map("n", "gr", ":Telescope lsp_references<cr>", { desc = "Goto References" })
+map("n", "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, { desc = "Goto Implementation" })
+map("n", "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, { desc = "Goto Definition" })
+map("n", "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, { desc = "Goto Type Definition" })
+-- stylua: ignore end
 
 -- Lazygit
 map("n", "<leader>gg", function()
