@@ -20,6 +20,9 @@ require("lazy").setup({
         lazy = true,
         version = false,
     },
+    pkg = {
+        sources = { "lazy" },
+    },
     install = {
         missing = true,
         colorscheme = { "cyberdream" },
