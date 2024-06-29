@@ -28,8 +28,8 @@ return {
 
         local function mapSymbols(status)
             local statusMap = {
-                [" M"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- Modified in the working directory
-                ["M "] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- modified in index
+                [" M"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- Modified in the working directory
+                ["M "] = { symbol = "", hlGroup = "MiniDiffSignAdd" }, -- modified in index
                 ["MM"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- modified in both working tree and index
                 ["A "] = { symbol = "", hlGroup = "MiniDiffSignAdd" }, -- Added to the staging area, new file
                 ["AA"] = { symbol = "≈", hlGroup = "MiniDiffSignAdd" }, -- file is added in both working tree and index
