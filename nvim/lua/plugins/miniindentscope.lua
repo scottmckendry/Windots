@@ -8,14 +8,16 @@ return {
     init = function()
         vim.api.nvim_create_autocmd("FileType", {
             pattern = {
-                "help",
-                "alpha",
                 "Trouble",
+                "alpha",
+                "copilot-chat",
+                "dashboard",
+                "help",
                 "lazy",
                 "mason",
+                "neotree",
                 "notify",
                 "toggleterm",
-                "neotree",
             },
             callback = function()
                 vim.b.miniindentscope_disable = true
