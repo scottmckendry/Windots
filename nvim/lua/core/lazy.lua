@@ -29,6 +29,11 @@ require("lazy").setup({
         path = "~/git",
         fallback = true,
     },
+    ui = {
+        title = " lazy.nvim 💤",
+        border = "rounded",
+        pills = false,
+    },
     performance = {
         rtp = {
             disabled_plugins = {
