@@ -59,7 +59,7 @@ return {
                     {
                         require("lazy.status").updates,
                         cond = require("lazy.status").has_updates,
-                        color = utils.get_hlgroup("DiffAdd"),
+                        color = utils.get_hlgroup("String"),
                     },
                     {
                         function()
@@ -87,7 +87,7 @@ return {
                     },
                     {
                         "location",
-                        color = utils.get_hlgroup("DiffChange"),
+                        color = utils.get_hlgroup("Boolean"),
                     },
                 },
                 lualine_z = {
