@@ -14,7 +14,7 @@ return {
                 shortcut = {
                     {
                         icon = "󰒲  ",
-                        icon_hl = "DiffChange",
+                        icon_hl = "Boolean",
                         desc = "Update ",
                         group = "Directory",
                         action = "Lazy update",
@@ -22,7 +22,7 @@ return {
                     },
                     {
                         icon = "   ",
-                        icon_hl = "DiffChange",
+                        icon_hl = "Boolean",
                         desc = "Files ",
                         group = "Statement",
                         action = "Telescope find_files",
@@ -30,23 +30,23 @@ return {
                     },
                     {
                         icon = "   ",
-                        icon_hl = "DiffChange",
+                        icon_hl = "Boolean",
                         desc = "Recent ",
-                        group = "DiffAdd",
+                        group = "String",
                         action = "Telescope oldfiles",
                         key = "r",
                     },
                     {
                         icon = "   ",
-                        icon_hl = "DiffChange",
+                        icon_hl = "Boolean",
                         desc = "Grep ",
-                        group = "DiffDelete",
+                        group = "ErrorMsg",
                         action = "Telescope live_grep",
                         key = "g",
                     },
                     {
                         icon = "   ",
-                        icon_hl = "DiffChange",
+                        icon_hl = "Boolean",
                         desc = "Quit ",
                         group = "WarningMsg",
                         action = "qall!",
