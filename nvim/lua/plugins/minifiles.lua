@@ -4,7 +4,8 @@ return {
         {
             "<leader>ee",
             function()
-                require("mini.files").open()
+                local path = vim.bo.buftype ~= "nofile" and vim.api.nvim_buf_get_name(0) or nil
+                require("mini.files").open(path)
             end,
             desc = "Open mini.files (cwd)",
         },
@@ -27,50 +28,36 @@ return {
 
         local function mapSymbols(status)
             local statusMap = {
-                [" M"] = { symbol = "•", hlGroup = "GitSignsChange" }, -- Modified
-                ["MM"] = { symbol = "≠", hlGroup = "GitSignsChange" }, -- Modified in index
-                ["A "] = { symbol = "+", hlGroup = "GitSignsAdd" }, -- Added to the staging area, new file
-                ["AA"] = { symbol = "≈", hlGroup = "GitSignsAdd" }, -- file is added in both working tree and index
-                ["D "] = { symbol = "-", hlGroup = "GitSignsDelete" }, -- Deleted from the staging area
-                ["AM"] = { symbol = "⊕", hlGroup = "GitSignsChange" }, -- added in working tree, modified in index
-                ["AD"] = { symbol = "-•", hlGroup = "GitSignsChange" }, -- Added in the index and deleted in the working directory
-                ["R "] = { symbol = "→", hlGroup = "GitSignsChange" }, -- Renamed in the index
-                ["U "] = { symbol = "‖", hlGroup = "GitSignsChange" }, -- Unmerged path
-                ["UU"] = { symbol = "⇄", hlGroup = "GitSignsChange" }, -- file is unmerged
-                ["UA"] = { symbol = "⊕", hlGroup = "GitSignsChange" }, -- file is unmerged and added in working tree
-                ["??"] = { symbol = "?", hlGroup = "GitSignsUntracked" }, -- Untracked files
-                ["!!"] = { symbol = "!", hlGroup = "GitSignsIgnored" }, -- Ignored files
+                [" M"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- Modified in the working directory
+                ["M "] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- modified in index
+                ["MM"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- modified in both working tree and index
+                ["A "] = { symbol = "", hlGroup = "MiniDiffSignAdd" }, -- Added to the staging area, new file
+                ["AA"] = { symbol = "≈", hlGroup = "MiniDiffSignAdd" }, -- file is added in both working tree and index
+                ["D "] = { symbol = "-", hlGroup = "MiniDiffSignDelete" }, -- Deleted from the staging area
+                ["AM"] = { symbol = "⊕", hlGroup = "MiniDiffSignChange" }, -- added in working tree, modified in index
+                ["AD"] = { symbol = "-•", hlGroup = "MiniDiffSignChange" }, -- Added in the index and deleted in the working directory
+                ["R "] = { symbol = "→", hlGroup = "MiniDiffSignChange" }, -- Renamed in the index
+                ["U "] = { symbol = "‖", hlGroup = "MiniDiffSignChange" }, -- Unmerged path
+                ["UU"] = { symbol = "⇄", hlGroup = "MiniDiffSignAdd" }, -- file is unmerged
+                ["UA"] = { symbol = "⊕", hlGroup = "MiniDiffSignAdd" }, -- file is unmerged and added in working tree
+                ["??"] = { symbol = "", hlGroup = "MiniDiffSignDelete" }, -- Untracked files
+                ["!!"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- Ignored files
             }
 
             local result = statusMap[status] or { symbol = "?", hlGroup = "NonText" }
             return result.symbol, result.hlGroup
         end
 
+        ---@param cwd string
+        ---@param callback function
         local function fetchGitStatus(cwd, callback)
-            local stdout = (vim.uv or vim.loop).new_pipe(false)
-            local handle, pid
-            handle, pid = (vim.uv or vim.loop).spawn(
-                "git",
-                {
-                    args = { "status", "--ignored", "--porcelain" },
-                    cwd = cwd,
-                    stdio = { nil, stdout, nil },
-                },
-                vim.schedule_wrap(function(code, signal)
-                    if code == 0 then
-                        stdout:read_start(function(err, content)
-                            if content then
-                                callback(content)
-                                vim.g.content = content
-                            end
-                            stdout:close()
-                        end)
-                    else
-                        vim.notify("Git command failed with exit code: " .. code, vim.log.levels.ERROR)
-                        stdout:close()
-                    end
-                end)
-            )
+            local function on_exit(content)
+                if content.code == 0 then
+                    callback(content.stdout)
+                    vim.g.content = content.stdout
+                end
+            end
+            vim.system({ "git", "status", "--ignored", "--porcelain" }, { text = true, cwd = cwd }, on_exit)
         end
 
         local function escapePattern(str)
