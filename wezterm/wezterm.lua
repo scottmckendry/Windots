@@ -8,7 +8,7 @@ local transparent_bg = "rgba(22, 24, 26, " .. opacity .. ")"
 config.font = wezterm.font_with_fallback({
     {
         family = "JetBrainsMono Nerd Font",
-        weight = "DemiBold",
+        weight = "Regular",
     },
     "Segoe UI Emoji",
 })
