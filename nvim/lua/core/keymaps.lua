@@ -61,6 +61,7 @@ map("n", "<leader>fc", ":Telescope grep_string<cr>", { desc = "Find string under
 map("n", "<leader>fb", ":Telescope buffers<cr>", { desc = "Fuzzy find buffers" })
 map("n", "<leader>ft", ":Telescope<cr>", { desc = "Other pickers..." })
 map("n", "<leader>fS", ":Telescope resession<cr>", { desc = "Find Session" })
+map("n", "<leader><leader>", ":Telescope smart_open<cr>", { desc = "Commands" })
 map("n", "<leader>fh", ":Telescope help_tags<cr>", { desc = "Find help tags" })
 
 --keywordprg
