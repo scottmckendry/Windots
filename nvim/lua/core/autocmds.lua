@@ -21,3 +21,12 @@ autocmd("BufEnter", {
     group = general,
     desc = "Set Bicep Comment String",
 })
+
+autocmd("BufEnter", {
+    pattern = { "*.md", "*.txt" },
+    callback = function()
+        vim.opt_local.spell = true
+    end,
+    group = general,
+    desc = "Enable spell checking on specific filetypes",
+})
