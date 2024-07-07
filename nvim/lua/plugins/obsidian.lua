@@ -1,5 +1,5 @@
 local obsidian_path = vim.fn.getenv("OBSIDIAN_PATH")
-if obsidian_path ~= nil then
+if obsidian_path == nil then
     return {}
 else
     return {
@@ -10,47 +10,37 @@ else
         },
         ft = "markdown",
         keys = {
-            { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New Obsidian note", mode = "n" },
-            { "<leader>oo", "<cmd>ObsidianSearch<cr>", desc = "Search Obsidian notes", mode = "n" },
-            { "<leader>os", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch", mode = "n" },
-            { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Show location list of backlinks", mode = "n" },
-            { "<leader>of", "<cmd>ObsidianFollowLink<cr>", desc = "Follow link under cursor", mode = "n" },
+            {
+                "<leader>on",
+                function()
+                    vim.api.nvim_command("ObsidianNew")
+                    vim.api.nvim_buf_set_lines(0, 0, -1, false, {}) -- Clear buffer
+                    vim.api.nvim_command("ObsidianTemplate Core") -- Apply Core Template
+                end,
+                desc = "Create new note",
+            },
+            { "<leader>oo", "<cmd>ObsidianSearch<cr>", desc = "Search Obsidian notes" },
+            { "<leader>os", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch" },
+            { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Show location list of backlinks" },
+            { "<leader>of", "<cmd>ObsidianFollowLink<cr>", desc = "Follow link under cursor" },
+            { "<leader>ot", "<cmd>ObsidianTemplate Core<cr>", desc = "Apply Core Template" },
         },
         opts = {
-            workspaces = {
-                {
-                    name = "vault",
-                    path = obsidian_path,
-                },
-            },
-
-            attachments = {
-                img_folder = obsidian_path .. "/4 Archive/Attachments",
-            },
-
-            completion = {
-                nvim_cmp = true,
-            },
+            attachments = { img_folder = obsidian_path .. "/Files" },
+            completion = { nvim_cmp = true },
+            disable_frontmatter = true,
+            new_notes_location = "notes_subdir",
+            notes_subdir = "Zettelkasten",
+            templates = { folder = obsidian_path .. "/Templates", date_format = "%y%m%d", time_format = "%H%M" },
+            -- ui = { enable = false }, -- Disable Obsidian UI, use neoVim UI instead
+            workspaces = { { name = "vault", path = obsidian_path } },
 
             note_id_func = function(title)
                 if title ~= nil then
-                    return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+                    return title
                 else
-                    -- fallback to timestamp
                     return os.date("%Y%m%d%H%M%S")
                 end
-            end,
-
-            note_frontmatter_func = function(note)
-                local out = { tags = note.tags }
-
-                if note.metadata ~= nil then
-                    for k, v in pairs(note.metadata) do
-                        out[k] = v
-                    end
-                end
-
-                return out
             end,
         },
     }
