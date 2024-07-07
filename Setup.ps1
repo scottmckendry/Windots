@@ -23,7 +23,6 @@ $wingetDeps = @(
     "github.cli"
     "kitware.cmake"
     "mbuilov.sed"
-    "microsoft.openjdk.21"
     "microsoft.powershell"
     "neovim.neovim"
     "openjs.nodejs"

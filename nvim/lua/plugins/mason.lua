@@ -14,7 +14,6 @@ return {
             "html-lsp",
             "jq",
             "json-lsp",
-            "ltex-ls",
             "lua-language-server",
             "markdownlint-cli2",
             "omnisharp",

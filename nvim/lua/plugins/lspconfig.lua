@@ -112,17 +112,5 @@ return {
         require("lspconfig").powershell_es.setup({
             bundle_path = bundle_path,
         })
-
-        -- Ltex LS (LanguageTool)
-        local ltex_cmd = vim.fn.stdpath("data") .. "/mason/packages/ltex-ls/ltex-ls-16.0.0/bin/ltex-ls"
-        require("lspconfig").ltex.setup({
-            cmd = { ltex_cmd },
-            settings = {
-                ltex = {
-                    checkFrequency = "save",
-                    language = "en-GB",
-                },
-            },
-        })
     end,
 }
