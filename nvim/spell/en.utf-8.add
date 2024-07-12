@@ -71,6 +71,7 @@ C
 cardholder
 CAs
 cd
+chad
 changelog
 changelogs
 changesets
@@ -128,6 +129,7 @@ dependabot
 deregister
 dev
 DevOps
+devs
 dialup
 dict
 dicts
@@ -333,6 +335,7 @@ MacOS
 macos
 manpage
 MariaDB
+markup
 Maven
 md
 md5
@@ -521,6 +524,7 @@ toolset
 tpm
 Traefik
 treesitter
+TS
 Twilio
 txt
 TypeScript
@@ -529,6 +533,7 @@ Ubuntu
 ubuntu
 UI
 ui
+UIs
 UML
 uncommenting
 uncommit
@@ -559,6 +564,7 @@ Webpack
 webrtc
 WebSocket
 WebSockets
+Wez
 wezterm
 wget
 whitelist
@@ -571,6 +577,7 @@ wildcards
 win32
 win64
 Windots
+winget
 WIP
 WireShark
 workflow
