@@ -3,7 +3,6 @@ return {
     branch = "canary",
     cmd = "CopilotChat",
     keys = {
-        { "<leader>a", "", desc = "+ai" },
         {
             "<leader>aa",
             function()
