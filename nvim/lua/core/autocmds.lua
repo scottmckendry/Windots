@@ -1,5 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local utils = require("core.utils")
 
 -- General Settings
 local general = augroup("General Settings", { clear = true })
@@ -29,4 +30,12 @@ autocmd("BufEnter", {
     end,
     group = general,
     desc = "Enable spell checking on specific filetypes",
+})
+
+autocmd("BufWinEnter", {
+    callback = function(data)
+        utils.open_help(data.buf)
+    end,
+    group = general,
+    desc = "Redirect help to floating window",
 })
