@@ -66,6 +66,9 @@ map("n", "<leader>ft", ":Telescope<cr>", { desc = "Other pickers..." })
 map("n", "<leader>fS", ":Telescope resession<cr>", { desc = "Find Session" })
 map("n", "<leader><leader>", ":Telescope smart_open<cr>", { desc = "Smart open" })
 map("n", "<leader>fh", ":Telescope help_tags<cr>", { desc = "Find help tags" })
+map("n", "<leader>fq", function()
+    require("core.utils").telescope_diff_file()
+end, { desc = "Find file to compare with current buffer" })
 
 -- Clear search with <esc>
 map("n", "<esc>", ":noh<cr><esc>", { desc = "Escape and clear hlsearch" })

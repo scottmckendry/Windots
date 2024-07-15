@@ -103,4 +103,30 @@ function M.open_help(buf)
     end
 end
 
+--- Display a diff between the current buffer and a given file
+--- @param file string The file to diff against the current buffer
+function M.diff_file(file)
+    local current_file = vim.fn.expand("%:p")
+    vim.cmd("edit " .. file)
+    vim.cmd("vert diffsplit " .. current_file)
+end
+
+--- Open a telescope picker to select a file to diff against the current buffer
+function M.telescope_diff_file()
+    require("telescope.builtin").find_files({
+        prompt_title = "Select File to Compare",
+        attach_mappings = function(prompt_bufnr)
+            local actions = require("telescope.actions")
+            local action_state = require("telescope.actions.state")
+
+            actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                M.diff_file(selection.value)
+            end)
+            return true
+        end,
+    })
+end
+
 return M
