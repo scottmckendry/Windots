@@ -16,6 +16,7 @@ return {
                 { "<leader>a", group = "ai" },
                 { "<leader>b", group = "buffer" },
                 { "<leader>c", group = "code" },
+                { "<leader>d", group = "diff" },
                 { "<leader>e", group = "explorer" },
                 { "<leader>f", group = "file/find" },
                 { "<leader>g", group = "git" },
