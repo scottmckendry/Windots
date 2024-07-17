@@ -173,8 +173,14 @@ function M.diff_file_from_history(commit, file_path)
 end
 
 --- Open a telescope picker to select a file to diff against the current buffer
-function M.telescope_diff_file()
-    require("telescope.builtin").find_files({
+--- @param recent? boolean If true, open the recent files picker
+function M.telescope_diff_file(recent)
+    local picker = require("telescope.builtin").find_files
+    if recent then
+        picker = require("telescope.builtin").oldfiles
+    end
+
+    picker({
         prompt_title = "Select File to Compare",
         attach_mappings = function(prompt_bufnr)
             local actions = require("telescope.actions")

@@ -68,6 +68,7 @@ map("n", "<leader><leader>", ":Telescope smart_open<cr>", { desc = "Smart open" 
 map("n", "<leader>fh", ":Telescope help_tags<cr>", { desc = "Find help tags" })
 -- stylua: ignore start
 map("n", "<leader>df", function() utils.telescope_diff_file() end, { desc = "Diff file with current buffer" })
+map("n", "<leader>dr", function() utils.telescope_diff_file(true) end, { desc = "Diff recent file with current buffer" })
 map("n", "<leader>dg", function() utils.telescope_diff_from_history() end, { desc = "Diff from git history" })
 -- stylua: ignore end
 
