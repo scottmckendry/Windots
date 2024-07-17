@@ -47,6 +47,19 @@ return {
                     },
                     {
                         function()
+                            local tab_count = vim.fn.tabpagenr("$")
+                            if tab_count > 1 then
+                                return vim.fn.tabpagenr() .. " of " .. tab_count
+                            end
+                        end,
+                        cond = function()
+                            return vim.fn.tabpagenr("$") > 1
+                        end,
+                        icon = "󰓩",
+                        color = utils.get_hlgroup("Special", nil),
+                    },
+                    {
+                        function()
                             return require("nvim-navic").get_location()
                         end,
                         cond = function()

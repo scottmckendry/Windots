@@ -30,6 +30,7 @@ opt.scrolloff = 12
 opt.wrap = true
 opt.linebreak = true
 opt.spelllang = "en_nz"
+opt.showtabline = 0
 
 -- Set tab width
 opt.tabstop = 4

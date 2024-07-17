@@ -94,12 +94,10 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 
 -- tabs
-map("n", "<leader><tab>l", ":tablast<cr>", { desc = "Last Tab" })
-map("n", "<leader><tab>f", ":tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab><tab>", ":tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader><tab>]", ":tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>l", ":tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", ":tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader><tab>[", ":tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><tab>h", ":tabprevious<cr>", { desc = "Previous Tab" })
 
 -- Code/LSP
 -- stylua: ignore start
@@ -122,13 +120,7 @@ map("n", "<leader>gg", function()
     local lazygit = term:new({
         cmd = "lazygit",
         dir = "git_dir",
-        direction = "float",
-        float_opts = {
-            border = "none",
-            -- fullscreen
-            width = vim.o.columns,
-            height = vim.o.lines,
-        },
+        direction = "tab",
     })
     lazygit:toggle()
 end, { desc = "Lazygit" })
