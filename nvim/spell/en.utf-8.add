@@ -61,6 +61,7 @@ blog
 blogs
 bluetooth
 bool
+borderless
 Broadcom
 bruteforce
 btw
@@ -200,6 +201,7 @@ gitignore
 Gitlab
 gitmodules
 gitrevisions
+GitUI
 globbing
 gmail
 gnupg
@@ -302,10 +304,15 @@ Kubernetes
 kubuntu
 kudo
 KVM
+KVP
 LANs
 Laravel
 LastPass
 LaTex
+Lazydocker
+Lazygit
+Lazyvim
+LazyVim
 len
 lexer
 lifecycle
@@ -327,6 +334,7 @@ lookbehind
 lsp
 LTS
 lua
+lualine
 LVM
 macbook
 macbooks
@@ -426,6 +434,7 @@ ps1
 pylint
 python3
 PyTorch
+Pywal
 QEMU
 qt4
 qt5
@@ -508,7 +517,9 @@ TCSEC
 TensorFlow
 Terraform
 texting
+Textmate
 thunar
+Tilux
 timestamp
 TLDR
 tldr
@@ -594,6 +605,7 @@ xss
 YAML
 yaml
 youtube
+Zellij
 zig
 zigbee
 zsh
