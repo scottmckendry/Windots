@@ -1,4 +1,3 @@
-# Setup script for Windots
 #Requires -RunAsAdministrator
 
 # Linked Files (Destination => Source)
@@ -19,6 +18,7 @@ $wingetDeps = @(
     "eza-community.eza"
     "ezwinports.make"
     "fastfetch-cli.fastfetch"
+    "gerardog.gsudo"
     "git.git"
     "github.cli"
     "kitware.cmake"

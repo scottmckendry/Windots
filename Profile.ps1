@@ -1,64 +1,22 @@
-<#
-                      7#G~
-                    7BB7J#P~
-                 .?BG!   .?#G!
-                :B@J       .?BB7
-             ::  :Y#P~        7BB?.
-           ^Y#?    :J#G~        !GB?.
-          !&@!       .?#G!        J@B:
-       ~^  ^Y#5^       .7BB7    .PB?.  ~^
-    .!GB7    :Y#5^        !GB7.  ^.    Y#5^
-    7&&~       !@@G~       .P@#J.       J@B^
-     :J#G~   ~P#J^?#G!   .?#G~~P#Y:  .7BB7
-       .?BG7P#J.   .7BB7J#P~    ^5#Y?BG!
-         .?BJ.        7#G~        ^5B!
-
-    Author: Scott McKendry
-    Description: PowersShell Profile containing aliases and functions to be loaded when a new PowerShell session is started.
-#>
-
-# Initialise logging - helpful for debugging slow profile load times
-$enableLog = $false
-
-if ($enableLog) {
-    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-    $logPath = "$env:USERPROFILE/Profile.log"
-}
-function Add-ProfileLogEntry {
-    param (
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]$Message
-    )
-
-    if (!$enableLog) {
-        return
-    }
-
-    "`n$($stopwatch.ElapsedMilliseconds)ms`t$Message" | Out-File -FilePath $logPath -Append
-}
-Add-ProfileLogEntry "Starting profile load"
-
 # Aliases
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-Set-Alias -Name su -Value Start-AdminSession
-Set-Alias -Name up -Value Update-Profile
+Set-Alias -Name cat -Value bat
+Set-Alias -Name df -Value Get-Volume
 Set-Alias -Name ff -Value Find-File
 Set-Alias -Name grep -Value Find-String
-Set-Alias -Name touch -Value New-File
-Set-Alias -Name df -Value Get-Volume
-Set-Alias -Name which -Value Show-Command
-Set-Alias -Name ls -Value Get-ChildItemPretty
-Set-Alias -Name ll -Value Get-ChildItemPretty
-Set-Alias -Name la -Value Get-ChildItemPretty
 Set-Alias -Name l -Value Get-ChildItemPretty
-Set-Alias -Name tif Show-ThisIsFine
-Set-Alias -Name vim -Value nvim
-Set-Alias -Name vi -Value nvim
-Set-Alias -Name cat -Value bat
-Set-Alias -Name us -Value Update-Software
+Set-Alias -Name la -Value Get-ChildItemPretty
+Set-Alias -Name ll -Value Get-ChildItemPretty
+Set-Alias -Name ls -Value Get-ChildItemPretty
 Set-Alias -Name rm -Value Remove-ItemExtended
-
-Add-ProfileLogEntry "Aliases loaded"
+Set-Alias -Name su -Value sudo
+Set-Alias -Name tif Show-ThisIsFine
+Set-Alias -Name touch -Value New-File
+Set-Alias -Name up -Value Update-Profile
+Set-Alias -Name us -Value Update-Software
+Set-Alias -Name vi -Value nvim
+Set-Alias -Name vim -Value nvim
+Set-Alias -Name which -Value Show-Command
 
 # Putting the FUN in Functions
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -78,14 +36,6 @@ function Find-WindotsRepository {
     return Split-Path $profileSymbolicLink.Target
 }
 
-function Start-AdminSession {
-    <#
-    .SYNOPSIS
-        Starts a new PowerShell session with elevated rights. Alias: su
-    #>
-    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD"
-}
-
 function Update-Profile {
     <#
     .SYNOPSIS
@@ -102,7 +52,12 @@ function Update-Profile {
     git stash pop | Out-Null
 
     Write-Verbose "Rerunning setup script to capture any new dependencies."
-    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -NonInteractive -Command .\Setup.ps1"
+    if (Get-Command -Name gsudo -ErrorAction SilentlyContinue) {
+        sudo ./Setup.ps1
+    }
+    else {
+        Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -NonInteractive -Command ./Setup.ps1"
+    }
 
     Write-Verbose "Reverting to previous working directory"
     Set-Location $currentWorkingDirectory
@@ -117,10 +72,10 @@ function Update-Software {
         Updates all software installed via Winget & Chocolatey. Alias: us
     #>
     Write-Verbose "Updating software installed via Winget & Chocolatey"
-    Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start -- pwsh -NonInteractive -Command &{`
-        winget upgrade --all --include-unknown --silent --verbose && `
-        choco upgrade all -y
-    }"
+    sudo cache on
+    sudo winget upgrade --all --include-unknown --silent --verbose
+    sudo choco upgrade all -y
+    sudo -k
     $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
 }
 
@@ -301,8 +256,6 @@ function Remove-ItemExtended {
     Remove-Item $Path -Recurse:$rf -Force:$rf
 }
 
-Add-ProfileLogEntry -Message "Functions loaded"
-
 # Environment Variables
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
@@ -324,8 +277,6 @@ Start-ThreadJob -ScriptBlock {
     }
 } | Out-Null
 
-Add-ProfileLogEntry -Message "Git fetch job started"
-
 Start-ThreadJob -ScriptBlock {
     <#
         This is gross, I know. But there's a noticible lag that manifests in powershell when running the winget and choco commands
@@ -334,7 +285,7 @@ Start-ThreadJob -ScriptBlock {
         via two isolated jobs. This sets the environment variable correctly and doesn't cause any lag (that I've noticed yet).
     #>
     $wingetUpdatesString = Start-Job -ScriptBlock { winget list --upgrade-available | Out-String } | Wait-Job | Receive-Job
-    $chocoUpdatesString = Start-Job -ScriptBlock { choco upgrade all --noop | Out-String } | Wait-Job | Receive-Job
+    $chocoUpdatesString = Start-Job -ScriptBlock { choco upgrade all --noop -y | Out-String } | Wait-Job | Receive-Job
     if ($wingetUpdatesString -match "upgrades available" -or $chocoUpdatesString -notmatch "can upgrade 0/") {
         $ENV:SOFTWARE_UPDATE_AVAILABLE = "`u{eb29} "
     }
@@ -346,8 +297,6 @@ Start-ThreadJob -ScriptBlock {
 function Invoke-Starship-TransientFunction {
     &starship module character
 }
-
-Add-ProfileLogEntry -Message "Update check job started"
 
 # Prompt Setup
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -370,12 +319,6 @@ Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle InlineView
 Set-PSReadLineKeyHandler -Function AcceptSuggestion -Key Alt+l
 Import-Module -Name CompletionPredictor
-
-Add-ProfileLogEntry -Message "Prompt setup complete"
-
-$enableLog ? $stopwatch.Stop() : $null
-
-Add-ProfileLogEntry -Message "Profile load complete"
 
 # Skip fastfetch for non-interactive shells and vim terminals
 if ([Environment]::GetCommandLineArgs().Contains("-NonInteractive") -or [Environment]::GetCommandLineArgs().Contains("-CustomPipeName")) {
