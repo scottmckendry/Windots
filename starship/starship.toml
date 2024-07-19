@@ -35,6 +35,9 @@ disabled = true
 [jobs]
 disabled = true
 
+[battery]
+disabled = true
+
 [env_var.SOFTWARE_UPDATE_AVAILABLE]
 variable = 'SOFTWARE_UPDATE_AVAILABLE'
 format = '[$env_value]($style)'
