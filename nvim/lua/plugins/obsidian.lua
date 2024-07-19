@@ -32,7 +32,6 @@ else
             new_notes_location = "notes_subdir",
             notes_subdir = "Zettelkasten",
             templates = { folder = obsidian_path .. "/Templates", date_format = "%y%m%d", time_format = "%H%M" },
-            -- ui = { enable = false }, -- Disable Obsidian UI, use neoVim UI instead
             workspaces = { { name = "vault", path = obsidian_path } },
 
             note_id_func = function(title)
@@ -41,6 +40,15 @@ else
                 else
                     return os.date("%Y%m%d%H%M%S")
                 end
+            end,
+
+            -- open external links in preferred browser
+            follow_url_func = function(url)
+                local cmd = { "xdg-open", url }
+                if vim.fn.has("win32") == 1 then
+                    cmd = { "explorer", url }
+                end
+                vim.fn.jobstart(cmd)
             end,
         },
     }
