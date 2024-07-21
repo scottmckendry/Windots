@@ -18,6 +18,7 @@ return {
                 markdown = true,
                 yaml = true,
                 help = true,
+                ["grug-far"] = false,
             },
         })
     end,
