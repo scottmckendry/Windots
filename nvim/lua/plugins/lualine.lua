@@ -1,6 +1,7 @@
 return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
+    dependencies = { "echasnovski/mini.icons" },
     opts = function()
         local utils = require("core.utils")
         local copilot_colors = {

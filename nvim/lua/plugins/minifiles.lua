@@ -1,5 +1,6 @@
 return {
     "echasnovski/mini.files",
+    dependencies = { "echasnovski/mini.icons" },
     keys = {
         {
             "<leader>ee",

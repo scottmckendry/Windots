@@ -1,6 +1,6 @@
 return {
     "stevearc/dressing.nvim",
-    lazy = false,
+    event = "BufRead",
     opts = {
         input = {
             insert_only = false,
