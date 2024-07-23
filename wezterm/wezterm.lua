@@ -19,6 +19,7 @@ config.initial_rows = 45
 config.initial_cols = 180
 config.window_decorations = "RESIZE"
 config.window_background_opacity = opacity
+config.window_close_confirmation = "NeverPrompt"
 config.win32_system_backdrop = "Acrylic"
 config.max_fps = 144
 config.animation_fps = 60
