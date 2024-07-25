@@ -11,6 +11,15 @@ return {
             ["InProgress"] = utils.get_hlgroup("DiagnosticWarn"),
         }
 
+        local filetype_map = {
+            lazy = { name = "lazy.nvim", icon = "💤" },
+            minifiles = { name = "minifiles", icon = "🗂️ " },
+            toggleterm = { name = "terminal", icon = "🐚" },
+            mason = { name = "mason", icon = "🔨" },
+            TelescopePrompt = { name = "telescope", icon = "🔍" },
+            ["copilot-chat"] = { name = "copilot", icon = "🤖" },
+        }
+
         return {
             options = {
                 component_separators = { left = " ", right = " " },
@@ -40,8 +49,47 @@ return {
                             hint = "󰝶 ",
                         },
                     },
-                    { "filetype", icon_only = true, separator = "", padding = { left = 0, right = 0 } },
-                    { "filename", padding = { left = 0, right = 0 } },
+                    {
+                        function()
+                            local devicons = require("nvim-web-devicons")
+                            local ft = vim.bo.filetype
+                            local icon
+                            if filetype_map[ft] then
+                                return " " .. filetype_map[ft].icon
+                            end
+                            if icon == nil then
+                                icon = devicons.get_icon(vim.fn.expand("%:t"))
+                            end
+                            if icon == nil then
+                                icon = devicons.get_icon_by_filetype(ft)
+                            end
+                            if icon == nil then
+                                icon = " 󰈤"
+                            end
+
+                            return icon .. " "
+                        end,
+                        color = function()
+                            local _, hl = require("nvim-web-devicons").get_icon(vim.fn.expand("%:t"))
+                            if hl then
+                                return hl
+                            end
+                            return utils.get_hlgroup("Normal")
+                        end,
+                        separator = "",
+                        padding = { left = 0, right = 0 },
+                    },
+                    {
+                        "filename",
+                        padding = { left = 0, right = 0 },
+                        fmt = function(name)
+                            if filetype_map[vim.bo.filetype] then
+                                return filetype_map[vim.bo.filetype].name
+                            else
+                                return name
+                            end
+                        end,
+                    },
                     {
                         function()
                             local buffer_count = require("core.utils").get_buffer_count()
@@ -119,8 +167,6 @@ return {
                     },
                 },
             },
-
-            extensions = { "lazy", "toggleterm", "mason", "neo-tree", "trouble" },
         }
     end,
 }
