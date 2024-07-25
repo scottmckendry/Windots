@@ -20,7 +20,15 @@ return {
                 disabled_filetypes = { statusline = { "dashboard", "alpha" } },
             },
             sections = {
-                lualine_a = { { "mode", icon = "" } },
+                lualine_a = {
+                    {
+                        "mode",
+                        icon = "",
+                        fmt = function(mode)
+                            return mode:lower()
+                        end,
+                    },
+                },
                 lualine_b = { { "branch", icon = "" } },
                 lualine_c = {
                     {
@@ -32,8 +40,8 @@ return {
                             hint = "󰝶 ",
                         },
                     },
-                    { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-                    { "filename", padding = { left = 1, right = 0 } },
+                    { "filetype", icon_only = true, separator = "", padding = { left = 0, right = 0 } },
+                    { "filename", padding = { left = 0, right = 0 } },
                     {
                         function()
                             local buffer_count = require("core.utils").get_buffer_count()
