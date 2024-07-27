@@ -49,12 +49,13 @@ My personal Windows-friendly dotfiles. Supports automatic installation of depend
 Pull requests and issues are welcome. If you have any questions or suggestions, please open an issue or reach out to me on [Twitter](https://twitter.com/scott_mckendry).
 
 ## 📸 Screenshots
-![image](https://github.com/scottmckendry/Windots/assets/39483124/e1189c49-9273-4e08-a6ce-39fa32777f7e)
-![image](https://github.com/scottmckendry/Windots/assets/39483124/dd1e1a22-dc28-4b9b-ac1b-05540a7d45ae)
-![image](https://github.com/scottmckendry/Windots/assets/39483124/8d22a088-45f8-4058-8ac0-ea8a675ff0c0)
-![image](https://github.com/scottmckendry/Windots/assets/39483124/24ea9762-489b-43ab-86f9-03199941e7ce)
+![image](https://github.com/user-attachments/assets/1d00e6a3-dd20-4abb-97f5-81df0363ff38)
+![image](https://github.com/user-attachments/assets/b51f1064-0e1a-4467-b308-9855ed275ed8)
+![image](https://github.com/user-attachments/assets/ce120611-981b-4b2f-a307-097212200d5f)
+![image](https://github.com/user-attachments/assets/bbb67965-4d95-4071-be0a-d3a58c4f1a14)
+![image](https://github.com/user-attachments/assets/729cdc6c-961e-46b6-b848-cc4b8ecb923d)
 
-<hr>
+---
 
 <p align="center">
   <a href="https://scottmckendry.tech/tags/dotfiles/">
