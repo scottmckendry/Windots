@@ -10,7 +10,9 @@
     },
     "display": {
         "separator": "",
-        "keyWidth": 15,
+        "key": {
+            "width": 15
+        },
         "color": {
             "keys": "white",
             "title": "cyan"
