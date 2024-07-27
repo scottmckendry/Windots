@@ -3,8 +3,16 @@ return {
     cmd = "Mason",
     keys = { { "<leader>cm", ":Mason<cr>", desc = "Mason" } },
     build = ":MasonUpdate",
-    opts = {
-        ensure_installed = {
+    config = function()
+        require("mason").setup({
+            ui = {
+                border = "rounded",
+                width = 0.8,
+                height = 0.8,
+            },
+        })
+
+        local mason_packages = {
             "bicep-lsp",
             "docker-compose-language-service",
             "dockerfile-language-server",
@@ -25,16 +33,11 @@ return {
             "taplo",
             "templ",
             "yaml-language-server",
-        },
-        registries = {
-            "github:mason-org/mason-registry",
-        },
-    },
-    config = function(_, opts)
-        require("mason").setup(opts)
+        }
+
         local mr = require("mason-registry")
         local function ensure_installed()
-            for _, tool in ipairs(opts.ensure_installed) do
+            for _, tool in ipairs(mason_packages) do
                 local p = mr.get_package(tool)
                 if not p:is_installed() then
                     p:install()

@@ -19,6 +19,7 @@ return {
     },
     config = function()
         local mason_registry = require("mason-registry")
+        require("lspconfig.ui.windows").default_options.border = "rounded"
 
         -- Diagnostics
         vim.diagnostic.config({
