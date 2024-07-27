@@ -24,7 +24,24 @@ function M.delete_buffer(buf)
     if buf == nil or buf == 0 then
         buf = vim.api.nvim_get_current_buf()
     end
+    local win_id = vim.fn.bufwinid(buf)
+    local alt_buf = vim.fn.bufnr("#")
+    if alt_buf ~= buf and vim.fn.buflisted(buf) == 1 and alt_buf ~= -1 then
+        vim.api.nvim_win_set_buf(win_id, alt_buf)
+        vim.api.nvim_command("bwipeout " .. buf)
+        return
+    end
 
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local has_prev_buf = pcall(vim.cmd, "bprevious")
+    if has_prev_buf and buf ~= vim.api.nvim_win_get_buf(win_id) then
+        vim.api.nvim_command("bwipeout " .. buf)
+        return
+    end
+
+    -- if alternate and previous buffers are both unavailable, create a new buffer instead
+    local new_buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_win_set_buf(win_id, new_buf)
     vim.api.nvim_command("bwipeout " .. buf)
 end
 
