@@ -88,13 +88,6 @@ function M.open_help(buf)
         local help_win = vim.api.nvim_get_current_win()
         local new_win = M.open_centered_float(0.6, 0.7, buf)
 
-        -- set keymap 'q' to close the help window
-        vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q!<CR>", {
-            nowait = true,
-            noremap = true,
-            silent = true,
-        })
-
         -- set scroll position
         vim.wo[help_win].scroll = vim.wo[new_win].scroll
 

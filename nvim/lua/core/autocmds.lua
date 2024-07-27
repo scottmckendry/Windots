@@ -39,3 +39,21 @@ autocmd("BufWinEnter", {
     group = general,
     desc = "Redirect help to floating window",
 })
+
+autocmd("FileType", {
+    group = general,
+    pattern = {
+        "grug-far",
+        "help",
+        "checkhealth",
+        "copilot-chat",
+    },
+    callback = function(event)
+        vim.bo[event.buf].buflisted = false
+        vim.keymap.set("n", "q", "<cmd>close<cr>", {
+            buffer = event.buf,
+            silent = true,
+            desc = "Quit buffer",
+        })
+    end,
+})

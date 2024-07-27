@@ -62,7 +62,6 @@ return {
             },
             mappings = {
                 close = {
-                    normal = "q",
                     insert = "C-q",
                 },
             },
