@@ -38,6 +38,7 @@ return {
             "luap",
             "markdown",
             "markdown_inline",
+            "powershell",
             "regex",
             "templ",
             "toml",
