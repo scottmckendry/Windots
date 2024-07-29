@@ -23,6 +23,7 @@ return {
                 { "<leader>o", group = "obsidian" },
                 { "<leader>r", group = "run" },
                 { "<leader>rl", group = "lua" },
+                { "<leader>rs", group = "shell" },
                 { "<leader>s", group = "search" },
                 { "<leader>t", group = "toggle" },
                 { "<leader>w", group = "windows" },

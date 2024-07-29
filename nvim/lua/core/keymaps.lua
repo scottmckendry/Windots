@@ -127,5 +127,8 @@ map("n", "<leader>gg", function()
 end, { desc = "Lazygit" })
 
 -- Run...
+-- stylua: ignore start
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
+map("n", "<leader>rss", function() utils.run_shell_script() end, { desc = "Run shell script (bash, powershell, etc)" })
+-- stylua: ignore end
