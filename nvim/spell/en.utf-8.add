@@ -6,6 +6,7 @@ admin
 ajax
 alacritty
 allowlist
+altsnap
 AngularJS
 ansi
 Ansible
@@ -69,6 +70,8 @@ buf
 builtin
 builtins
 C
+callout
+callouts
 cardholder
 CAs
 cd
@@ -91,8 +94,12 @@ cmdline
 cmds
 codeaction
 codebase
+codeberg
 codelens
+colors
 colorscheme
+colorschemes
+colourschemes
 commandline
 compton
 COMPUSEC
@@ -199,6 +206,7 @@ GitHub
 github
 gitignore
 Gitlab
+gitlab
 gitmodules
 gitrevisions
 GitUI
@@ -311,6 +319,7 @@ LastPass
 LaTex
 Lazydocker
 Lazygit
+lazygit
 Lazyvim
 LazyVim
 len
@@ -455,6 +464,7 @@ reparse
 reparsing
 REPL
 repo
+repos
 ripgrep
 routable
 RPC
@@ -491,6 +501,7 @@ src
 SSD
 SSH
 ssid
+startup
 stderr
 stdin
 stdout
