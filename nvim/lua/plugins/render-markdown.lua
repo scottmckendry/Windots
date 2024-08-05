@@ -1,7 +1,6 @@
 return {
-    "MeanderingProgrammer/markdown.nvim",
+    "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
-    name = "render-markdown",
     config = function()
         require("render-markdown").setup({
             pipe_table = {
