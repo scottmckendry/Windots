@@ -46,7 +46,7 @@ function M.delete_buffer(buf)
 end
 
 --- Switch to the previous buffer
-function M.switch_to_previous_buffer()
+function M.switch_to_other_buffer()
     local ok, _ = pcall(function()
         vim.cmd("buffer #")
     end)

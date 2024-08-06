@@ -44,7 +44,7 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Buffers
 -- stylua: ignore start
-map("n", "<leader>bb", function() utils.switch_to_previous_buffer() end, { desc = "Buffers" })
+map("n", "<leader>bb", function() utils.switch_to_other_buffer() end, { desc = "Switch to other buffer" })
 map("n", "<leader>bd", function() utils.delete_buffer() end, { desc = "Delete buffer" })
 map("n", "L", ":bnext<cr>", { desc = "Next buffer" })
 map("n", "H", ":bprevious<cr>", { desc = "Previous buffer" })
