@@ -22,6 +22,7 @@ return {
         cmp.setup({
             window = {
                 completion = {
+                    ---@diagnostic disable: assign-type-mismatch
                     border = {
                         { "󱐋", "WarningMsg" },
                         { "─", "Comment" },
@@ -45,6 +46,7 @@ return {
                         { "╰", "Comment" },
                         { "│", "Comment" },
                     },
+                    ---@diagnostic enable: assign-type-mismatch
                     scrollbar = false,
                 },
             },
