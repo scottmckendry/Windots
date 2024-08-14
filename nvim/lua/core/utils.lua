@@ -101,7 +101,7 @@ end
 --- Open the help window in a floating window
 --- @param buf number The buffer number
 function M.open_help(buf)
-    if buf ~= nil and vim.bo[buf].filetype == "help" then
+    if buf ~= nil and vim.bo[buf].filetype == "help" and not vim.bo[buf].modifiable then
         local help_win = vim.api.nvim_get_current_win()
         local new_win = M.open_centered_float(0.6, 0.7, buf)
 
