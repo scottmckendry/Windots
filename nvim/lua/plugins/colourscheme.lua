@@ -12,18 +12,7 @@ return {
                 terminal_colors = false,
                 cache = true,
                 borderless_telescope = { border = false, style = "flat" },
-                theme = {
-                    variant = "auto",
-                    overrides = function(colours)
-                        return {
-                            TelescopePromptPrefix = { fg = colours.blue },
-                            TelescopeMatching = { fg = colours.cyan },
-                            TelescopeResultsTitle = { fg = colours.blue },
-                            TelescopePromptCounter = { fg = colours.cyan },
-                            TelescopePromptTitle = { fg = colours.bg, bg = colours.blue, bold = true },
-                        }
-                    end,
-                },
+                theme = { variant = "auto" },
             })
 
             vim.cmd("colorscheme cyberdream")
