@@ -47,12 +47,21 @@ end
 
 --- Switch to the previous buffer
 function M.switch_to_other_buffer()
+    -- try alternate buffer first
     local ok, _ = pcall(function()
         vim.cmd("buffer #")
     end)
-    if not ok then
-        vim.notify("No other buffer to switch to!", 3, { title = "Warning" })
+    if ok then
+        return
     end
+
+    -- fallback to previous buffer
+    if M.get_buffer_count() > 1 then
+        vim.cmd("bprevious")
+        return
+    end
+
+    vim.notify("No other buffer to switch to!", 3, { title = "Warning" })
 end
 
 --- Get the number of open buffers
