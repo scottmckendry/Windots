@@ -40,6 +40,7 @@ return {
             "jsonls",
             "tailwindcss",
             "taplo",
+            "templ", -- requires gopls in PATH, mason probably won't work depending on the OS
             "yamlls",
         }
         for _, server in pairs(no_config_servers) do
@@ -59,23 +60,10 @@ return {
             },
         })
 
-        -- Templ
-        require("lspconfig").templ.setup({})
-        vim.filetype.add({
-            extension = {
-                templ = "templ",
-            },
-        })
-
         -- Bicep
         local bicep_path = vim.fn.stdpath("data") .. "/mason/packages/bicep-lsp/bicep-lsp.cmd"
         require("lspconfig").bicep.setup({
             cmd = { bicep_path },
-        })
-        vim.filetype.add({
-            extension = {
-                bicepparam = "bicep",
-            },
         })
 
         -- C#
