@@ -16,6 +16,7 @@ return {
                 ps1 = { "powershell", "trim_whitespace", "trim_newlines" },
                 scss = { "prettier" },
                 sh = { "shfmt" },
+                templ = { "templ" },
                 toml = { "taplo" },
                 yaml = { "prettier" },
             },
