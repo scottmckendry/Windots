@@ -1,4 +1,14 @@
-# Aliases
+# ██╗    ██╗██╗███╗   ██╗██████╗  ██████╗ ████████╗███████╗
+# ██║    ██║██║████╗  ██║██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝
+# ██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║   ██║   ███████╗
+# ██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║   ██║   ╚════██║
+# ╚███╔███╔╝██║██║ ╚████║██████╔╝╚██████╔╝   ██║   ███████║
+#  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝    ╚═╝   ╚══════╝
+# Profile.ps1 - Scott McKendry
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+# Aliases 🔗
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Set-Alias -Name cat -Value bat
 Set-Alias -Name df -Value Get-Volume
@@ -18,7 +28,8 @@ Set-Alias -Name vi -Value nvim
 Set-Alias -Name vim -Value nvim
 Set-Alias -Name which -Value Show-Command
 
-# Putting the FUN in Functions
+
+# Putting the FUN in Functions 🎉
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 function Find-WindotsRepository {
     <#
@@ -256,7 +267,8 @@ function Remove-ItemExtended {
     Remove-Item $Path -Recurse:$rf -Force:$rf
 }
 
-# Environment Variables
+
+# Environment Variables 🌐
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 $ENV:WindotsLocalRepo = Find-WindotsRepository -ProfilePath $PSScriptRoot
 $ENV:STARSHIP_CONFIG = "$ENV:WindotsLocalRepo\starship\starship.toml"
@@ -265,12 +277,16 @@ $ENV:OBSIDIAN_PATH = "$HOME\git\obsidian-vault"
 $ENV:BAT_CONFIG_DIR = "$ENV:WindotsLocalRepo\bat"
 $ENV:FZF_DEFAULT_OPTS = '--color=fg:-1,fg+:#ffffff,bg:-1,bg+:#3c4048 --color=hl:#5ea1ff,hl+:#5ef1ff,info:#ffbd5e,marker:#5eff6c --color=prompt:#ff5ef1,spinner:#bd5eff,pointer:#ff5ea0,header:#5eff6c --color=gutter:-1,border:#3c4048,scrollbar:#7b8496,label:#7b8496 --color=query:#ffffff --border="rounded" --border-label="" --preview-window="border-rounded" --height 40% --preview="bat -n --color=always {}"'
 
-# Check for Windots and software updates while prompt is loading
+
+# Prompt & Shell Configuration 🐚
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Start background jobs for dotfiles and software update checks
 Start-ThreadJob -ScriptBlock {
     Set-Location -Path $ENV:WindotsLocalRepo
     $gitUpdates = git fetch && git status
     if ($gitUpdates -match "behind") {
-        $ENV:DOTFILES_UPDATE_AVAILABLE = "`u{db86}`u{dd1b} "
+        $ENV:DOTFILES_UPDATE_AVAILABLE = "󱤛 "
     }
     else {
         $ENV:DOTFILES_UPDATE_AVAILABLE = ""
@@ -287,7 +303,7 @@ Start-ThreadJob -ScriptBlock {
     $wingetUpdatesString = Start-Job -ScriptBlock { winget list --upgrade-available | Out-String } | Wait-Job | Receive-Job
     $chocoUpdatesString = Start-Job -ScriptBlock { choco upgrade all --noop -y | Out-String } | Wait-Job | Receive-Job
     if ($wingetUpdatesString -match "upgrades available" -or $chocoUpdatesString -notmatch "can upgrade 0/") {
-        $ENV:SOFTWARE_UPDATE_AVAILABLE = "`u{eb29} "
+        $ENV:SOFTWARE_UPDATE_AVAILABLE = " "
     }
     else {
         $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
@@ -298,8 +314,6 @@ function Invoke-Starship-TransientFunction {
     &starship module character
 }
 
-# Prompt Setup
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Invoke-Expression (&starship init powershell)
 Enable-TransientPrompt
 Invoke-Expression (& { ( zoxide init powershell --cmd cd | Out-String ) })
