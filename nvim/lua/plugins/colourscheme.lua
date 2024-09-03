@@ -12,7 +12,12 @@ return {
                 terminal_colors = false,
                 cache = true,
                 borderless_telescope = { border = false, style = "flat" },
-                theme = { variant = "auto" },
+                theme = {
+                    variant = "auto",
+                    overrides = function(t)
+                        return { SmartOpenDirectory = { fg = t.grey } }
+                    end,
+                },
             })
 
             vim.cmd("colorscheme cyberdream")

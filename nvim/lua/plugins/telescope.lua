@@ -2,10 +2,10 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     dependencies = {
-        "danielfalk/smart-open.nvim",
         "kkharji/sqlite.lua",
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
+        { "scottmckendry/smart-open.nvim", branch = "fixes" }, -- TODO: change back to original repo when #66 and #76 are merged
         { "scottmckendry/telescope-resession.nvim", dev = true },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
