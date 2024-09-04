@@ -9,6 +9,7 @@ return {
         ensure_installed = {
             "bash",
             "bicep",
+            "c_sharp",
             "gitignore",
             "go",
             "gomod",
