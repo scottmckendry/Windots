@@ -23,6 +23,7 @@ return {
             "luap",
             "markdown",
             "markdown_inline",
+            "nix",
             "powershell",
             "regex",
             "templ",

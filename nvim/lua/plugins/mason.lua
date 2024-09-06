@@ -12,6 +12,10 @@ return {
             },
         })
 
+        local linux_only_pacakages = {
+            "nil",
+        }
+
         local mason_packages = {
             "bicep-lsp",
             "docker-compose-language-service",
@@ -24,7 +28,6 @@ return {
             "json-lsp",
             "lua-language-server",
             "markdownlint-cli2",
-            "nil",
             "powershell-editor-services",
             "prettier",
             "shfmt",
@@ -34,6 +37,10 @@ return {
             "templ",
             "yaml-language-server",
         }
+
+        if vim.fn.has("win32") == 0 then
+            mason_packages = vim.tbl_extend("force", mason_packages, linux_only_pacakages)
+        end
 
         local mr = require("mason-registry")
         local function ensure_installed()

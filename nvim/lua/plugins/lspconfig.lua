@@ -41,6 +41,7 @@ return {
             "tailwindcss",
             "taplo",
             "templ", -- requires gopls in PATH, mason probably won't work depending on the OS
+            "nil_ls",
             "yamlls",
         }
         for _, server in pairs(no_config_servers) do
