@@ -17,13 +17,26 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Sync ${{ matrix.file }}
+            - name: Sync ${{ matrix.file }} to dots
               uses: scottmckendry/repo-files-clean-copy-sync@main
               env:
                   API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
               with:
                   source_file: "${{ matrix.file }}/"
                   destination_repo: "scottmckendry/dots"
+                  destination_folder: "/"
+                  user_email: "39483124+scottmckendry@users.noreply.github.com"
+                  user_name: "Scott McKendry"
+                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
+                  git_server: "github.com"
+
+            - name: Sync ${{ matrix.file }} to nix
+              uses: scottmckendry/repo-files-clean-copy-sync@main
+              env:
+                  API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+              with:
+                  source_file: "${{ matrix.file }}/"
+                  destination_repo: "scottmckendry/nix"
                   destination_folder: "/"
                   user_email: "39483124+scottmckendry@users.noreply.github.com"
                   user_name: "Scott McKendry"
