@@ -5,40 +5,29 @@ on:
 
     workflow_dispatch:
 
-name: Sync to dots
+name: Sync
 
 jobs:
     sync-files:
         strategy:
+            max-parallel: 1
             matrix:
-                file: [nvim, starship, lazygit, bat, fastfetch]
+                file: [nvim, starship, lazygit, bat, fastfetch, .github]
+                repo: [dots, nix, Windots]
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Sync ${{ matrix.file }} to dots
+            - name: Sync ${{ matrix.file }} to ${{ matrix.repo }}
               uses: scottmckendry/repo-files-clean-copy-sync@main
               env:
                   API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
               with:
                   source_file: "${{ matrix.file }}/"
-                  destination_repo: "scottmckendry/dots"
+                  destination_repo: "scottmckendry/${{ matrix.repo }}"
                   destination_folder: "/"
                   user_email: "39483124+scottmckendry@users.noreply.github.com"
                   user_name: "Scott McKendry"
-                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
-                  git_server: "github.com"
-
-            - name: Sync ${{ matrix.file }} to nix
-              uses: scottmckendry/repo-files-clean-copy-sync@main
-              env:
-                  API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
-              with:
-                  source_file: "${{ matrix.file }}/"
-                  destination_repo: "scottmckendry/nix"
-                  destination_folder: "/"
-                  user_email: "39483124+scottmckendry@users.noreply.github.com"
-                  user_name: "Scott McKendry"
-                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/Windots"
+                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/nix"
                   git_server: "github.com"
