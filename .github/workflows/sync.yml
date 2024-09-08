@@ -10,7 +10,7 @@ name: Sync
 jobs:
     sync-files:
         strategy:
-            max-parallel: 1
+            max-parallel: 3
             matrix:
                 file: [nvim, starship, lazygit, bat, fastfetch, .github]
                 repo: [dots, nix, Windots]
