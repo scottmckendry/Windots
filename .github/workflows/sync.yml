@@ -12,7 +12,7 @@ jobs:
         strategy:
             max-parallel: 3
             matrix:
-                file: [nvim, starship, lazygit, bat, fastfetch, .github]
+                file: [nvim, starship, bat, fastfetch, .github]
                 repo: [dots, nix, Windots]
         runs-on: ubuntu-latest
         steps:
@@ -29,5 +29,5 @@ jobs:
                   destination_folder: "/"
                   user_email: "39483124+scottmckendry@users.noreply.github.com"
                   user_name: "Scott McKendry"
-                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/nix"
+                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from scottmckendry/${{ matrix.repo }}"
                   git_server: "github.com"
