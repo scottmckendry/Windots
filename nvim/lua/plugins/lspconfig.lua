@@ -62,7 +62,7 @@ return {
         })
 
         -- Bicep
-        local bicep_path = vim.fn.stdpath("data") .. "/mason/packages/bicep-lsp/bicep-lsp.cmd"
+        local bicep_path = vim.fn.stdpath("data") .. "/mason/packages/bicep-lsp/bicep-lsp"
         require("lspconfig").bicep.setup({
             cmd = { bicep_path },
         })
