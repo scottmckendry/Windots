@@ -13,6 +13,8 @@ Ansible
 apache
 API
 api
+APIM
+APIs
 app
 appimage
 apps
@@ -53,6 +55,7 @@ backtrace
 backtraces
 base64
 bashrc
+Bicep
 Bitbucket
 blockchain
 blockchains
@@ -80,6 +83,8 @@ changelog
 changelogs
 changesets
 cheatsheet
+checkbox
+checkboxes
 checklist
 chmod
 choco
@@ -245,6 +250,7 @@ homebrew
 homelab
 hostname
 https
+IaC
 iCloud
 IDE
 IDOC
@@ -283,8 +289,8 @@ JPEG
 jpeg
 jpg
 jq
-jQuery
 JQuery
+jQuery
 js
 JSON
 json
@@ -320,8 +326,8 @@ LaTex
 Lazydocker
 Lazygit
 lazygit
-Lazyvim
 LazyVim
+Lazyvim
 len
 lexer
 lifecycle
@@ -347,8 +353,8 @@ lualine
 LVM
 macbook
 macbooks
-macOS
 MacOS
+macOS
 macos
 manpage
 MariaDB
@@ -492,6 +498,7 @@ SKUs
 smartphone
 soundcloud
 sourceforge
+specs
 spinoff
 spotify
 sql
@@ -615,6 +622,7 @@ XSS
 xss
 YAML
 yaml
+YMMV
 youtube
 Zellij
 zig
