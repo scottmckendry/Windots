@@ -5,7 +5,6 @@ return {
         "kkharji/sqlite.lua",
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
-        { "scottmckendry/smart-open.nvim", branch = "fixes" }, -- TODO: change back to original repo when #66 and #76 are merged
         { "scottmckendry/telescope-resession.nvim", dev = true },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
@@ -18,10 +17,6 @@ return {
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
-
-        if vim.fn.has("win32") == 1 then
-            vim.cmd("let g:sqlite_clib_path='/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
-        end
 
         local select_one_or_multi = function(prompt_bufnr)
             local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
@@ -49,10 +44,6 @@ return {
                     path_substitutions = {
                         { find = home_dir .. "/git/", replace = "󰊢 " },
                     },
-                },
-
-                smart_open = {
-                    match_algorithm = "fzf",
                 },
             },
             pickers = {
@@ -108,6 +99,5 @@ return {
         })
 
         require("telescope").load_extension("fzf")
-        require("telescope").load_extension("smart_open")
     end,
 }
