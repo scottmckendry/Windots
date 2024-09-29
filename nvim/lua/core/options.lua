@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local opt = vim.opt
+opt.shell = "zsh"
 
 -- Set shell to PowerShell 7 if on Win32 or Win64
 if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
