@@ -84,8 +84,6 @@ changelogs
 changesets
 cheatsheet
 checkbox
-checkbox
-checkboxes
 checkboxes
 checklist
 chmod
@@ -391,8 +389,6 @@ NAS
 Neovim
 neovim
 Nginx
-nixos
-NixOS
 noice
 NoSQL
 npm
@@ -513,13 +509,11 @@ SSD
 SSH
 ssid
 startup
-startup
 stderr
 stdin
 stdout
 struct
 structs
-stylix
 subkey
 subkeys
 sublist
@@ -629,9 +623,11 @@ xss
 YAML
 yaml
 YMMV
-YMMV
 youtube
 Zellij
 zig
 zigbee
 zsh
+nixos
+stylix
+NixOS
