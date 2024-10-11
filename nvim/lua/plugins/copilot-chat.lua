@@ -38,7 +38,8 @@ return {
         },
     },
     config = function()
-        require("CopilotChat.integrations.cmp").setup()
+        -- TODO: add blink.cmp integration when/if it's available
+        -- require("CopilotChat.integrations.cmp").setup()
         vim.api.nvim_create_autocmd("BufEnter", {
             pattern = "copilot-chat",
             callback = function()

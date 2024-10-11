@@ -28,7 +28,8 @@ return {
     },
     opts = {
         attachments = { img_folder = obsidian_path .. "/Files" },
-        completion = { nvim_cmp = true },
+        -- TODO: add blink.cmp integration when/if it's available
+        -- completion = { nvim_cmp = true },
         disable_frontmatter = true,
         new_notes_location = "notes_subdir",
         notes_subdir = "Zettelkasten",

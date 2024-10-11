@@ -14,7 +14,6 @@ return {
         "Bilal2453/luvit-meta",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "hrsh7th/cmp-nvim-lsp",
         "smiteshp/nvim-navic",
     },
     config = function()
