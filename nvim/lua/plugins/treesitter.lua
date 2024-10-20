@@ -26,6 +26,7 @@ return {
             "nix",
             "powershell",
             "regex",
+            "rust",
             "templ",
             "toml",
             "vimdoc",

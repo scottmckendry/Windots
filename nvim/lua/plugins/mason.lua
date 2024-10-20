@@ -30,6 +30,7 @@ return {
             "markdownlint-cli2",
             "powershell-editor-services",
             "prettier",
+            "rust-analyzer",
             "shfmt",
             "stylua",
             "tailwindcss-language-server",

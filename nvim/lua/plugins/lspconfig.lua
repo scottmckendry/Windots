@@ -37,6 +37,7 @@ return {
             "dockerls",
             "html",
             "jsonls",
+            "rust_analyzer",
             "tailwindcss",
             "taplo",
             "templ", -- requires gopls in PATH, mason probably won't work depending on the OS
