@@ -14,6 +14,7 @@ return {
                 lua = { "stylua" },
                 markdown = { "prettier" },
                 nix = { "nixfmt" },
+                rust = { "rustfmt" },
                 scss = { "prettier" },
                 sh = { "shfmt" },
                 templ = { "templ" },
