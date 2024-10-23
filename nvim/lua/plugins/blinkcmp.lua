@@ -1,6 +1,6 @@
 return {
     "saghen/blink.cmp",
-    -- dev = true,
+    dev = true,
     lazy = false,
     dependencies = "rafamadriz/friendly-snippets",
     build = "cargo build --release",
@@ -14,7 +14,7 @@ return {
                 autocomplete = {
                     draw = "reversed",
                     border = {
-                        "󱐋",
+                        { "󱐋", "WarningMsg" },
                         "─",
                         "╮",
                         "│",
@@ -27,7 +27,7 @@ return {
                 documentation = {
                     auto_show = true,
                     border = {
-                        "",
+                        { "", "DiagnosticHint" },
                         "─",
                         "╮",
                         "│",
