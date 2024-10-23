@@ -11,14 +11,33 @@ return {
                 select_next = "<C-n>",
             },
             windows = {
-                autocomplete = { border = "rounded", draw = "reversed" },
-                documentation = { border = "rounded", auto_show = true },
+                autocomplete = {
+                    draw = "reversed",
+                    border = {
+                        "󱐋",
+                        "─",
+                        "╮",
+                        "│",
+                        "╯",
+                        "─",
+                        "╰",
+                        "│",
+                    },
+                },
+                documentation = {
+                    auto_show = true,
+                    border = {
+                        "",
+                        "─",
+                        "╮",
+                        "│",
+                        "╯",
+                        "─",
+                        "╰",
+                        "│",
+                    },
+                },
                 signature_help = { border = "rounded" },
-            },
-            fuzzy = {
-                use_frecency = false,
-                use_proximity = false,
-                sorts = {},
             },
         })
     end,
