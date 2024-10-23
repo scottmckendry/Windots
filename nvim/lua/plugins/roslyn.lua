@@ -6,8 +6,8 @@ return {
     config = function()
         local exe = nil
         if vim.fn.has("unix") == 1 then
-            local os = vim.fn.system("cat /etc/os-release | grep ^ID= | cut -d= -f2")
-            if string.match(os, "nixos") then
+            local os = vim.fn.systemlist("grep ^ID= /etc/os-release | cut -d= -f2")[1]
+            if os == "nixos" then
                 exe = { "Microsoft.CodeAnalysis.LanguageServer" }
             end
         end
