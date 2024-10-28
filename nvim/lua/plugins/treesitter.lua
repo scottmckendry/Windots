@@ -24,6 +24,7 @@ return {
             "markdown",
             "markdown_inline",
             "nix",
+            "odin",
             "powershell",
             "regex",
             "rust",
