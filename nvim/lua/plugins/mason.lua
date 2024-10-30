@@ -28,6 +28,7 @@ return {
             "json-lsp",
             "lua-language-server",
             "markdownlint-cli2",
+            "ols",
             "powershell-editor-services",
             "prettier",
             "rust-analyzer",
