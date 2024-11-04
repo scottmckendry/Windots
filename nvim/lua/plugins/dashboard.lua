@@ -1,5 +1,5 @@
 return {
-    "scottmckendry/dashboard-nvim",
+    "nvimdev/dashboard-nvim",
     event = "VimEnter",
     dev = true,
     config = function()
