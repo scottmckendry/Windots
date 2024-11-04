@@ -130,4 +130,5 @@ end, { desc = "Lazygit" })
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
 map("n", "<leader>rss", function() utils.run_shell_script() end, { desc = "Run shell script (bash, powershell, etc)" })
+map("n", "<leader>rm", function() require("toggleterm").exec("make") end, { desc = "Run make" })
 -- stylua: ignore end
