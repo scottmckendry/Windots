@@ -188,7 +188,7 @@ function M.telescope_diff_from_history()
     })
 end
 
-function M.toggle_global_boolean_option(option, description)
+function M.toggle_global_boolean(option, description)
     return require("snacks").toggle({
         name = description,
         get = function()

@@ -162,6 +162,6 @@ map({"n", "t"}, "<C-\\>", function() snacks.terminal() end, { desc = "Toggle Ter
 map("n", "<leader>gg", function() snacks.lazygit() end, { desc = "Lazygit" })
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
-map("n", "<leader>rss", function() snacks.terminal.toggle(vim.fn.expand("%:p"), { interactive = true }) end, { desc = "Run shell script (bash, powershell, etc)" })
-map("n", "<leader>rm", function() snacks.terminal.toggle("make", { interactive = true }) end, { desc = "Run make" })
+map("n", "<leader>rss", function() snacks.terminal.toggle(vim.fn.expand("%:p"), { interactive = false }) end, { desc = "Run shell script (bash, powershell, etc)" })
+map("n", "<leader>rm", function() snacks.terminal.toggle("make", { interactive = false }) end, { desc = "Run make" })
 -- stylua: ignore end
