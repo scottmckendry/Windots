@@ -14,7 +14,7 @@ return {
         local filetype_map = {
             lazy = { name = "lazy.nvim", icon = "💤" },
             minifiles = { name = "minifiles", icon = "🗂️ " },
-            toggleterm = { name = "terminal", icon = "🐚" },
+            snacks_terminal = { name = "terminal", icon = "🐚" },
             mason = { name = "mason", icon = "🔨" },
             TelescopePrompt = { name = "telescope", icon = "🔍" },
             ["copilot-chat"] = { name = "copilot", icon = "🤖" },

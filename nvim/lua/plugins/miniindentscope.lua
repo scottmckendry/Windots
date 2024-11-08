@@ -17,7 +17,7 @@ return {
                 "mason",
                 "neotree",
                 "notify",
-                "toggleterm",
+                "snacks_termianl",
             },
             callback = function()
                 vim.b.miniindentscope_disable = true

@@ -207,10 +207,4 @@ function M.telescope_diff_from_history()
     })
 end
 
---- Run current file inside toggleterm
-function M.run_shell_script()
-    local script = vim.fn.expand("%:p")
-    require("toggleterm").exec(script)
-end
-
 return M

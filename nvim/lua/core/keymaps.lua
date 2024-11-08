@@ -1,4 +1,5 @@
 local utils = require("core.utils")
+local snacks = require("snacks")
 
 --- Map a key combination to a command
 ---@param modes string|string[]: The mode(s) to map the key combination to
@@ -45,7 +46,7 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- Buffers
 -- stylua: ignore start
 map("n", "<leader>bb", function() utils.switch_to_other_buffer() end, { desc = "Switch to other buffer" })
-map("n", "<leader>bd", function() require("snacks").bufdelete() end, { desc = "Delete buffer" })
+map("n", "<leader>bd", function() snacks.bufdelete() end, { desc = "Delete buffer" })
 map("n", "L", ":bnext<cr>", { desc = "Next buffer" })
 map("n", "H", ":bprevious<cr>", { desc = "Previous buffer" })
 -- stylua: ignore end
@@ -114,21 +115,12 @@ map("n", "gd", function() require("telescope.builtin").lsp_definitions({ reuse_w
 map("n", "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, { desc = "Goto Type Definition" })
 -- stylua: ignore end
 
--- Lazygit
-map("n", "<leader>gg", function()
-    local term = require("toggleterm.terminal").Terminal
-    local lazygit = term:new({
-        cmd = "lazygit",
-        dir = "git_dir",
-        direction = "tab",
-    })
-    lazygit:toggle()
-end, { desc = "Lazygit" })
-
--- Run...
+-- Terminal/Run...
 -- stylua: ignore start
+map({"n", "t"}, "<C-\\>", function() snacks.terminal() end, { desc = "Toggle Terminal" })
+map("n", "<leader>gg", function() snacks.lazygit() end, { desc = "Lazygit" })
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
-map("n", "<leader>rss", function() utils.run_shell_script() end, { desc = "Run shell script (bash, powershell, etc)" })
-map("n", "<leader>rm", function() require("toggleterm").exec("make") end, { desc = "Run make" })
+map("n", "<leader>rss", function() snacks.terminal.toggle(vim.fn.expand("%:p"), { interactive = true }) end, { desc = "Run shell script (bash, powershell, etc)" })
+map("n", "<leader>rm", function() snacks.terminal.toggle("make", { interactive = true }) end, { desc = "Run make" })
 -- stylua: ignore end
