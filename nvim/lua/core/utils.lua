@@ -188,4 +188,16 @@ function M.telescope_diff_from_history()
     })
 end
 
+function M.toggle_global_boolean_option(option, description)
+    return require("snacks").toggle({
+        name = description,
+        get = function()
+            return vim.g[option] == nil or vim.g[option]
+        end,
+        set = function(state)
+            vim.g[option] = state
+        end,
+    })
+end
+
 return M

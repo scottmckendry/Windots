@@ -2,7 +2,7 @@ return {
     "stevearc/conform.nvim",
     event = "BufReadPre",
     config = function()
-        vim.g.disable_autoformat = false
+        vim.g.autoformat = true
         require("conform").setup({
             formatters_by_ft = {
                 bicep = { "bicep" },
@@ -23,7 +23,7 @@ return {
             },
 
             format_after_save = function()
-                if vim.g.disable_autoformat then
+                if not vim.g.autoformat then
                     return
                 else
                     if vim.bo.filetype == "ps1" then
@@ -56,13 +56,5 @@ return {
         require("conform").formatters.prettier = {
             prepend_args = { "--tab-width", "4" },
         }
-
-        -- Toggle format on save
-        vim.api.nvim_create_user_command("ConformToggle", function()
-            vim.g.disable_autoformat = not vim.g.disable_autoformat
-            print("Conform " .. (vim.g.disable_autoformat and "disabled" or "enabled"))
-        end, {
-            desc = "Toggle format on save",
-        })
     end,
 }

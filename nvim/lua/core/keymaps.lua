@@ -79,6 +79,7 @@ map("n", "<leader>dg", function()
 end, { desc = "Diff from git history" })
 
 -- toggle options
+utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
 snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
 snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
 snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
@@ -91,6 +92,21 @@ snacks.toggle.treesitter():map("<leader>tT")
 if vim.lsp.inlay_hint then
     snacks.toggle.inlay_hints():map("<leader>th")
 end
+snacks
+    .toggle({
+        name = "Copilot Completion",
+        get = function()
+            return not require("copilot.client").is_disabled()
+        end,
+        set = function(state)
+            if state then
+                require("copilot.command").enable()
+            else
+                require("copilot.command").disable()
+            end
+        end,
+    })
+    :map("<leader>tc")
 
 -- browse to git repo
 map("n", "<leader>gb", function()
