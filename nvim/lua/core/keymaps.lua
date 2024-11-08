@@ -20,36 +20,38 @@ local map = function(modes, lhs, rhs, opts)
 end
 
 -- better up/down
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
 
 -- Move to window using the <ctrl> hjkl keys
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
+map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
 -- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", ":resize +2<cr>", { desc = "Increase window height" })
-map("n", "<C-Down>", ":resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<C-Left>", ":vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<C-Right>", ":vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- Move Lines
-map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
-map("n", "<A-k>", ":m .-2<cr>==", { desc = "Move up" })
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
+map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
+map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
+map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
+map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
 -- Buffers
--- stylua: ignore start
-map("n", "<leader>bb", function() utils.switch_to_other_buffer() end, { desc = "Switch to other buffer" })
-map("n", "<leader>bd", function() snacks.bufdelete() end, { desc = "Delete buffer" })
+map("n", "<leader>bb", ":e #<cr>", { desc = "Switch to Other Buffer" })
+map("n", "<leader>bd", function()
+    snacks.bufdelete()
+end, { desc = "Delete buffer" })
 map("n", "L", ":bnext<cr>", { desc = "Next buffer" })
 map("n", "H", ":bprevious<cr>", { desc = "Previous buffer" })
--- stylua: ignore end
 
 -- lazy
 map("n", "<leader>l", ":Lazy<cr>", { desc = "Lazy" })
@@ -66,11 +68,34 @@ map("n", "<leader>fb", ":Telescope buffers<cr>", { desc = "Fuzzy find buffers" }
 map("n", "<leader>ft", ":Telescope<cr>", { desc = "Other pickers..." })
 map("n", "<leader>fS", ":Telescope resession<cr>", { desc = "Find Session" })
 map("n", "<leader>fh", ":Telescope help_tags<cr>", { desc = "Find help tags" })
--- stylua: ignore start
-map("n", "<leader>df", function() utils.telescope_diff_file() end, { desc = "Diff file with current buffer" })
-map("n", "<leader>dr", function() utils.telescope_diff_file(true) end, { desc = "Diff recent file with current buffer" })
-map("n", "<leader>dg", function() utils.telescope_diff_from_history() end, { desc = "Diff from git history" })
--- stylua: ignore end
+map("n", "<leader>df", function()
+    utils.telescope_diff_file()
+end, { desc = "Diff file with current buffer" })
+map("n", "<leader>dr", function()
+    utils.telescope_diff_file(true)
+end, { desc = "Diff recent file with current buffer" })
+map("n", "<leader>dg", function()
+    utils.telescope_diff_from_history()
+end, { desc = "Diff from git history" })
+
+-- toggle options
+snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
+snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
+snacks.toggle.diagnostics():map("<leader>td")
+snacks.toggle.line_number():map("<leader>tl")
+snacks.toggle
+    .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+    :map("<leader>tc")
+snacks.toggle.treesitter():map("<leader>tT")
+if vim.lsp.inlay_hint then
+    snacks.toggle.inlay_hints():map("<leader>th")
+end
+
+-- browse to git repo
+map("n", "<leader>gb", function()
+    snacks.gitbrowse()
+end, { desc = "Git Browse" })
 
 -- Clear search with <esc>
 map("n", "<esc>", ":noh<cr><esc>", { desc = "Escape and clear hlsearch" })
