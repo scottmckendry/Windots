@@ -18,6 +18,21 @@ local map = function(modes, lhs, rhs, opts)
         vim.keymap.set(mode, lhs, rhs, options)
     end
 end
+
+local copilot_toggle_opts = {
+    name = "Copilot Completion",
+    get = function()
+        return not require("copilot.client").is_disabled()
+    end,
+    set = function(state)
+        if state then
+            require("copilot.command").enable()
+        else
+            require("copilot.command").disable()
+        end
+    end,
+}
+
 -- stylua: ignore start
 
 -- better up/down
@@ -73,27 +88,15 @@ map("n", "<leader>dg", function() utils.telescope_diff_from_history() end, { des
 
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
+snacks.toggle(copilot_toggle_opts):map("<leader>tc")
 snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
 snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
 snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
 snacks.toggle.diagnostics():map("<leader>td")
 snacks.toggle.line_number():map("<leader>tl")
-snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
+snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tC")
 snacks.toggle.treesitter():map("<leader>tT")
 if vim.lsp.inlay_hint then snacks.toggle.inlay_hints():map("<leader>th") end
-snacks.toggle({
-    name = "Copilot Completion",
-    get = function()
-        return not require("copilot.client").is_disabled()
-    end,
-    set = function(state)
-        if state then
-            require("copilot.command").enable()
-        else
-            require("copilot.command").disable()
-        end
-    end,
-}):map("<leader>tc")
 
 -- browse to git repo
 map("n", "<leader>gb", function() snacks.gitbrowse() end, { desc = "Git Browse" })
