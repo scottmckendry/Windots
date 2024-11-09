@@ -18,6 +18,7 @@ local map = function(modes, lhs, rhs, opts)
         vim.keymap.set(mode, lhs, rhs, options)
     end
 end
+-- stylua: ignore start
 
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true })
@@ -46,10 +47,8 @@ map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc 
 map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
 -- Buffers
-map("n", "<leader>bb", ":e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "<leader>bd", function()
-    snacks.bufdelete()
-end, { desc = "Delete buffer" })
+map("n", "<leader>bb", function() utils.switch_to_other_buffer() end, { desc = "Switch to Other Buffer" })
+map("n", "<leader>bd", function() snacks.bufdelete({ wipe = true }) end, { desc = "Delete buffer" })
 map("n", "L", ":bnext<cr>", { desc = "Next buffer" })
 map("n", "H", ":bprevious<cr>", { desc = "Previous buffer" })
 
@@ -68,15 +67,9 @@ map("n", "<leader>fb", ":Telescope buffers<cr>", { desc = "Fuzzy find buffers" }
 map("n", "<leader>ft", ":Telescope<cr>", { desc = "Other pickers..." })
 map("n", "<leader>fS", ":Telescope resession<cr>", { desc = "Find Session" })
 map("n", "<leader>fh", ":Telescope help_tags<cr>", { desc = "Find help tags" })
-map("n", "<leader>df", function()
-    utils.telescope_diff_file()
-end, { desc = "Diff file with current buffer" })
-map("n", "<leader>dr", function()
-    utils.telescope_diff_file(true)
-end, { desc = "Diff recent file with current buffer" })
-map("n", "<leader>dg", function()
-    utils.telescope_diff_from_history()
-end, { desc = "Diff from git history" })
+map("n", "<leader>df", function() utils.telescope_diff_file() end, { desc = "Diff file with current buffer" })
+map("n", "<leader>dr", function() utils.telescope_diff_file(true) end, { desc = "Diff recent file with current buffer" })
+map("n", "<leader>dg", function() utils.telescope_diff_from_history() end, { desc = "Diff from git history" })
 
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
@@ -85,33 +78,25 @@ snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
 snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
 snacks.toggle.diagnostics():map("<leader>td")
 snacks.toggle.line_number():map("<leader>tl")
-snacks.toggle
-    .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-    :map("<leader>tc")
+snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
 snacks.toggle.treesitter():map("<leader>tT")
-if vim.lsp.inlay_hint then
-    snacks.toggle.inlay_hints():map("<leader>th")
-end
-snacks
-    .toggle({
-        name = "Copilot Completion",
-        get = function()
-            return not require("copilot.client").is_disabled()
-        end,
-        set = function(state)
-            if state then
-                require("copilot.command").enable()
-            else
-                require("copilot.command").disable()
-            end
-        end,
-    })
-    :map("<leader>tc")
+if vim.lsp.inlay_hint then snacks.toggle.inlay_hints():map("<leader>th") end
+snacks.toggle({
+    name = "Copilot Completion",
+    get = function()
+        return not require("copilot.client").is_disabled()
+    end,
+    set = function(state)
+        if state then
+            require("copilot.command").enable()
+        else
+            require("copilot.command").disable()
+        end
+    end,
+}):map("<leader>tc")
 
 -- browse to git repo
-map("n", "<leader>gb", function()
-    snacks.gitbrowse()
-end, { desc = "Git Browse" })
+map("n", "<leader>gb", function() snacks.gitbrowse() end, { desc = "Git Browse" })
 
 -- Clear search with <esc>
 map("n", "<esc>", ":noh<cr><esc>", { desc = "Escape and clear hlsearch" })
@@ -142,7 +127,6 @@ map("n", "<leader><tab>d", ":tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>h", ":tabprevious<cr>", { desc = "Previous Tab" })
 
 -- Code/LSP
--- stylua: ignore start
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "<leader>cl", ":LspInfo<cr>", { desc = "LSP Info" })
@@ -154,10 +138,8 @@ map("n", "gr", ":Telescope lsp_references<cr>", { desc = "Goto References" })
 map("n", "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, { desc = "Goto Implementation" })
 map("n", "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, { desc = "Goto Definition" })
 map("n", "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, { desc = "Goto Type Definition" })
--- stylua: ignore end
 
 -- Terminal/Run...
--- stylua: ignore start
 map({"n", "t"}, "<C-\\>", function() snacks.terminal() end, { desc = "Toggle Terminal" })
 map("n", "<leader>gg", function() snacks.lazygit() end, { desc = "Lazygit" })
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
