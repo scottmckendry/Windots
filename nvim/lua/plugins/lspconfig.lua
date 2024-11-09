@@ -17,6 +17,7 @@ return {
         "smiteshp/nvim-navic",
     },
     config = function()
+        local lspconfig = require("lspconfig")
         local mason_registry = require("mason-registry")
         require("lspconfig.ui.windows").default_options.border = "rounded"
 
@@ -38,18 +39,17 @@ return {
             "html",
             "jsonls",
             "nil_ls",
-            "ols",
             "tailwindcss",
             "taplo",
             "templ", -- requires gopls in PATH, mason probably won't work depending on the OS
             "yamlls",
         }
         for _, server in pairs(no_config_servers) do
-            require("lspconfig")[server].setup({})
+            lspconfig[server].setup({})
         end
 
         -- Go
-        require("lspconfig").gopls.setup({
+        lspconfig.gopls.setup({
             settings = {
                 gopls = {
                     completeUnimported = true,
@@ -61,14 +61,22 @@ return {
             },
         })
 
+        -- Odin
+        lspconfig.ols.setup({
+            init_options = {
+                checker_args = "-vet -strict-style",
+                enable_references = true,
+            },
+        })
+
         -- Bicep
         local bicep_path = vim.fn.stdpath("data") .. "/mason/packages/bicep-lsp/bicep-lsp"
-        require("lspconfig").bicep.setup({
+        lspconfig.bicep.setup({
             cmd = { bicep_path },
         })
 
         -- Lua
-        require("lspconfig").lua_ls.setup({
+        lspconfig.lua_ls.setup({
             on_init = function(client)
                 local path = client.workspace_folders[1].name
                 if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
@@ -92,13 +100,13 @@ return {
 
         -- PowerShell
         local bundle_path = mason_registry.get_package("powershell-editor-services"):get_install_path()
-        require("lspconfig").powershell_es.setup({
+        lspconfig.powershell_es.setup({
             bundle_path = bundle_path,
             settings = { powershell = { codeFormatting = { Preset = "Stroustrup" } } },
         })
 
         -- Rust
-        require("lspconfig").rust_analyzer.setup({
+        lspconfig.rust_analyzer.setup({
             settings = {
                 ["rust-analyzer"] = {
                     checkOnSave = {
