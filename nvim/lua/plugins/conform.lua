@@ -47,11 +47,6 @@ return {
             args = { "format", "--stdout", "$FILENAME", "--indent-size", "4" },
         }
 
-        -- Override stylua's default indent type
-        require("conform").formatters.stylua = {
-            prepend_args = { "--indent-type", "Spaces" },
-        }
-
         -- Override prettier's default indent type
         require("conform").formatters.prettier = {
             prepend_args = { "--tab-width", "4" },
