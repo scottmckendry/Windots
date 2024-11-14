@@ -49,7 +49,7 @@ return {
         })
 
         require("CopilotChat").setup({
-            model = "gpt-4",
+            model = "claude-3.5-sonnet",
             auto_insert_mode = true,
             show_help = false,
             show_folds = false,
