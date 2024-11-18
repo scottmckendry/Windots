@@ -37,6 +37,7 @@ $wingetDeps = @(
     "neovim.neovim"
     "openjs.nodejs"
     "starship.starship"
+    "task.task"
 )
 $chocoDeps = @(
     "altsnap"
