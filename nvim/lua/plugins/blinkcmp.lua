@@ -2,7 +2,7 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = "rafamadriz/friendly-snippets",
-    build = "cargo build --release",
+    version = "v0.*",
     config = function()
         require("blink.cmp").setup({
             windows = {
