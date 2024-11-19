@@ -10,6 +10,10 @@ return {
                 width = 0.8,
                 height = 0.8,
             },
+            registries = {
+                "github:mason-org/mason-registry",
+                "github:Crashdummyy/mason-registry",
+            },
         })
 
         local linux_only_pacakages = {
@@ -31,6 +35,7 @@ return {
             "ols",
             "powershell-editor-services",
             "prettier",
+            "roslyn",
             "rust-analyzer",
             "shfmt",
             "stylua",
