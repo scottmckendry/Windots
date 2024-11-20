@@ -4,6 +4,7 @@ return {
     priority = 1000,
     config = function()
         require("snacks").setup({
+            notifier = { enabled = true },
             lazygit = {
                 configure = false,
                 win = {
