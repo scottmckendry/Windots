@@ -7,6 +7,7 @@ return {
         require("blink.cmp").setup({
             windows = {
                 autocomplete = {
+                    scrollbar = false,
                     border = {
                         { "󱐋", "WarningMsg" },
                         "─",
