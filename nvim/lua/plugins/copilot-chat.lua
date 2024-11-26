@@ -8,7 +8,7 @@ return {
             function()
                 return require("CopilotChat").toggle()
             end,
-            desc = "Toggle (CopilotChat)",
+            desc = "Toggle",
             mode = { "n", "v" },
         },
         {
@@ -16,7 +16,7 @@ return {
             function()
                 return require("CopilotChat").reset()
             end,
-            desc = "Clear (CopilotChat)",
+            desc = "Clear",
             mode = { "n", "v" },
         },
         {
@@ -27,13 +27,13 @@ return {
                     require("CopilotChat").ask(input)
                 end
             end,
-            desc = "Quick Chat (CopilotChat)",
+            desc = "Quick Chat",
             mode = { "n", "v" },
         },
         {
             "<leader>ac",
             ":CopilotChatCommit<cr>",
-            desc = "Commit (CopilotChat)",
+            desc = "Commit",
             mode = { "n", "v" },
         },
     },

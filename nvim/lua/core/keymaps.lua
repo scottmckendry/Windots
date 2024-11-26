@@ -70,9 +70,6 @@ map("n", "H", ":bprevious<cr>", { desc = "Previous buffer" })
 -- lazy
 map("n", "<leader>l", ":Lazy<cr>", { desc = "Lazy" })
 
--- AI
-map("n", "<leader>at", ":Copilot toggle<cr>", { desc = "Toggle (Copilot Inline)" })
-
 -- Telescope
 map("n", "<leader>ff", ":Telescope find_files<cr>", { desc = "Fuzzy find files" })
 map("n", "<leader>fr", ":Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })

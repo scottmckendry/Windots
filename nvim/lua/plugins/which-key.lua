@@ -13,7 +13,7 @@ return {
             {
                 mode = { "n", "v" },
                 { "<leader><Tab>", group = "tabs" },
-                { "<leader>a", group = "ai" },
+                { "<leader>a", group = "copilot" },
                 { "<leader>b", group = "buffer" },
                 { "<leader>c", group = "code" },
                 { "<leader>d", group = "diff" },
