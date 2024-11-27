@@ -86,7 +86,7 @@ map("n", "<leader>dg", function() utils.telescope_diff_from_history() end, { des
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
 snacks.toggle(copilot_toggle_opts):map("<leader>tc")
-snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>ts")
 snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
 snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
 snacks.toggle.diagnostics():map("<leader>td")
