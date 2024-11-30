@@ -127,6 +127,23 @@ return {
                 },
                 lualine_x = {
                     {
+                        ---@diagnostic disable: undefined-field
+                        require("noice").api.status.mode.get,
+                        cond = function()
+                            local ignore = {
+                                "-- INSERT --",
+                                "-- TERMINAL --",
+                                "-- VISUAL --",
+                                "-- VISUAL LINE --",
+                                "-- VISUAL BLOCK --",
+                            }
+                            local mode = require("noice").api.status.mode.get()
+                            return require("noice").api.status.mode.has() and not vim.tbl_contains(ignore, mode)
+                        end,
+                        color = utils.get_hlgroup("Comment"),
+                        ---@diagnostic enable: undefined-field
+                    },
+                    {
                         require("lazy.status").updates,
                         cond = require("lazy.status").has_updates,
                         color = utils.get_hlgroup("String"),
