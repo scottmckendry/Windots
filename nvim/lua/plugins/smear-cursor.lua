@@ -1,6 +1,6 @@
 local terminal = os.getenv("TERM")
 if terminal == "xterm-kitty" then
-    return
+    return {}
 end
 
 return {
