@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
     "saghen/blink.cmp",
     lazy = false,
@@ -5,8 +6,8 @@ return {
     version = "v0.*",
     config = function()
         require("blink.cmp").setup({
-            windows = {
-                autocomplete = {
+            completion = {
+                menu = {
                     scrollbar = false,
                     border = {
                         { "󱐋", "WarningMsg" },
@@ -21,18 +22,19 @@ return {
                 },
                 documentation = {
                     auto_show = true,
-                    border = {
-                        { "", "DiagnosticHint" },
-                        "─",
-                        "╮",
-                        "│",
-                        "╯",
-                        "─",
-                        "╰",
-                        "│",
+                    window = {
+                        border = {
+                            { "", "DiagnosticHint" },
+                            "─",
+                            "╮",
+                            "│",
+                            "╯",
+                            "─",
+                            "╰",
+                            "│",
+                        },
                     },
                 },
-                signature_help = { border = "rounded" },
             },
         })
     end,
