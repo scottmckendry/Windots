@@ -1,6 +1,5 @@
 return {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
     cmd = "CopilotChat",
     keys = {
         {
