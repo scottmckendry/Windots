@@ -33,6 +33,16 @@ local copilot_toggle_opts = {
     end,
 }
 
+--- Open a non-interactive terminal and run a command. Keeps the current window focused.
+---@param cmd string: The command to run
+local function run_non_interactive_cmd(cmd)
+    return function()
+        local win = vim.api.nvim_get_current_win()
+        snacks.terminal.toggle(cmd, { interactive = false })
+        vim.api.nvim_set_current_win(win)
+    end
+end
+
 -- stylua: ignore start
 
 -- better up/down
@@ -144,7 +154,7 @@ map({"n", "t"}, "<C-\\>", function() snacks.terminal() end, { desc = "Toggle Ter
 map("n", "<leader>gg", function() snacks.lazygit() end, { desc = "Lazygit" })
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
-map("n", "<leader>rss", function() snacks.terminal.toggle(vim.fn.expand("%:p"), { interactive = false }) end, { desc = "Run shell script (bash, powershell, etc)" })
-map("n", "<leader>rm", function() snacks.terminal.toggle("make", { interactive = false }) end, { desc = "Run make" })
-map("n", "<leader>rt", function() snacks.terminal.toggle("task", { interactive = false }) end, { desc = "Run task" })
+map("n", "<leader>rss", run_non_interactive_cmd(vim.fn.expand("%:p")), { desc = "Run shell script" })
+map("n", "<leader>rm", run_non_interactive_cmd("make"), { desc = "Run make" })
+map("n", "<leader>rt", run_non_interactive_cmd("task"), { desc = "Run task" })
 -- stylua: ignore end
