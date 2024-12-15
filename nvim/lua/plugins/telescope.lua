@@ -2,7 +2,6 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     dependencies = {
-        "kkharji/sqlite.lua",
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         { "scottmckendry/telescope-resession.nvim", dev = true },
@@ -97,7 +96,5 @@ return {
                 },
             },
         })
-
-        require("telescope").load_extension("fzf")
     end,
 }
