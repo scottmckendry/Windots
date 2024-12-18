@@ -2,6 +2,7 @@ local obsidian_path = os.getenv("OBSIDIAN_PATH")
 if not obsidian_path then
     return {}
 end
+
 return {
     "epwalsh/obsidian.nvim",
     version = "*",
@@ -113,6 +114,9 @@ return {
         end
 
         local function schedule_update()
+            if not vim.g.obsidian_git_sync then
+                return
+            end
             vim.defer_fn(function()
                 sync_changes()
                 schedule_update()
@@ -120,6 +124,7 @@ return {
         end
 
         schedule_update()
+        vim.g.obsidian_git_sync = false
 
         vim.api.nvim_create_user_command("ObsidianGitSync", function()
             sync_changes()
