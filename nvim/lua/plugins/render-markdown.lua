@@ -11,6 +11,10 @@ return {
                 left_pad = 2,
                 right_pad = 2,
             },
+            bullet = {
+                left_pad = 0,
+                right_pad = 1,
+            },
         })
     end,
 }
