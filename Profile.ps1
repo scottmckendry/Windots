@@ -19,7 +19,7 @@ Set-Alias -Name la -Value Get-ChildItemPretty
 Set-Alias -Name ll -Value Get-ChildItemPretty
 Set-Alias -Name ls -Value Get-ChildItemPretty
 Set-Alias -Name rm -Value Remove-ItemExtended
-Set-Alias -Name su -Value sudo
+Set-Alias -Name su -Value gsudo
 Set-Alias -Name tif Show-ThisIsFine
 Set-Alias -Name touch -Value New-File
 Set-Alias -Name up -Value Update-Profile
@@ -64,7 +64,7 @@ function Update-Profile {
 
     Write-Verbose "Rerunning setup script to capture any new dependencies."
     if (Get-Command -Name gsudo -ErrorAction SilentlyContinue) {
-        sudo ./Setup.ps1
+        gsudo ./Setup.ps1
     }
     else {
         Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -NonInteractive -Command ./Setup.ps1"
@@ -83,10 +83,10 @@ function Update-Software {
         Updates all software installed via Winget & Chocolatey. Alias: us
     #>
     Write-Verbose "Updating software installed via Winget & Chocolatey"
-    sudo cache on
-    sudo winget upgrade --all --include-unknown --silent --verbose
-    sudo choco upgrade all -y
-    sudo -k
+    gsudo cache on
+    gsudo winget upgrade --all --include-unknown --silent --verbose
+    gsudo choco upgrade all -y
+    gsudo -k
     $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
 }
 
