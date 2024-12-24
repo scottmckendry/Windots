@@ -3,9 +3,7 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = "rafamadriz/friendly-snippets",
-    -- TODO: re-enable version releases when auto_show supports functions. Until then, manually build from latest commit.
-    -- version = "v0.*",
-    build = "cargo build --release",
+    version = "v0.*",
     config = function()
         local is_enabled = function()
             local disabled_ft = {
