@@ -36,8 +36,11 @@ opt.showtabline = 0
 -- Set tab width
 opt.tabstop = 4
 opt.shiftwidth = 4
-opt.autoindent = true
 opt.expandtab = true
+opt.autoindent = true
+opt.breakindent = true
+opt.breakindentopt = "shift:2"
+opt.showbreak = "↳"
 
 -- Make cursor blink
 opt.guicursor = {
