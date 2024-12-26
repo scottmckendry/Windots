@@ -10,6 +10,7 @@ return {
                 go = { "goimports_reviser", "gofmt", "golines" },
                 html = { "prettier" },
                 javascript = { "prettier" },
+                typescript = { "prettier" },
                 json = { "prettier" },
                 lua = { "stylua" },
                 markdown = { "prettier" },

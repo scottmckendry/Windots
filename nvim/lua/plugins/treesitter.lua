@@ -30,6 +30,7 @@ return {
             "rust",
             "templ",
             "toml",
+            "typescript",
             "vimdoc",
             "yaml",
         },
