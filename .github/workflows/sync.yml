@@ -12,7 +12,7 @@ jobs:
         strategy:
             max-parallel: 3
             matrix:
-                file: [nvim, starship, bat, fastfetch, .github]
+                file: [.github, bat, fastfetch, nvim, starship, wezterm, nvim]
                 repo: [dots, nix, Windots]
         runs-on: ubuntu-latest
         steps:
