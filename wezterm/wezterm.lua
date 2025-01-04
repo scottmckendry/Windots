@@ -3,14 +3,19 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local opacity = 0.75
 local transparent_bg = "rgba(22, 24, 26, " .. opacity .. ")"
+local os = require("util").get_os()
 
 -- Font
+local emoji_font = "Segoe UI Emoji"
+if os == "linux" then
+    emoji_font = "Noto Color Emoji"
+end
 config.font = wezterm.font_with_fallback({
     {
         family = "JetBrainsMono Nerd Font",
         weight = "Regular",
     },
-    "Segoe UI Emoji",
+    emoji_font,
 })
 config.font_size = 10
 
@@ -24,6 +29,9 @@ config.win32_system_backdrop = "Acrylic"
 config.max_fps = 144
 config.animation_fps = 60
 config.cursor_blink_rate = 250
+if os == "linux" then
+    config.front_end = "WebGpu"
+end
 
 -- Colors
 config.colors = require("cyberdream")
@@ -31,6 +39,9 @@ config.force_reverse_video_cursor = true
 
 -- Shell
 config.default_prog = { "pwsh", "-NoLogo" }
+if os == "linux" then
+    config.default_prog = { "zsh" }
+end
 
 -- Tabs
 config.enable_tab_bar = true
