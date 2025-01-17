@@ -1,13 +1,13 @@
 -- Initialize Configuration
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
-local opacity = 0.75
+local opacity = 1
 local transparent_bg = "rgba(22, 24, 26, " .. opacity .. ")"
-local os = require("util").get_os()
+local host_os = require("util").get_os()
 
 -- Font
 local emoji_font = "Segoe UI Emoji"
-if os == "linux" then
+if host_os == "linux" then
     emoji_font = "Noto Color Emoji"
 end
 config.font = wezterm.font_with_fallback({
@@ -24,13 +24,15 @@ config.initial_rows = 45
 config.initial_cols = 180
 config.window_decorations = "RESIZE"
 config.window_background_opacity = opacity
+config.window_background_image = os.getenv("HOME") .. "/.config/wezterm/bg-blurred.png"
 config.window_close_confirmation = "NeverPrompt"
 config.win32_system_backdrop = "Acrylic"
 config.max_fps = 144
 config.animation_fps = 60
 config.cursor_blink_rate = 250
-if os == "linux" then
+if host_os == "linux" then
     config.front_end = "WebGpu"
+    config.window_decorations = nil -- use system decorations
 end
 
 -- Colors
@@ -39,7 +41,7 @@ config.force_reverse_video_cursor = true
 
 -- Shell
 config.default_prog = { "pwsh", "-NoLogo" }
-if os == "linux" then
+if host_os == "linux" then
     config.default_prog = { "zsh" }
 end
 
