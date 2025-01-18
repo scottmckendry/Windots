@@ -24,7 +24,7 @@ config.initial_rows = 45
 config.initial_cols = 180
 config.window_decorations = "RESIZE"
 config.window_background_opacity = opacity
-config.window_background_image = os.getenv("HOME") .. "/.config/wezterm/bg-blurred.png"
+config.window_background_image = os.getenv("WEZTERM_CONFIG_FILE"):gsub("wezterm.lua", "bg-blurred.png")
 config.window_close_confirmation = "NeverPrompt"
 config.win32_system_backdrop = "Acrylic"
 config.max_fps = 144
@@ -32,6 +32,7 @@ config.animation_fps = 60
 config.cursor_blink_rate = 250
 if host_os == "linux" then
     config.front_end = "WebGpu"
+    config.window_background_image = os.getenv("HOME") .. "/.config/wezterm/bg-blurred.png"
     config.window_decorations = nil -- use system decorations
 end
 
