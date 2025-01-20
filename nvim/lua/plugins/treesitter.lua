@@ -29,6 +29,7 @@ return {
             "regex",
             "rust",
             "templ",
+            "terraform",
             "toml",
             "typescript",
             "vimdoc",

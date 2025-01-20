@@ -42,6 +42,7 @@ return {
             "tailwindcss",
             "taplo",
             "templ", -- requires gopls in PATH, mason probably won't work depending on the OS
+            "terraformls",
             "ts_ls",
             "yamlls",
         }
