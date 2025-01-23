@@ -28,7 +28,6 @@ $wingetDeps = @(
     "eza-community.eza"
     "ezwinports.make"
     "fastfetch-cli.fastfetch"
-    "gerardog.gsudo"
     "git.git"
     "github.cli"
     "kitware.cmake"

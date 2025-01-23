@@ -19,7 +19,7 @@ Set-Alias -Name la -Value Get-ChildItemPretty
 Set-Alias -Name ll -Value Get-ChildItemPretty
 Set-Alias -Name ls -Value Get-ChildItemPretty
 Set-Alias -Name rm -Value Remove-ItemExtended
-Set-Alias -Name su -Value gsudo
+Set-Alias -Name su -Value Update-ShellElevation
 Set-Alias -Name tif Show-ThisIsFine
 Set-Alias -Name touch -Value New-File
 Set-Alias -Name up -Value Update-Profile
@@ -63,8 +63,8 @@ function Update-Profile {
     git stash pop | Out-Null
 
     Write-Verbose "Rerunning setup script to capture any new dependencies."
-    if (Get-Command -Name gsudo -ErrorAction SilentlyContinue) {
-        gsudo ./Setup.ps1
+    if (Get-Command -Name sudo -ErrorAction SilentlyContinue) {
+        sudo pwsh ./Setup.ps1
     }
     else {
         Start-Process wezterm -Verb runAs -WindowStyle Hidden -ArgumentList "start --cwd $PWD pwsh -NonInteractive -Command ./Setup.ps1"
@@ -83,10 +83,8 @@ function Update-Software {
         Updates all software installed via Winget & Chocolatey. Alias: us
     #>
     Write-Verbose "Updating software installed via Winget & Chocolatey"
-    gsudo cache on
-    gsudo winget upgrade --all --include-unknown --silent --verbose
-    gsudo choco upgrade all -y
-    gsudo -k
+    sudo winget upgrade --all --include-unknown --silent --verbose
+    sudo choco upgrade all -y
     $ENV:SOFTWARE_UPDATE_AVAILABLE = ""
 }
 
@@ -106,6 +104,15 @@ function Find-File {
 
     Write-Verbose "Outputting results to table"
     $result | Format-Table -AutoSize
+}
+
+function Update-ShellElevation {
+    <#
+    .SYNOPSIS
+        Elevates the current shell to run as an administrator. Alias: su
+    #>
+    Write-Verbose "Elevating shell to run as administrator"
+    sudo -E pwsh -NoLogo -Interactive -NoExit -c "Clear-Host"
 }
 
 function Find-String {
