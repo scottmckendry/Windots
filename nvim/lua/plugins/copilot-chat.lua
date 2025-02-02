@@ -37,8 +37,6 @@ return {
         },
     },
     config = function()
-        -- TODO: add blink.cmp integration when/if it's available
-        -- require("CopilotChat.integrations.cmp").setup()
         vim.api.nvim_create_autocmd("BufEnter", {
             pattern = "copilot-chat",
             callback = function()
@@ -50,14 +48,18 @@ return {
         require("CopilotChat").setup({
             model = "claude-3.5-sonnet",
             auto_insert_mode = true,
+            chat_autocomplete = false,
             show_help = false,
             show_folds = false,
             question_header = "  Scott ",
             answer_header = "  Copilot ",
             window = {
                 layout = "float",
-                width = 0.6,
-                height = 0.7,
+                relative = "editor",
+                row = 0,
+                col = vim.o.columns - 80,
+                width = 80,
+                height = vim.o.lines - 2,
                 border = "rounded",
             },
             mappings = {
