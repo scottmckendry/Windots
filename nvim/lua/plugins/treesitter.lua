@@ -9,6 +9,7 @@ return {
         ensure_installed = {
             "bash",
             "bicep",
+            "css",
             "c_sharp",
             "gitignore",
             "go",
@@ -27,7 +28,9 @@ return {
             "odin",
             "powershell",
             "regex",
+            "ron",
             "rust",
+            "sql",
             "templ",
             "terraform",
             "toml",
