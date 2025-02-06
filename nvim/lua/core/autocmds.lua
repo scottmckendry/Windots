@@ -57,3 +57,17 @@ autocmd("FileType", {
         })
     end,
 })
+
+autocmd("BufEnter", {
+    group = general,
+    callback = function(event)
+        local two_space_indent_types = {
+            "nix",
+        }
+        if vim.tbl_contains(two_space_indent_types, vim.bo[event.buf].filetype) then
+            vim.bo[event.buf].shiftwidth = 2
+            vim.bo[event.buf].tabstop = 2
+            vim.bo[event.buf].softtabstop = 2
+        end
+    end,
+})
