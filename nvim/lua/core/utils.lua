@@ -77,34 +77,6 @@ function M.open_help(buf)
     end
 end
 
---- Run a shell command and return the output
---- @param cmd table The command to run in the format { "command", "arg1", "arg2", ... }
---- @param cwd? string The current working directory
---- @return table stdout, number? return_code, table? stderr
-function M.get_cmd_output(cmd, cwd)
-    if type(cmd) ~= "table" then
-        vim.notify("Command must be a table", 3, { title = "Error" })
-        return {}
-    end
-
-    local command = table.remove(cmd, 1)
-    local stderr = {}
-    --- @diagnostic disable: missing-fields
-    local stdout, ret = require("plenary.job")
-        :new({
-            command = command,
-            args = cmd,
-            cwd = cwd,
-            on_stderr = function(_, data)
-                table.insert(stderr, data)
-            end,
-        })
-        :sync()
-    --- @diagnostic enable: missing-fields
-
-    return stdout or {}, ret, stderr
-end
-
 --- Write a table of lines to a file
 --- @param file string Path to the file
 --- @param lines table Table of lines to write to the file
