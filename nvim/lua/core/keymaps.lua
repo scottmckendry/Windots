@@ -80,18 +80,15 @@ map("n", "H", ":bprevious<cr>", { desc = "Previous buffer" })
 -- lazy
 map("n", "<leader>l", ":Lazy<cr>", { desc = "Lazy" })
 
--- Telescope
-map("n", "<leader>ff", ":Telescope find_files<cr>", { desc = "Fuzzy find files" })
-map("n", "<leader>fr", ":Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-map("n", "<leader>fs", ":Telescope live_grep<cr>", { desc = "Find string in CWD" })
-map("n", "<leader>fc", ":Telescope grep_string<cr>", { desc = "Find string under cursor in CWD" })
-map("n", "<leader>fb", ":Telescope buffers<cr>", { desc = "Fuzzy find buffers" })
-map("n", "<leader>ft", ":Telescope<cr>", { desc = "Other pickers..." })
-map("n", "<leader>fS", ":Telescope resession<cr>", { desc = "Find Session" })
-map("n", "<leader>fh", ":Telescope help_tags<cr>", { desc = "Find help tags" })
-map("n", "<leader>df", function() utils.telescope_diff_file() end, { desc = "Diff file with current buffer" })
-map("n", "<leader>dr", function() utils.telescope_diff_file(true) end, { desc = "Diff recent file with current buffer" })
-map("n", "<leader>dg", function() utils.telescope_diff_from_history() end, { desc = "Diff from git history" })
+-- Snacks Picker
+map("n", "<leader><leader>", function() snacks.picker.smart() end, { desc = "Smart Fuzzy Find" })
+map("n", "<leader>ff", function() snacks.picker.files({ hidden = true }) end, { desc = "Fuzzy find files" })
+map("n", "<leader>fr", function() snacks.picker.recent() end, { desc = "Fuzzy find recent files" })
+map("n", "<leader>fs", function() snacks.picker.grep() end, { desc = "Find string in CWD" })
+map("n", "<leader>fc", function() snacks.picker.grep_word() end, { desc = "Find word under cursor in CWD" })
+map("n", "<leader>fb", function() snacks.picker.buffers({ layout = { preset = "select" }}) end, { desc = "Fuzzy find buffers" })
+map("n", "<leader>ft", function() snacks.picker() end, { desc = "Other pickers..." })
+map("n", "<leader>fh", function() snacks.picker.help() end, { desc = "Find help tags" })
 
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
@@ -145,10 +142,10 @@ map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 map("n", "K", function() return vim.lsp.buf.hover() end, { desc = "Hover" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
 map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
-map("n", "gr", ":Telescope lsp_references<cr>", { desc = "Goto References" })
-map("n", "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, { desc = "Goto Implementation" })
-map("n", "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, { desc = "Goto Definition" })
-map("n", "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, { desc = "Goto Type Definition" })
+map("n", "gr", function() snacks.picker.lsp_references() end, { desc = "Goto References" })
+map("n", "gI", function() snacks.picker.lsp_implementations() end, { desc = "Goto Implementations" })
+map("n", "gd", function() snacks.picker.lsp_definitions() end, { desc = "Goto Definitions" })
+map("n", "gy", function() snacks.picker.lsp_type_definitions() end, { desc = "Goto Type Definitions" })
 
 -- Terminal/Run...
 map({"n", "t"}, "<C-\\>", function() snacks.terminal() end, { desc = "Toggle Terminal" })

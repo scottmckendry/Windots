@@ -5,6 +5,7 @@ return {
     config = function()
         require("snacks").setup({
             notifier = { enabled = true },
+            words = { enabled = true },
             lazygit = {
                 configure = false,
                 win = {
@@ -21,6 +22,14 @@ return {
                         winbar = "", -- hide terminal title
                     },
                 },
+            },
+            picker = {
+                formatters = {
+                    file = {
+                        filename_first = true,
+                    },
+                },
+                prompt = "   ",
             },
         })
     end,

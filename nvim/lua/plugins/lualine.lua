@@ -16,7 +16,7 @@ return {
             minifiles = { name = "minifiles", icon = "🗂️ " },
             snacks_terminal = { name = "terminal", icon = "🐚" },
             mason = { name = "mason", icon = "🔨" },
-            TelescopePrompt = { name = "telescope", icon = "🔍" },
+            snacks_picker_input = { name = "picker", icon = "🔍" },
             ["copilot-chat"] = { name = "copilot", icon = "🤖" },
         }
 
