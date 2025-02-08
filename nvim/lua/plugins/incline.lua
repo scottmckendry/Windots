@@ -14,14 +14,20 @@ return {
                 if filename == "" then
                     filename = "[No Name]"
                 end
+
                 local icon, hl_group = icons.get("file", filename)
+                local fg = "#16181a"
+                local bg = string.format("#%06x", vim.api.nvim_get_hl(0, { name = hl_group }).fg)
+                local annotation = string.format("#%06x", vim.api.nvim_get_hl(0, { name = "NonText" }).fg)
                 local modified = vim.bo[props.buf].modified
+                local other_bufs = utils.get_buffer_count() - 1
+
                 return {
-                    icon and { "  ", icon, " ", group = hl_group, guibg = "#3c4048" } or "  ",
-                    { filename, gui = modified and "bold,italic" or "bold" },
+                    icon and { "  ", icon, " ", guifg = fg, guibg = bg } or "  ",
+                    { filename, gui = modified and "bold,italic" or "bold", guifg = fg, guibg = bg },
                     " ",
-                    guibg = "#3c4048",
-                    { "+", utils.get_buffer_count(), " ", group = "Comment" },
+                    guibg = bg,
+                    other_bufs >= 1 and { "+", other_bufs, " ", guifg = annotation, gui = "italic" } or "",
                     " ",
                 }
             end,
