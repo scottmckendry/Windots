@@ -26,14 +26,22 @@ return {
         }
 
         -- components
-        local function get_navic_location()
+        local function git_diff()
+            local summary = vim.b.gitsigns_status
+            if not summary then
+                return ""
+            end
+            return summary
+        end
+
+        local function navic_location()
             if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
                 return require("nvim-navic").get_location()
             end
             return ""
         end
 
-        local function get_copilot_status()
+        local function copilot_status()
             local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
             if not (ok and #clients > 0) then
                 return
@@ -43,7 +51,7 @@ return {
             return hl_component(" ", copilot_highlights[status.status])
         end
 
-        local function get_progress()
+        local function progress()
             local cur_line = vim.fn.line(".")
             local total_lines = vim.fn.line("$")
 
@@ -57,7 +65,7 @@ return {
             return string.format("%2d%%%%", math.floor(cur_line / total_lines * 100))
         end
 
-        local function get_location()
+        local function location()
             return string.format("%3d:%-2d", vim.fn.line("."), vim.fn.charcol("."))
         end
 
@@ -75,14 +83,16 @@ return {
 
             return statusline.combine_groups({
                 { hl = mode_hl, strings = { " " .. string.lower(mode) } },
-                { hl = "Changed", strings = { git, diagnostics } },
+                { hl = "Changed", strings = { git } },
+                { hl = "Type", strings = { git_diff() } },
+                { hl = "Normal", strings = { diagnostics } },
                 "%<", -- Mark general truncate point
-                { hl = "Comment", strings = { get_navic_location() } },
+                { hl = "Comment", strings = { navic_location() } },
                 "%=", -- End left alignment
-                { hl = "Normal", strings = { get_copilot_status() } },
+                { hl = "Normal", strings = { copilot_status() } },
                 { hl = "Changed", strings = { search_count } },
-                { hl = "String", strings = { get_progress() } },
-                { hl = "Type", strings = { get_location() } },
+                { hl = "String", strings = { progress() } },
+                { hl = "Type", strings = { location() } },
                 { hl = "Comment", strings = { clock() } },
             })
         end
@@ -92,7 +102,6 @@ return {
             content = {
                 active = get_statusline_content,
             },
-
             set_vim_settings = false,
         })
     end,
