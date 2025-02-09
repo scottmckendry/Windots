@@ -42,7 +42,7 @@ end
 function M.get_buffer_count()
     local count = 0
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.fn.bufname(buf) ~= "" then
+        if vim.bo[buf].buflisted and vim.bo[buf].buftype ~= "nofile" then
             count = count + 1
         end
     end
