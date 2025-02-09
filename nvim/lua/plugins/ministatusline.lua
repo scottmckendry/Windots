@@ -26,6 +26,14 @@ return {
         }
 
         -- components
+        local function git_branch()
+            local branch = vim.g.gitsigns_head
+            if not branch then
+                return ""
+            end
+            return " " .. branch
+        end
+
         local function git_diff()
             local summary = vim.b.gitsigns_status
             if not summary then
@@ -77,13 +85,12 @@ return {
         -- build statusline
         local function get_statusline_content()
             local mode, mode_hl = statusline.section_mode({})
-            local git = statusline.section_git({})
             local diagnostics = statusline.section_diagnostics({ signs = signs, icon = "" })
             local search_count = statusline.section_searchcount({})
 
             return statusline.combine_groups({
                 { hl = mode_hl, strings = { " " .. string.lower(mode) } },
-                { hl = "Changed", strings = { git } },
+                { hl = "Changed", strings = { git_branch() } },
                 { hl = "Type", strings = { git_diff() } },
                 { hl = "Normal", strings = { diagnostics } },
                 "%<", -- Mark general truncate point
