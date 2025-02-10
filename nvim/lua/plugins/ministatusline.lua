@@ -49,6 +49,23 @@ return {
             return ""
         end
 
+        local function status_messages()
+            local ignore = {
+                "-- INSERT --",
+                "-- TERMINAL --",
+                "-- VISUAL --",
+                "-- VISUAL LINE --",
+                "-- VISUAL BLOCK --",
+            }
+            --- @diagnostic disable: undefined-field
+            local mode = require("noice").api.status.mode.get()
+            if require("noice").api.status.mode.has() and not vim.tbl_contains(ignore, mode) then
+                return mode
+            end
+            --- @diagnostic enable: undefined-field
+            return ""
+        end
+
         local function lazy_updates()
             local lazy_status = require("lazy.status")
             if lazy_status.has_updates() then
@@ -104,6 +121,7 @@ return {
                 "%<", -- Mark general truncate point
                 { hl = "Comment", strings = { navic_location() } },
                 "%=", -- End left alignment
+                { hl = "Comment", strings = { status_messages() } },
                 { hl = "String", strings = { lazy_updates() } },
                 { hl = "Normal", strings = { copilot_status() } },
                 { hl = "Function", strings = { search_count } },
