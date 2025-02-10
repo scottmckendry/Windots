@@ -49,6 +49,14 @@ return {
             return ""
         end
 
+        local function lazy_updates()
+            local lazy_status = require("lazy.status")
+            if lazy_status.has_updates() then
+                return lazy_status.updates()
+            end
+            return ""
+        end
+
         local function copilot_status()
             local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
             if not (ok and #clients > 0) then
@@ -96,11 +104,12 @@ return {
                 "%<", -- Mark general truncate point
                 { hl = "Comment", strings = { navic_location() } },
                 "%=", -- End left alignment
+                { hl = "String", strings = { lazy_updates() } },
                 { hl = "Normal", strings = { copilot_status() } },
-                { hl = "Changed", strings = { search_count } },
-                { hl = "String", strings = { progress() } },
-                { hl = "Type", strings = { location() } },
-                { hl = "Comment", strings = { clock() } },
+                { hl = "Function", strings = { search_count } },
+                { hl = "Special", strings = { progress() } },
+                { hl = "Changed", strings = { location() } },
+                { hl = "Conceal", strings = { clock() } },
             })
         end
 
