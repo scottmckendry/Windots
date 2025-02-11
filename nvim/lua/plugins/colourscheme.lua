@@ -16,13 +16,6 @@ return {
                 return {
                     CursorLine = { bg = c.bg },
                     CursorLineNr = { fg = c.magenta },
-
-                    MiniStatuslineModeCommand = { fg = c.yellow, bold = true },
-                    MiniStatuslineModeInsert = { fg = c.green, bold = true },
-                    MiniStatuslineModeNormal = { fg = c.blue, bold = true },
-                    MiniStatuslineModeOther = { fg = c.cyan, bold = true },
-                    MiniStatuslineModeReplace = { fg = c.red, bold = true },
-                    MiniStatuslineModeVisual = { fg = c.magenta, bold = true },
                 }
             end,
         })
