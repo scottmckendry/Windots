@@ -1,26 +1,6 @@
 local M = {}
 
-function _G._statusline_component(name, hl)
-    return M[name](hl)
-end
-
-local function format_component(val, hl)
-    hl = hl or "Comment"
-    return " %#" .. hl .. "#" .. val .. "%* "
-end
-
-local function component(val, hl)
-    if val == nil or val == "" then
-        return ""
-    end
-
-    -- when the component provides it's own hl or we want to use the default
-    if hl == nil then
-        return "%{%v:lua._statusline_component('" .. val .. "')%}"
-    end
-    return "%{%v:lua._statusline_component('" .. val .. "', '" .. hl .. "')%}"
-end
-
+-- Mode mappings
 local mode_map = {
     ["n"] = "NORMAL",
     ["no"] = "NORMAL",
@@ -45,14 +25,66 @@ local mode_hl_map = {
     ["TERMINAL"] = "Keyword",
 }
 
--- Components
-M.mode = function()
+-- Helper functions
+--- Global function for statusline component rendering. Can be called directly from the statusline
+--- @param name string The name of the component to render
+--- @param hl string The highlight group to use for the component
+--- @return string
+function _G._statusline_component(name, hl)
+    return M[name](hl)
+end
+
+--- Format a given component value with a highlight group in the format expected by the statusline
+--- @param val string The value to format
+--- @param hl string|nil The highlight group to use
+--- @return string
+local function format_component(val, hl)
+    hl = hl or "Comment"
+    return " %#" .. hl .. "#" .. val .. "%* "
+end
+
+--- Generate a statusline component with optional highlight group
+--- @param val string The value to render
+--- @param hl string|nil The highlight group to use
+--- @return string
+local function component(val, hl)
+    if val == nil or val == "" then
+        return ""
+    end
+
+    if hl == nil then
+        return "%{%v:lua._statusline_component('" .. val .. "')%}"
+    end
+    return "%{%v:lua._statusline_component('" .. val .. "', '" .. hl .. "')%}"
+end
+
+--- Get the count of diagnostics for a given severity
+--- @param severity "ERROR"|"WARN"|"HINT"|"INFO"
+--- @return number
+local function get_diagnostic_count(severity)
+    return #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[severity] })
+end
+
+--- Get the corresponding highlight group and statusline value for the current vim mode
+--- @return string, string
+local function get_mode_info()
     local mode = vim.api.nvim_get_mode().mode
     local val = mode_map[mode]
     local hl = mode_hl_map[val]
+    return val, hl
+end
+
+-- Components
+--- Mode component with dynamic highlights
+--- @return string
+M.mode = function()
+    local val, hl = get_mode_info()
     return format_component(" " .. string.lower(val), hl)
 end
 
+--- Git branch component based on CWD - depends on gitsigns.nvim
+--- @param hl string The highlight group to use
+--- @return string
 M.git_branch = function(hl)
     local branch = vim.g.gitsigns_head
     if not branch then
@@ -61,6 +93,9 @@ M.git_branch = function(hl)
     return format_component(" " .. branch, hl)
 end
 
+--- Git diff component - current buffer, depends on gitsigns.nvim
+--- @param hl string The highlight group to use
+--- @return string
 M.git_diff = function(hl)
     local summary = vim.b.gitsigns_status
     if not summary then
@@ -69,11 +104,13 @@ M.git_diff = function(hl)
     return format_component(summary, hl)
 end
 
+--- Buffer diagnostics component
+--- @return string
 M.diagnostics = function()
-    local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-    local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-    local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-    local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    local errors = get_diagnostic_count("ERROR")
+    local warnings = get_diagnostic_count("WARN")
+    local hints = get_diagnostic_count("HINT")
+    local info = get_diagnostic_count("INFO")
 
     local components = {
         errors > 0 and format_component(" " .. errors, "DiagnosticError") or "",
@@ -89,6 +126,8 @@ M.diagnostics = function()
     return table.concat(components, "")
 end
 
+--- Buffer location component - dependes on nvim-navic
+--- @param hl string The highlight group to use
 M.navic = function(hl)
     if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
         return format_component(require("nvim-navic").get_location(), hl)
@@ -96,7 +135,10 @@ M.navic = function(hl)
     return ""
 end
 
-M.status_messages = function()
+--- Status messages component. Shows @recording meesages. Depends on noice.nvim
+--- @param hl string|nil The highlight group to use
+--- @return string
+M.status_messages = function(hl)
     local ignore = {
         "-- INSERT --",
         "-- TERMINAL --",
@@ -107,20 +149,24 @@ M.status_messages = function()
     --- @diagnostic disable: undefined-field
     local mode = require("noice").api.status.mode.get()
     if require("noice").api.status.mode.has() and not vim.tbl_contains(ignore, mode) then
-        return format_component(mode)
+        return format_component(mode, hl)
     end
     --- @diagnostic enable: undefined-field
     return ""
 end
 
+--- Lazy updates component - show pending lazy.nvim updates
+--- @param hl string The highlight group to use
 M.lazy_updates = function(hl)
-    local lazy_status = require("lazy.status")
-    if lazy_status.has_updates() then
-        return format_component(lazy_status.updates(), hl)
+    local updates = require("lazy.status").updates()
+    if type(updates) == "string" then
+        return format_component(updates, hl)
     end
     return ""
 end
 
+--- Copilot status component - depends on copilot.lua
+--- @return string
 M.copilot_status = function()
     local copilot_highlights = {
         [""] = "Comment",
@@ -138,6 +184,9 @@ M.copilot_status = function()
     return format_component(" ", copilot_highlights[status.status])
 end
 
+--- Search count component - show current and total search matches when searching a buffer
+--- @param hl string|nil The highlight group to use
+--- @return string
 M.search_count = function(hl)
     if vim.v.hlsearch == 0 then
         return ""
@@ -155,19 +204,26 @@ M.search_count = function(hl)
     return format_component(s_count.current .. "/" .. s_count.total, hl)
 end
 
+--- Progress component - show percentage of buffer scrolled
+--- @param hl string|nil The highlight group to use
 M.progress = function(hl)
     return format_component("%2p%%", hl)
 end
 
+--- Clock component - show current time
+--- @param hl string|nil The highlight group to use
 M.location = function(hl)
     return format_component("%l:%c", hl)
 end
 
+--- Clock component - show current time
+--- @param hl string|nil The highlight group to use
 M.clock = function(hl)
     --- @diagnostic disable-next-line: param-type-mismatch
     return format_component(os.date("%I:%M %p"):gsub("^0", ""), hl)
 end
 
+-- Statusline components
 local components = {
     component("mode"),
     component("git_branch", "Changed"),
@@ -185,6 +241,8 @@ local components = {
     component("clock", "Conceal"),
 }
 
+--- Return the statusline as a concatenated string - use with vim.opt.statusline to set
+--- @type string
 M.statusline = table.concat(components, "")
 
 return M
