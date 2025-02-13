@@ -13,6 +13,7 @@ local mode_map = {
     ["r?"] = "CONFIRM",
     ["!"] = "SHELL",
     ["t"] = "TERMINAL",
+    ["nt"] = "TERMINAL",
 }
 
 local mode_hl_map = {
@@ -70,8 +71,7 @@ end
 local function get_mode_info()
     local mode = vim.api.nvim_get_mode().mode
     local val = mode_map[mode]
-    local hl = mode_hl_map[val]
-    return val, hl
+    return val, mode_hl_map[val]
 end
 
 -- Components
@@ -79,6 +79,9 @@ end
 --- @return string
 M.mode = function()
     local val, hl = get_mode_info()
+    if not val then
+        return ""
+    end
     return format_component(" " .. string.lower(val), hl)
 end
 
