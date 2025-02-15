@@ -1,7 +1,6 @@
----@diagnostic disable: missing-fields
 return {
     "saghen/blink.cmp",
-    lazy = false,
+    event = "InsertEnter",
     dependencies = "rafamadriz/friendly-snippets",
     version = "v0.*",
     config = function()

@@ -1,6 +1,6 @@
 return {
     "b0o/incline.nvim",
-    event = "VeryLazy",
+    event = "BufEnter",
     config = function()
         local icons = require("mini.icons")
         local utils = require("core.utils")
