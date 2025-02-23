@@ -101,7 +101,7 @@ end
 --- @return string
 M.git_diff = function(hl)
     local summary = vim.b.gitsigns_status
-    if not summary then
+    if not summary or summary == "" then
         return ""
     end
     return format_component(summary, hl)
