@@ -101,6 +101,7 @@ M.git_branch = function(hl)
 end
 
 --- File icon component - show the current buffer's file icon, depends on mini.icons
+--- @return string
 M.file_icon = function()
     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
     if filename == "" then
@@ -115,8 +116,17 @@ M.file_icon = function()
     return format_component(icon, hl, " ", "")
 end
 
+--- File name component - show the current buffer's file name
+--- @param hl string The highlight group to use
 M.file_name = function(hl)
     return format_component("%t", hl)
+end
+
+--- Buffer count component - show the number of other open buffers
+--- @param hl string The highlight group to use
+M.other_buffers = function(hl)
+    local other_bufs = require("core.utils").get_buffer_count() - 1
+    return format_component("+" .. other_bufs .. " ", hl, "", " ")
 end
 
 --- Git diff component - current buffer, depends on gitsigns.nvim
@@ -256,6 +266,7 @@ local components = {
     component("git_diff", "Type"),
     component("file_icon"),
     component("file_name", "Normal"),
+    component("other_buffers", "Comment"),
     component("diagnostics"),
     "%<", -- mark general truncate point
     component("navic", "Comment"),
