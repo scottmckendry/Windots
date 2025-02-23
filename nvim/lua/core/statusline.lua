@@ -38,10 +38,14 @@ end
 --- Format a given component value with a highlight group in the format expected by the statusline
 --- @param val string The value to format
 --- @param hl string|nil The highlight group to use
+--- @param l_sep string|nil The left separator to use
+--- @param r_sep string|nil The right separator to use
 --- @return string
-local function format_component(val, hl)
+local function format_component(val, hl, l_sep, r_sep)
+    l_sep = l_sep or " "
+    r_sep = r_sep or " "
     hl = hl or "Comment"
-    return " %#" .. hl .. "#" .. val .. "%* "
+    return l_sep .. "%#" .. hl .. "#" .. val .. "%*" .. r_sep
 end
 
 --- Generate a statusline component with optional highlight group
@@ -94,6 +98,25 @@ M.git_branch = function(hl)
         return ""
     end
     return format_component(" " .. branch, hl)
+end
+
+--- File icon component - show the current buffer's file icon, depends on mini.icons
+M.file_icon = function()
+    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
+    if filename == "" then
+        return ""
+    end
+
+    local icon, hl = require("mini.icons").get("file", filename)
+    if not icon then
+        return ""
+    end
+
+    return format_component(icon, hl, " ", "")
+end
+
+M.file_name = function(hl)
+    return format_component("%t", hl)
 end
 
 --- Git diff component - current buffer, depends on gitsigns.nvim
@@ -231,6 +254,8 @@ local components = {
     component("mode"),
     component("git_branch", "Changed"),
     component("git_diff", "Type"),
+    component("file_icon"),
+    component("file_name", "Normal"),
     component("diagnostics"),
     "%<", -- mark general truncate point
     component("navic", "Comment"),
