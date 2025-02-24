@@ -100,28 +100,6 @@ M.git_branch = function(hl)
     return format_component(" " .. branch, hl)
 end
 
---- File icon component - show the current buffer's file icon, depends on mini.icons
---- @return string
-M.file_icon = function()
-    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
-    if filename == "" then
-        return ""
-    end
-
-    local icon, hl = require("mini.icons").get("file", filename)
-    if not icon then
-        return ""
-    end
-
-    return format_component(icon, hl, " ", "")
-end
-
---- File name component - show the current buffer's file name
---- @param hl string The highlight group to use
-M.file_name = function(hl)
-    return format_component("%t", hl)
-end
-
 --- Buffer count component - show the number of other open buffers
 --- @param hl string The highlight group to use
 M.other_buffers = function(hl)
@@ -243,6 +221,22 @@ M.search_count = function(hl)
     return format_component(s_count.current .. "/" .. s_count.total, hl)
 end
 
+--- File name component - show the current buffer's file name and coloured icon. Depends on mini.icons.
+--- @param hl string The highlight group to use
+M.file_name = function(hl)
+    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
+    if filename == "" then
+        return ""
+    end
+
+    local icon, icon_hl = require("mini.icons").get("file", filename)
+    if not icon then
+        return ""
+    end
+
+    return format_component(icon, icon_hl, " ", "") .. format_component(filename, hl)
+end
+
 --- Progress component - show percentage of buffer scrolled
 --- @param hl string|nil The highlight group to use
 M.progress = function(hl)
@@ -267,8 +261,6 @@ local components = {
     component("mode"),
     component("git_branch", "Changed"),
     component("git_diff", "Type"),
-    component("file_icon"),
-    component("file_name", "Normal"),
     component("other_buffers", "Comment"),
     component("diagnostics"),
     "%<", -- mark general truncate point
@@ -278,6 +270,7 @@ local components = {
     component("lazy_updates", "String"),
     component("copilot_status"),
     component("search_count", "Directory"),
+    component("file_name", "Normal"),
     component("progress", "Special"),
     component("location", "Changed"),
     component("clock", "Conceal"),
