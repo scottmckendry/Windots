@@ -12,8 +12,10 @@ jobs:
         strategy:
             max-parallel: 3
             matrix:
-                file: [.github, bat, fastfetch, nvim, starship, wezterm, nvim]
+                file: [.github, bat, fastfetch, nvim, starship, wezterm]
                 repo: [dots, nix, Windots]
+                exclude:
+                    - repo: ${{ github.event.repository.name }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
