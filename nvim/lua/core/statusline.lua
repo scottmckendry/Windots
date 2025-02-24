@@ -108,6 +108,11 @@ M.git_diff = function(hl)
     if not summary or summary == "" then
         return ""
     end
+
+    summary = summary:gsub("+", " ")
+    summary = summary:gsub("-", " ")
+    summary = summary:gsub("~", " ")
+
     return format_component(summary, hl)
 end
 
@@ -119,18 +124,18 @@ M.diagnostics = function()
     local hints = get_diagnostic_count("HINT")
     local info = get_diagnostic_count("INFO")
 
-    local components = {
-        errors > 0 and format_component(" " .. errors, "DiagnosticError") or "",
-        warnings > 0 and format_component(" " .. warnings, "DiagnosticWarn") or "",
-        hints > 0 and format_component(" " .. hints, "DiagnosticHint") or "",
-        info > 0 and format_component("󰝶 " .. info, "DiagnosticInfo") or "",
-    }
-
     if errors + warnings + hints + info == 0 then
         return ""
     end
 
-    return table.concat(components, "")
+    local components = {
+        errors > 0 and format_component(" " .. errors, "DiagnosticError", "") or "",
+        warnings > 0 and format_component(" " .. warnings, "DiagnosticWarn", "") or "",
+        hints > 0 and format_component(" " .. hints, "DiagnosticHint", "") or "",
+        info > 0 and format_component("󰝶 " .. info, "DiagnosticInfo", "") or "",
+    }
+
+    return " " .. table.concat(components, "") .. " "
 end
 
 --- Buffer location component - dependes on nvim-navic
