@@ -126,6 +126,9 @@ end
 --- @param hl string The highlight group to use
 M.other_buffers = function(hl)
     local other_bufs = require("core.utils").get_buffer_count() - 1
+    if other_bufs < 1 then
+        return ""
+    end
     return format_component("+" .. other_bufs .. " ", hl, "", " ")
 end
 
