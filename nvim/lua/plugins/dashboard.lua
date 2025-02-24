@@ -6,9 +6,6 @@ return {
         vim.cmd("highlight DashboardHeader guifg=#ffffff")
         require("dashboard").setup({
             theme = "hyper",
-            hide = {
-                statusline = false,
-            },
             config = {
                 week_header = { enable = true },
                 shortcut = {
