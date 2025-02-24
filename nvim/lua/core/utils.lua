@@ -65,7 +65,7 @@ function M.open_help(buf)
             row = 0,
             col = vim.o.columns - 80,
             width = 80,
-            height = vim.o.lines - 2,
+            height = vim.o.lines - 3,
             border = "rounded",
         })
 
