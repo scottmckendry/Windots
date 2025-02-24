@@ -219,16 +219,27 @@ end
 --- File name component - show the current buffer's file name and coloured icon. Depends on mini.icons.
 --- @param hl string The highlight group to use
 M.file_name = function(hl)
+    local ft_overrides = {
+        ["copilot-chat"] = { name = "copilot", icon = "󰚩", icon_hl = "MiniIconsAzure" },
+        ["grug-far"] = { name = "grug-far", icon = "", icon_hl = "DiagnosticWarn" },
+        ["lazy"] = { name = "lazy.nvim", icon = "󰒲", icon_hl = "Directory" },
+        ["mason"] = { name = "mason", icon = "󱌣", icon_hl = "MiniIconsAzure" },
+        ["minifiles"] = { name = "files", icon = "󰝰", icon_hl = "Directory" },
+        ["snacks_picker_input"] = { name = "picker", icon = "󰦨", icon_hl = "Changed" },
+    }
+
+    local ft = vim.bo.filetype
+    if ft_overrides[ft] then
+        return format_component(ft_overrides[ft].icon, ft_overrides[ft].icon_hl, " ", "")
+            .. format_component(ft_overrides[ft].name, hl)
+    end
+
     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
     if filename == "" then
         return ""
     end
 
     local icon, icon_hl = require("mini.icons").get("file", filename)
-    if not icon then
-        return ""
-    end
-
     return format_component(icon, icon_hl, " ", "") .. format_component(filename, hl)
 end
 
