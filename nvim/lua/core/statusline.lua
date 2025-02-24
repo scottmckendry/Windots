@@ -100,16 +100,6 @@ M.git_branch = function(hl)
     return format_component(" " .. branch, hl)
 end
 
---- Buffer count component - show the number of other open buffers
---- @param hl string The highlight group to use
-M.other_buffers = function(hl)
-    local other_bufs = require("core.utils").get_buffer_count() - 1
-    if other_bufs < 1 then
-        return ""
-    end
-    return format_component("+" .. other_bufs .. " ", hl, "", " ")
-end
-
 --- Git diff component - current buffer, depends on gitsigns.nvim
 --- @param hl string The highlight group to use
 --- @return string
@@ -237,6 +227,16 @@ M.file_name = function(hl)
     return format_component(icon, icon_hl, " ", "") .. format_component(filename, hl)
 end
 
+--- Buffer count component - show the number of other open buffers
+--- @param hl string The highlight group to use
+M.other_buffers = function(hl)
+    local other_bufs = require("core.utils").get_buffer_count() - 1
+    if other_bufs < 1 then
+        return ""
+    end
+    return format_component("+" .. other_bufs .. " ", hl, "", " ")
+end
+
 --- Progress component - show percentage of buffer scrolled
 --- @param hl string|nil The highlight group to use
 M.progress = function(hl)
@@ -261,7 +261,6 @@ local components = {
     component("mode"),
     component("git_branch", "Changed"),
     component("git_diff", "Type"),
-    component("other_buffers", "Comment"),
     component("diagnostics"),
     "%<", -- mark general truncate point
     component("navic", "Comment"),
@@ -271,6 +270,7 @@ local components = {
     component("copilot_status"),
     component("search_count", "Directory"),
     component("file_name", "Normal"),
+    component("other_buffers", "Comment"),
     component("progress", "Special"),
     component("location", "Changed"),
     component("clock", "Conceal"),
