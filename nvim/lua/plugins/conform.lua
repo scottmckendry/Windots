@@ -6,6 +6,7 @@ return {
         require("conform").setup({
             formatters_by_ft = {
                 bicep = { "bicep" },
+                cs = { "csharpier" },
                 css = { "prettier" },
                 go = { "goimports_reviser", "gofmt", "golines" },
                 html = { "prettier" },

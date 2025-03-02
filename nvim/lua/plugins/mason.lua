@@ -16,12 +16,11 @@ return {
             },
         })
 
-        local linux_only_pacakages = {
-            "nil",
-        }
-
+        local linux_only_pacakages = { "nil" }
+        local ignore_on_nixos = { "csharpier" }
         local mason_packages = {
             "bicep-lsp",
+            "csharpier",
             "docker-compose-language-service",
             "dockerfile-language-server",
             "goimports-reviser",
@@ -47,8 +46,14 @@ return {
             "yaml-language-server",
         }
 
-        if vim.fn.has("win32") == 0 then
+        if vim.fn.has("unix") == 1 then
             mason_packages = vim.tbl_extend("force", mason_packages, linux_only_pacakages)
+            local os = vim.fn.systemlist("grep ^ID= /etc/os-release | cut -d= -f2")[1]
+            if os == "nixos" then
+                mason_packages = vim.tbl_filter(function(p)
+                    return not vim.tbl_contains(ignore_on_nixos, p)
+                end, mason_packages)
+            end
         end
 
         local mr = require("mason-registry")
