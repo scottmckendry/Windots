@@ -17,7 +17,7 @@ return {
         })
 
         local linux_only_pacakages = { "nil" }
-        local ignore_on_nixos = { "csharpier" }
+        local ignore_on_nixos = { "csharpier", "nil" }
         local mason_packages = {
             "bicep-lsp",
             "csharpier",
