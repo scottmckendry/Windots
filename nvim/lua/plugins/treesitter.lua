@@ -27,6 +27,7 @@ return {
             "nix",
             "odin",
             "powershell",
+            "razor",
             "regex",
             "ron",
             "rust",
