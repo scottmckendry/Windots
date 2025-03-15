@@ -3,7 +3,13 @@ return {
     lazy = false,
     config = function()
         local resession = require("resession")
-        resession.setup({})
+        resession.setup({
+            autosave = {
+                enabled = true,
+                interval = 60,
+                notify = false,
+            },
+        })
         vim.api.nvim_create_autocmd("VimEnter", {
             callback = function()
                 -- Only load the session if nvim was started with no args
