@@ -3,6 +3,30 @@
 
 local picker = require("snacks").picker
 
+local icons = {
+    { match = "/home/scott/git/", icon = " ", highlight = "Changed" },
+    { match = "/home/scott/", icon = " ", highlight = "Special" },
+}
+
+local fallback_icon = { icon = " ", highlight = "Directory" }
+
+local function apply_icon(display_value)
+    for _, icon in ipairs(icons) do
+        if display_value:find(icon.match) then
+            return icon, display_value:gsub(icon.match, "")
+        end
+    end
+    return fallback_icon, display_value
+end
+
+local function format_session_item(item)
+    local icon, display_value = apply_icon(item.display_value)
+    return {
+        { icon.icon, icon.highlight },
+        { display_value, "Normal" },
+    }
+end
+
 local function generate_sessions()
     local sessions = {}
     for idx, session in ipairs(require("resession").list()) do
@@ -10,7 +34,7 @@ local function generate_sessions()
             text = session,
             value = session,
             idx = idx,
-            display_value = idx .. ". " .. session,
+            display_value = session:gsub("_", "/"),
         }
     end
     return sessions
@@ -20,22 +44,14 @@ picker.pick({
     title = "Sessions",
     finder = generate_sessions,
     layout = "vscode",
-    format = function(item)
-        local ret = {} ---@type snacks.picker.Highlight[]
-        ret[#ret + 1] = { item.display_value:match("^%d+%."), "Special" }
-        ret[#ret + 1] = { " " }
-        local formatted_name = item.text:gsub("_", "/")
-        ret[#ret + 1] = { formatted_name, "Normal" }
-        return ret
-    end,
+    format = format_session_item,
     confirm = function(self, item)
         self:close()
         require("resession").load(item.text)
     end,
     actions = {
         delete_session = function(self, item)
-            print("Deleted: " .. item.text)
-            require("resession").delete(item.text)
+            require("resession").delete(item.text, { notify = false })
             self:find({
                 refresh = true,
             })
