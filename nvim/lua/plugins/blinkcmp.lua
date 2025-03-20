@@ -16,6 +16,7 @@ return {
 
         require("blink.cmp").setup({
             enabled = is_enabled,
+            cmdline = { completion = { menu = { auto_show = true } } },
             completion = {
                 menu = {
                     scrollbar = false,
