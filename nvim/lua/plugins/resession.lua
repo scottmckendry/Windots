@@ -2,7 +2,7 @@ return {
     "stevearc/resession.nvim",
     dependencies = {
         {
-            "scottmckendry/telescope-resession.nvim",
+            "scottmckendry/pick-resession.nvim",
             dev = true,
             config = function()
                 require("pick-resession").setup({
