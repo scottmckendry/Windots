@@ -89,6 +89,7 @@ map("n", "<leader>fc", function() snacks.picker.grep_word() end, { desc = "Find 
 map("n", "<leader>fb", function() snacks.picker.buffers({ layout = { preset = "select" }}) end, { desc = "Fuzzy find buffers" })
 map("n", "<leader>ft", function() snacks.picker() end, { desc = "Other pickers..." })
 map("n", "<leader>fh", function() snacks.picker.help() end, { desc = "Find help tags" })
+map("n", "<leader>fS", function() require("pick-resession").pick() end, { desc = "Find Session" })
 
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")

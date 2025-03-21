@@ -1,5 +1,19 @@
 return {
     "stevearc/resession.nvim",
+    dependencies = {
+        {
+            "scottmckendry/telescope-resession.nvim",
+            dev = true,
+            config = function()
+                require("pick-resession").setup({
+                    path_icons = {
+                        { match = "/home/scott/git/", icon = " ", highlight = "Changed" },
+                        { match = "/home/scott/", icon = " ", highlight = "Special" },
+                    },
+                })
+            end,
+        },
+    },
     lazy = false,
     config = function()
         local resession = require("resession")
