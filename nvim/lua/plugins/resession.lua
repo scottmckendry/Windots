@@ -7,10 +7,10 @@ return {
             config = function()
                 require("pick-resession").setup({
                     path_icons = {
-                        { match = "C:/Users/scott/git/", icon = " ", highlight = "Changed" },
-                        { match = "/home/scott/git/", icon = " ", highlight = "Changed" },
-                        { match = "C:/Users/scott/", icon = " ", highlight = "Special" },
-                        { match = "/home/scott/", icon = " ", highlight = "Special" },
+                        { match = "C:/Users/" .. vim.g.user .. "/git/", icon = " ", highlight = "Changed" },
+                        { match = "/home/" .. vim.g.user .. "/git/", icon = " ", highlight = "Changed" },
+                        { match = "C:/Users/" .. vim.g.user .. "/", icon = " ", highlight = "Special" },
+                        { match = "/home/" .. vim.g.user .. "/", icon = " ", highlight = "Special" },
                     },
                 })
             end,

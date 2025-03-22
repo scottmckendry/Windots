@@ -51,7 +51,7 @@ return {
             chat_autocomplete = false,
             show_help = false,
             show_folds = false,
-            question_header = "  Scott ",
+            question_header = "  " .. vim.g.user:gsub("^%l", string.upper) .. " ",
             answer_header = "  Copilot ",
             window = {
                 layout = "float",
@@ -61,11 +61,6 @@ return {
                 width = 80,
                 height = vim.o.lines - 3,
                 border = "rounded",
-            },
-            mappings = {
-                close = {
-                    insert = "C-q",
-                },
             },
             selection = function(source)
                 local select = require("CopilotChat.select")
