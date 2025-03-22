@@ -7,7 +7,9 @@ return {
             config = function()
                 require("pick-resession").setup({
                     path_icons = {
+                        { match = "C:/Users/scott/git/", icon = " ", highlight = "Changed" },
                         { match = "/home/scott/git/", icon = " ", highlight = "Changed" },
+                        { match = "C:/Users/scott/", icon = " ", highlight = "Special" },
                         { match = "/home/scott/", icon = " ", highlight = "Special" },
                     },
                 })
