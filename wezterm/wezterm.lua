@@ -5,16 +5,16 @@ local opacity = 1
 local transparent_bg = "rgba(22, 24, 26, " .. opacity .. ")"
 
 --- Get the current operating system
--- @return "windows"| "linux" | "macos"
+--- @return "windows"| "linux" | "macos"
 local function get_os()
     local bin_format = package.cpath:match("%p[\\|/]?%p(%a+)")
     if bin_format == "dll" then
         return "windows"
     elseif bin_format == "so" then
         return "linux"
-    elseif bin_format == "dylib" then
-        return "macos"
     end
+
+    return "macos"
 end
 
 local host_os = get_os()
@@ -54,7 +54,7 @@ config.hide_tab_bar_if_only_one_tab = true
 config.show_tab_index_in_tab_bar = false
 config.use_fancy_tab_bar = false
 config.colors.tab_bar = {
-    background = transparent_bg,
+    background = config.window_background_image and "rgba(0, 0, 0, 0)" or transparent_bg,
     new_tab = { fg_color = config.colors.background, bg_color = config.colors.brights[6] },
     new_tab_hover = { fg_color = config.colors.background, bg_color = config.colors.foreground },
 }
