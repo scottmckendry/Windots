@@ -3,6 +3,7 @@ return {
     ft = "markdown",
     config = function()
         require("render-markdown").setup({
+            completions = { lsp = { enabled = true } },
             pipe_table = {
                 border = { "╭", "┬", "╮", "├", "┼", "┤", "╰", "┴", "╯", "│", "─" },
             },

@@ -62,6 +62,11 @@ return {
                 height = vim.o.lines - 3,
                 border = "rounded",
             },
+            mappings = {
+                close = {
+                    insert = "C-q", -- removes the default C-c mapping
+                },
+            },
             selection = function(source)
                 local select = require("CopilotChat.select")
                 return select.visual(source) or select.buffer(source)
