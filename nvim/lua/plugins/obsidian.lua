@@ -4,8 +4,7 @@ if not obsidian_path then
 end
 
 return {
-    "epwalsh/obsidian.nvim",
-    version = "*",
+    "obsidian-nvim/obsidian.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
     },
@@ -29,8 +28,8 @@ return {
     },
     opts = {
         attachments = { img_folder = obsidian_path .. "/Files" },
-        -- TODO: add blink.cmp integration when/if it's available
-        -- completion = { nvim_cmp = true },
+        completion = { blinkcmp = true },
+        picker = { snacks = true },
         disable_frontmatter = true,
         new_notes_location = "notes_subdir",
         notes_subdir = "Zettelkasten",
