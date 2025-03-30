@@ -188,7 +188,7 @@ return {
                 if not is_valid_git_repo() then
                     return
                 end
-                local cwd = vim.fn.expand("%:p:h")
+                local cwd = vim.fn.getcwd()
                 local currentTime = os.time()
                 if gitStatusCache[cwd] and currentTime - gitStatusCache[cwd].time < cacheTimeout then
                     updateMiniWithGit(buf_id, gitStatusCache[cwd].statusMap)
