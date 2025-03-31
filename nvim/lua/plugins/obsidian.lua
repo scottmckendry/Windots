@@ -28,7 +28,7 @@ return {
     },
     opts = {
         attachments = { img_folder = obsidian_path .. "/Files" },
-        completion = { blinkcmp = true },
+        completion = { blink = true },
         picker = { snacks = true },
         disable_frontmatter = true,
         new_notes_location = "notes_subdir",
