@@ -192,8 +192,8 @@ M.copilot_status = function()
         return ""
     end
 
-    local status = require("copilot.api").status.data
-    return format_component(" ", copilot_highlights[status.status])
+    local status = require("copilot.status").data.status
+    return format_component(" ", copilot_highlights[status])
 end
 
 --- Search count component - show current and total search matches when searching a buffer
