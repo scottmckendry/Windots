@@ -48,10 +48,5 @@ return {
         require("conform").formatters.bicep = {
             args = { "format", "--stdout", "$FILENAME", "--indent-size", "4" },
         }
-
-        -- Override prettier's default indent type
-        require("conform").formatters.prettier = {
-            prepend_args = { "--tab-width", "4" },
-        }
     end,
 }
