@@ -12,7 +12,7 @@ jobs:
         strategy:
             max-parallel: 3
             matrix:
-                file: [.github, bat, fastfetch, nvim, starship, wezterm]
+                file: [.github, bat, fastfetch, k9s, nvim, starship, wezterm]
                 repo: [dots, nix, Windots]
                 exclude:
                     - repo: ${{ github.event.repository.name }}

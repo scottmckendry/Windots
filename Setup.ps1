@@ -15,6 +15,7 @@ $symlinks = @{
     $PROFILE.CurrentUserAllHosts                                                                    = ".\Profile.ps1"
     "$HOME\AppData\Local\nvim"                                                                      = ".\nvim"
     "$HOME\AppData\Local\fastfetch"                                                                 = ".\fastfetch"
+    "$HOME\AppData\Local\k9s"                                                                       = ".\k9s"
     "$HOME\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" = ".\windowsterminal\settings.json"
     "$HOME\.gitconfig"                                                                              = ".\.gitconfig"
     "$HOME\AppData\Roaming\lazygit"                                                                 = ".\lazygit"
