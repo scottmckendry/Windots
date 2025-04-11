@@ -152,6 +152,7 @@ map("n", "gy", function() snacks.picker.lsp_type_definitions() end, { desc = "Go
 -- Terminal/Run...
 map({"n", "t"}, "<C-\\>", function() snacks.terminal() end, { desc = "Toggle Terminal" })
 map("n", "<leader>gg", function() snacks.lazygit() end, { desc = "Lazygit" })
+map("n", "<leader>kk", function() utils.k9s() end, { desc = "K9s" })
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
 map("n", "<leader>rss", run_non_interactive_cmd(vim.fn.expand("%:p")), { desc = "Run shell script" })

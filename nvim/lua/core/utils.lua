@@ -108,4 +108,14 @@ function M.toggle_global_boolean(option, description)
     })
 end
 
+--- Open K9s in a fullscreen interactive terminal
+function M.k9s()
+    local snacks = require("snacks")
+    local cmd = { "k9s" }
+    snacks.terminal.toggle(cmd, { win = { position = "float", width = 0.99, height = 0.99 } })
+    if vim.bo.filetype == "snacks_terminal" then
+        vim.notify("_Double press_ `ESC` then `<leader>kk` to toggle.", 2, { title = "K9s" })
+    end
+end
+
 return M
