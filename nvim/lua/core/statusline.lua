@@ -228,6 +228,11 @@ M.file_name = function(hl)
         ["snacks_picker_input"] = { name = "picker", icon = "󰦨", icon_hl = "Changed" },
     }
 
+    local fn_overrides = {
+        ["k9s"] = { icon = "󱃾", icon_hl = "Directory" },
+        ["lazygit"] = { icon = "", icon_hl = "Changed" },
+    }
+
     local ft = vim.bo.filetype
     if ft_overrides[ft] then
         return format_component(ft_overrides[ft].icon, ft_overrides[ft].icon_hl, " ", "")
@@ -240,6 +245,13 @@ M.file_name = function(hl)
     end
 
     local icon, icon_hl = require("mini.icons").get("file", filename)
+
+    -- Override or set custom icons
+    if fn_overrides[filename] then
+        icon = fn_overrides[filename].icon
+        icon_hl = fn_overrides[filename].icon_hl
+    end
+
     return format_component(icon, icon_hl, " ", "") .. format_component(filename, hl)
 end
 
