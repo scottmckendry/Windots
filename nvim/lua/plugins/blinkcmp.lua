@@ -2,7 +2,7 @@ return {
     "saghen/blink.cmp",
     event = "InsertEnter",
     dependencies = "rafamadriz/friendly-snippets",
-    version = "v0.*",
+    version = "v1.*",
     config = function()
         local is_enabled = function()
             local disabled_ft = {
