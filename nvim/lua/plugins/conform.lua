@@ -5,7 +5,6 @@ return {
         vim.g.autoformat = true
         require("conform").setup({
             formatters_by_ft = {
-                bicep = { "bicep" },
                 cs = { "csharpier" },
                 css = { "prettier" },
                 go = { "goimports_reviser", "gofmt", "golines" },
@@ -43,10 +42,5 @@ return {
                 },
             },
         })
-
-        -- Override bicep's default indent size
-        require("conform").formatters.bicep = {
-            args = { "format", "--stdout", "$FILENAME", "--indent-size", "4" },
-        }
     end,
 }

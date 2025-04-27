@@ -14,16 +14,6 @@ autocmd("BufEnter", {
 })
 
 autocmd("BufEnter", {
-    callback = function(opts)
-        if vim.bo[opts.buf].filetype == "bicep" then
-            vim.bo.commentstring = "// %s"
-        end
-    end,
-    group = general,
-    desc = "Set Bicep Comment String",
-})
-
-autocmd("BufEnter", {
     pattern = { "*.md", "*.txt" },
     callback = function()
         vim.opt_local.spell = true
