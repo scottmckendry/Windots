@@ -1,7 +1,6 @@
 return {
     "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = { { "<leader>cm", ":Mason<cr>", desc = "Mason" } },
+    lazy = false,
     build = ":MasonUpdate",
     config = function()
         require("mason").setup({
