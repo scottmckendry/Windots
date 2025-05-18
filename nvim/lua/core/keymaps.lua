@@ -139,7 +139,7 @@ map("n", "<leader><tab>h", ":tabprevious<cr>", { desc = "Previous Tab" })
 -- Code/LSP
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 map("n", "<leader>cd", function() vim.diagnostic.open_float({border = 'rounded'}) end, { desc = "Line Diagnostics" })
-map("n", "<leader>cl", ":LspInfo<cr>", { desc = "LSP Info" })
+map("n", "<leader>cl", ":check lsp<cr>", { desc = "LSP Info" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 map("n", "K", function() return vim.lsp.buf.hover() end, { desc = "Hover" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
