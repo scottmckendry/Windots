@@ -3,7 +3,13 @@ return {
     cmd = "TodoTelescope",
     event = "BufRead",
     keys = {
-        { "<leader>fd", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+        {
+            "<leader>fd",
+            function()
+                Snacks.picker.todo_comments()
+            end,
+            desc = "Todo",
+        },
     },
     config = function()
         require("todo-comments").setup()
