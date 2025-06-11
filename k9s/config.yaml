@@ -1,6 +1,5 @@
 k9s:
     liveViewAutoRefresh: false
-    screenDumpDir: "$HOME/Pictures/k9s"
     refreshRate: 1
     maxConnRetry: 5
     readOnly: false
