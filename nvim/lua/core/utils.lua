@@ -109,12 +109,14 @@ function M.toggle_global_boolean(option, description)
 end
 
 --- Open K9s in a fullscreen interactive terminal
-function M.k9s()
+---@param cmd string The command to run in the terminal
+--- @param fullscreen? boolean Open ther terminal in a fullscreen float
+function M.open_terminal_toggle(cmd, fullscreen)
     local snacks = require("snacks")
-    local cmd = { "k9s" }
-    snacks.terminal.toggle(cmd, { win = { position = "float", width = 0.99, height = 0.99 } })
+    local opts = fullscreen and { win = { position = "float", width = 0.99, height = 0.99 } } or nil
+    snacks.terminal.toggle(cmd, opts)
     if vim.bo.filetype == "snacks_terminal" then
-        vim.notify("_Double press_ `ESC` then `<leader>kk` to toggle.", 2, { title = "K9s" })
+        vim.notify("_Double press `ESC`_ to return to normal mode", 2, { title = cmd[1] })
     end
 end
 
