@@ -7,7 +7,7 @@ return {
             formatters_by_ft = {
                 cs = { "csharpier" },
                 css = { "prettier" },
-                go = { "goimports_reviser", "gofmt", "golines" },
+                go = { "goimports_reviser", "gofmt" },
                 html = { "prettier" },
                 javascript = { "prettier" },
                 typescript = { "prettier" },
