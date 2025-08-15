@@ -36,6 +36,7 @@ $wingetDeps = @(
     "microsoft.powershell"
     "neovim.neovim"
     "openjs.nodejs"
+    "sst.opencode"
     "starship.starship"
     "task.task"
 )
