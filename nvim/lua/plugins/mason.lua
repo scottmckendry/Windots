@@ -16,10 +16,9 @@ return {
         })
 
         local linux_only_pacakages = { "nil" }
-        local ignore_on_nixos = { "csharpier", "nil" }
+        local ignore_on_nixos = { "nil" }
         local mason_packages = {
             "bicep-lsp",
-            "csharpier",
             "docker-compose-language-service",
             "dockerfile-language-server",
             "goimports-reviser",
