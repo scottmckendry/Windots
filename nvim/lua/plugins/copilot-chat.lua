@@ -46,13 +46,15 @@ return {
         })
 
         require("CopilotChat").setup({
-            model = "claude-3.5-sonnet",
+            model = "claude-sonnet-4",
             auto_insert_mode = true,
             chat_autocomplete = false,
             show_help = false,
             show_folds = false,
-            question_header = "  " .. vim.g.user:gsub("^%l", string.upper) .. " ",
-            answer_header = "  Copilot ",
+            headers = {
+                user = "  " .. vim.g.user:gsub("^%l", string.upper) .. "  ",
+                assistant = "  Copilot  ",
+            },
             window = {
                 layout = "float",
                 relative = "editor",
