@@ -13,21 +13,6 @@ autocmd("BufEnter", {
     desc = "Disable New Line Comment",
 })
 
--- NOTE: This is a hacky fix for bicep param files. The current behaviour causes the bicep lsp to detect
--- bicepparem files as bicep files when switching buffers. This isn't an issue when initialising the lsp
--- with a bicepparam file initially.
--- TODO: Find a better solution, report upstream or wait for a fix.
-autocmd("BufEnter", {
-    pattern = { "*.bicepparam" },
-    callback = function()
-        local bicep_client = vim.lsp.get_clients({ name = "bicep" })
-        vim.lsp.buf_detach_client(vim.api.nvim_get_current_buf(), bicep_client[1].id)
-        vim.lsp.buf_attach_client(vim.api.nvim_get_current_buf(), bicep_client[1].id)
-    end,
-    group = general,
-    desc = "Detach and reattach bicep client for bicepparam files",
-})
-
 autocmd("BufEnter", {
     pattern = { "*.md", "*.txt" },
     callback = function()
