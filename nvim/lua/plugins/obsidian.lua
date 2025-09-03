@@ -10,20 +10,15 @@ return {
     },
     ft = "markdown",
     keys = {
-        {
-            "<leader>on",
-            function()
-                vim.api.nvim_command("ObsidianNew")
-                vim.api.nvim_buf_set_lines(0, 0, -1, false, {}) -- Clear buffer
-                vim.api.nvim_command("ObsidianTemplate Core") -- Apply Core Template
-            end,
-            desc = "Create new note",
-        },
-        { "<leader>oo", "<cmd>ObsidianSearch<cr>", desc = "Search Obsidian notes" },
-        { "<leader>os", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch" },
-        { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Show location list of backlinks" },
-        { "<leader>of", "<cmd>ObsidianFollowLink<cr>", desc = "Follow link under cursor" },
-        { "<leader>ot", "<cmd>ObsidianTemplate Core<cr>", desc = "Apply Core Template" },
+        { "<leader>on", "<cmd>Obsidian new_from_template Core<cr>", desc = "New Obsidian note" },
+        { "<leader>oo", "<cmd>Obsidian search<cr>", desc = "Search Obsidian notes" },
+        { "<leader>os", "<cmd>Obsidian quick_switch<cr>", desc = "Quick Switch" },
+        { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show location list of backlinks" },
+        { "<leader>of", "<cmd>Obsidian follow_link<cr>", desc = "Follow link under cursor" },
+        { "<leader>ot", "<cmd>Obsidian template Core<cr>", desc = "Apply Core Template" },
+
+        -- Custom git sync job - manual trigger. Auto sync is available but off by default.
+        -- Toggle on with <leader>to (toggle obsidian git sync)
         { "<leader>og", "<cmd>ObsidianGitSync<cr>", desc = "Sync changes to git" },
     },
     opts = {
@@ -33,7 +28,7 @@ return {
         disable_frontmatter = true,
         new_notes_location = "notes_subdir",
         notes_subdir = "Zettelkasten",
-        templates = { folder = obsidian_path .. "/Templates", date_format = "%y%m%d", time_format = "%H%M" },
+        templates = { folder = "Templates", date_format = "%y%m%d", time_format = "%H%M" },
         workspaces = { { name = "vault", path = obsidian_path } },
 
         note_id_func = function(title)
