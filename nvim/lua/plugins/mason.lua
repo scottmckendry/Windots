@@ -45,7 +45,7 @@ return {
         }
 
         if vim.fn.has("unix") == 1 then
-            mason_packages = vim.tbl_extend("force", mason_packages, linux_only_pacakages)
+            mason_packages = vim.list_extend(mason_packages, linux_only_pacakages)
             local os = vim.fn.systemlist("grep ^ID= /etc/os-release | cut -d= -f2")[1]
             if os == "nixos" then
                 mason_packages = vim.tbl_filter(function(p)
