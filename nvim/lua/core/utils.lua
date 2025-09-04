@@ -109,7 +109,7 @@ function M.toggle_global_boolean(option, description)
 end
 
 --- Open K9s in a fullscreen interactive terminal
----@param cmd string The command to run in the terminal
+---@param cmd table<string> The command to run in the terminal
 --- @param fullscreen? boolean Open ther terminal in a fullscreen float
 function M.open_terminal_toggle(cmd, fullscreen)
     local snacks = require("snacks")

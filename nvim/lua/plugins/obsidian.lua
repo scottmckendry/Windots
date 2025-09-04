@@ -22,6 +22,7 @@ return {
         { "<leader>og", "<cmd>ObsidianGitSync<cr>", desc = "Sync changes to git" },
     },
     opts = {
+
         attachments = { img_folder = obsidian_path .. "/Files" },
         completion = { blink = true },
         picker = { snacks = true },
@@ -47,6 +48,8 @@ return {
             end
             vim.fn.jobstart(cmd)
         end,
+
+        legacy_commands = false,
     },
 
     config = function(_, opts)
