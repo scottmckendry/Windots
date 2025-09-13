@@ -18,6 +18,7 @@ return {
         local linux_only_pacakages = { "nil" }
         local ignore_on_nixos = { "nil" }
         local mason_packages = {
+            "basedpyright",
             "bicep-lsp",
             "docker-compose-language-service",
             "dockerfile-language-server",

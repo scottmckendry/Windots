@@ -9,6 +9,7 @@ vim.diagnostic.config({
 })
 
 vim.lsp.enable({
+    "basedpyright",
     "bicep",
     "docker_compose_language_service",
     "gopls",

@@ -70,6 +70,7 @@ return {
             "nix",
             "odin",
             "powershell",
+            "python",
             "razor",
             "regex",
             "ron",
