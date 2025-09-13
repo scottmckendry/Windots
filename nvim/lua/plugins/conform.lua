@@ -14,6 +14,7 @@ return {
                 lua = { "stylua" },
                 markdown = { "prettier" },
                 nix = { "nixfmt" },
+                python = { "black" },
                 rust = { "rustfmt" },
                 scss = { "prettier" },
                 sh = { "shfmt" },

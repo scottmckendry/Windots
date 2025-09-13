@@ -20,6 +20,7 @@ return {
         local mason_packages = {
             "basedpyright",
             "bicep-lsp",
+            "black",
             "docker-compose-language-service",
             "dockerfile-language-server",
             "goimports-reviser",
