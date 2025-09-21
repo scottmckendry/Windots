@@ -120,4 +120,33 @@ function M.open_terminal_toggle(cmd, fullscreen)
     end
 end
 
+--- Restart all LSP clients attached to the current buffer
+function M.restart_lsp()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if #clients == 0 then
+        vim.notify("No LSP client attached to current buffer", vim.log.levels.WARN)
+        return
+    end
+    for _, client in ipairs(clients) do
+        local config = client.config
+        local name = client.name
+        client.stop(true)
+        vim.defer_fn(function()
+            vim.lsp.start(config)
+            vim.notify("LSP restarted: " .. name, vim.log.levels.INFO)
+        end, 50)
+    end
+end
+
+--- Open the LSP log file in a readonly split
+function M.open_lsp_log()
+    local log_path = vim.lsp.get_log_path()
+    if vim.fn.filereadable(log_path) == 0 then
+        vim.notify("LSP log file not found: " .. log_path, vim.log.levels.WARN)
+        return
+    end
+    vim.cmd("e " .. log_path)
+    vim.notify("Opened LSP log: " .. log_path, vim.log.levels.INFO)
+end
+
 return M

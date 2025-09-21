@@ -16,6 +16,7 @@ return {
                 { "<leader>a", group = "ai/copilot" },
                 { "<leader>b", group = "buffer" },
                 { "<leader>c", group = "code" },
+                { "<leader>cl", group = "lsp" },
                 { "<leader>d", group = "diff" },
                 { "<leader>e", group = "explorer" },
                 { "<leader>f", group = "file/find" },
