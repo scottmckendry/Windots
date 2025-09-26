@@ -1,3 +1,4 @@
+--- @type vim.lsp.Config
 return {
     cmd = { "templ", "lsp" },
     filetypes = { "templ" },
