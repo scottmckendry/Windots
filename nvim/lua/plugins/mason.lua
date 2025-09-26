@@ -19,6 +19,7 @@ return {
         local ignore_on_nixos = { "nil" }
         local mason_packages = {
             "basedpyright",
+            "bash-language-server",
             "bicep-lsp",
             "black",
             "goimports-reviser",
