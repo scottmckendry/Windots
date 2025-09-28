@@ -6,5 +6,5 @@
 [fetch]
     prune = true
 [user]
-	email = 39483124+scottmckendry@users.noreply.github.com
+	email = me@scottmckendry.tech
 	name = Scott McKendry
