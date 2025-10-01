@@ -180,20 +180,24 @@ end
 --- Copilot status component - depends on copilot.lua
 --- @return string
 M.copilot_status = function()
-    local copilot_highlights = {
-        [""] = "Comment",
-        ["Normal"] = "Comment",
-        ["Warning"] = "DiagnosticError",
-        ["InProgress"] = "DiagnosticWarn",
-    }
-
     local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
     if not (ok and #clients > 0) then
         return ""
     end
 
-    local status = require("copilot.status").data.status
-    return format_component(" ", copilot_highlights[status])
+    local status = require("sidekick.status").get()
+    if not status then
+        return ""
+    end
+
+    local hl = "Comment"
+    if status.kind == "Error" then
+        hl = "DiagnosticError"
+    elseif status.busy then
+        hl = "DiagnosticWarn"
+    end
+
+    return format_component(" ", hl)
 end
 
 --- Search count component - show current and total search matches when searching a buffer

@@ -22,6 +22,7 @@ return {
             "bash-language-server",
             "bicep-lsp",
             "black",
+            "copilot-language-server",
             "goimports-reviser",
             "golines",
             "gopls",

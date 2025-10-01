@@ -20,16 +20,12 @@ local map = function(modes, lhs, rhs, opts)
 end
 
 local copilot_toggle_opts = {
-    name = "Copilot Completion",
+    name = "Inline (Copilot) Completions",
     get = function()
-        return not require("copilot.client").is_disabled()
+        return vim.lsp.inline_completion.is_enabled()
     end,
-    set = function(state)
-        if state then
-            require("copilot.command").enable()
-        else
-            require("copilot.command").disable()
-        end
+    set = function()
+        vim.lsp.inline_completion.enable(not vim.lsp.inline_completion.is_enabled())
     end,
 }
 
@@ -143,6 +139,7 @@ map("n", "<leader>cli", ":check lsp<cr>", { desc = "LSP Info" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 map("n", "<leader>clr", utils.restart_lsp, { desc = "Restart LSP" })
 map("n", "<leader>cll", utils.open_lsp_log, { desc = "Open LSP Log" })
+map("i", "<M-l>", function() vim.lsp.inline_completion.get() end, { desc = "Accept Inline Completion" })
 map("n", "K", function() return vim.lsp.buf.hover() end, { desc = "Hover" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
 map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })

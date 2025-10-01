@@ -1,3 +1,5 @@
+vim.lsp.inline_completion.enable(true)
+
 vim.diagnostic.config({
     signs = true,
     underline = true,
@@ -12,6 +14,7 @@ vim.lsp.enable({
     "basedpyright",
     "bashls",
     "bicep",
+    "copilot",
     "docker_compose_language_service",
     "gopls",
     "html",
