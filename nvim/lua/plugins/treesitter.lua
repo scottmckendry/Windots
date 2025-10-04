@@ -62,6 +62,7 @@ return {
             "html",
             "http",
             "json",
+            "kdl",
             "lua",
             "luadoc",
             "luap",
