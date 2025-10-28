@@ -9,11 +9,6 @@ return {
                 if require("sidekick").nes_jump_or_apply() then
                     return
                 end
-
-                if vim.lsp.inline_completion.get() then
-                    return
-                end
-
                 return "<tab>"
             end,
             mode = { "i", "n" },
