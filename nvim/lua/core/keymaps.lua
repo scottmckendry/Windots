@@ -20,12 +20,16 @@ local map = function(modes, lhs, rhs, opts)
 end
 
 local copilot_toggle_opts = {
-    name = "Inline (Copilot) Completions",
+    name = "Copilot Completion",
     get = function()
-        return vim.lsp.inline_completion.is_enabled()
+        return not require("copilot.client").is_disabled()
     end,
-    set = function()
-        vim.lsp.inline_completion.enable(not vim.lsp.inline_completion.is_enabled())
+    set = function(state)
+        if state then
+            require("copilot.command").enable()
+        else
+            require("copilot.command").disable()
+        end
     end,
 }
 
