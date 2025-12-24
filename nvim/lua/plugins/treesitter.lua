@@ -1,55 +1,18 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-    },
-    build = ":TSUpdate",
+    build = function()
+        local TS = require("nvim-treesitter")
+        TS.update(nil, { summary = true })
+    end,
     event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSUpdateSync" },
+    cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     opts = {
         highlight = { enable = true },
         indent = { enable = true },
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true,
-                keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
-                    ["aa"] = "@parameter.outer",
-                    ["ia"] = "@parameter.inner",
-                    ["al"] = "@loop.outer",
-                    ["il"] = "@loop.inner",
-                    ["ai"] = "@conditional.outer",
-                    ["ii"] = "@conditional.inner",
-                    ["ab"] = "@block.outer",
-                    ["ib"] = "@block.inner",
-                },
-            },
-            move = {
-                enable = true,
-                set_jumps = true,
-                goto_next_start = {
-                    ["]f"] = "@function.outer",
-                    ["]c"] = "@class.outer",
-                },
-                goto_next_end = {
-                    ["]F"] = "@function.outer",
-                    ["]C"] = "@class.outer",
-                },
-                goto_previous_start = {
-                    ["[f"] = "@function.outer",
-                    ["[c"] = "@class.outer",
-                },
-                goto_previous_end = {
-                    ["[F"] = "@function.outer",
-                    ["[C"] = "@class.outer",
-                },
-            },
-        },
-        ensure_installed = {
+    },
+    config = function(_, opts)
+        local TS = require("nvim-treesitter")
+        local ensure_installed = {
             "bash",
             "bicep",
             "css",
@@ -84,9 +47,18 @@ return {
             "typst",
             "vimdoc",
             "yaml",
-        },
-    },
-    config = function(_, opts)
-        require("nvim-treesitter.configs").setup(opts)
+        }
+
+        TS.setup(opts)
+        local installed = TS.get_installed()
+        local to_install = vim.tbl_filter(function(lang)
+            return not vim.tbl_contains(installed, lang)
+        end, ensure_installed or {})
+
+        if #to_install > 0 then
+            vim.schedule(function()
+                TS.install(to_install, { summary = true })
+            end)
+        end
     end,
 }

@@ -44,6 +44,7 @@ return {
             "templ",
             "terraform-ls",
             "tinymist",
+            "tree-sitter-cli",
             "typescript-language-server",
             "typstyle",
             "yaml-language-server",
