@@ -81,6 +81,7 @@ return {
             "terraform",
             "toml",
             "typescript",
+            "typst",
             "vimdoc",
             "yaml",
         },

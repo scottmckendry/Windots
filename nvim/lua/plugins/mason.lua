@@ -43,7 +43,9 @@ return {
             "taplo",
             "templ",
             "terraform-ls",
+            "tinymist",
             "typescript-language-server",
+            "typstyle",
             "yaml-language-server",
         }
 

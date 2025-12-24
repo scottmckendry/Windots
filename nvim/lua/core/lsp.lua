@@ -28,6 +28,7 @@ vim.lsp.enable({
     "taplo",
     "templ",
     "terraformls",
+    "tinymist",
     "ts_ls",
     "yamlls",
 })

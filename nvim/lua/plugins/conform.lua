@@ -20,6 +20,7 @@ return {
                 sh = { "shfmt" },
                 templ = { "templ" },
                 toml = { "taplo" },
+                typst = { "typstyle" },
                 yaml = { "prettier" },
             },
 
