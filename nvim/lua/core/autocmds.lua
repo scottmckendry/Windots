@@ -14,7 +14,7 @@ autocmd("BufEnter", {
 })
 
 -- NOTE: This is a hacky fix for bicep param files. The current behaviour causes the bicep lsp to detect
--- bicepparem files as bicep files when switching buffers. This isn't an issue when initialising the lsp
+-- bicepparam files as bicep files when switching buffers. This isn't an issue when initialising the lsp
 -- with a bicepparam file initially.
 -- TODO: Find a better solution, report upstream or wait for a fix.
 autocmd("BufEnter", {
@@ -75,4 +75,13 @@ autocmd("BufEnter", {
             vim.bo[event.buf].softtabstop = 2
         end
     end,
+})
+
+autocmd("BufReadPost", {
+    group = general,
+    callback = function()
+        vim.treesitter.start()
+    end,
+    once = true,
+    desc = "Start treesitter on buffer read",
 })

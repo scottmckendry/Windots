@@ -15,8 +15,8 @@ return {
         local ensure_installed = {
             "bash",
             "bicep",
-            "css",
             "c_sharp",
+            "css",
             "gitignore",
             "go",
             "gomod",
@@ -45,6 +45,7 @@ return {
             "toml",
             "typescript",
             "typst",
+            "vim",
             "vimdoc",
             "yaml",
         }
