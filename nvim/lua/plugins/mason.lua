@@ -36,7 +36,6 @@ return {
             "prettier",
             "roslyn",
             "rust-analyzer",
-            "rzls",
             "shfmt",
             "stylua",
             "tailwindcss-language-server",
