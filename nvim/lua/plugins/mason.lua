@@ -1,6 +1,6 @@
 return {
     "williamboman/mason.nvim",
-    lazy = false,
+    event = "VeryLazy",
     build = ":MasonUpdate",
     config = function()
         require("mason").setup({
@@ -75,10 +75,13 @@ return {
                 end
             end
         end
-        if mr.refresh then
-            mr.refresh(ensure_installed)
-        else
-            ensure_installed()
-        end
+
+        vim.defer_fn(function()
+            if mr.refresh then
+                mr.refresh(ensure_installed)
+            else
+                ensure_installed()
+            end
+        end, 10)
     end,
 }
