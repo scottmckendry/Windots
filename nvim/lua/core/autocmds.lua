@@ -77,11 +77,13 @@ autocmd("BufEnter", {
     end,
 })
 
-autocmd("BufReadPost", {
+autocmd("FileType", {
     group = general,
-    callback = function()
-        vim.treesitter.start()
+    callback = function(event)
+        local ok = pcall(vim.treesitter.start, event.buf)
+        if not ok then
+            return
+        end
     end,
-    once = true,
-    desc = "Start treesitter on buffer read",
+    desc = "Start treesitter automatically",
 })
