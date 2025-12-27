@@ -7,16 +7,6 @@ return {
         end,
     },
     {
-        "echasnovski/mini.icons",
-        specs = {
-            { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
-        },
-        config = function()
-            require("mini.icons").setup()
-            require("mini.icons").mock_nvim_web_devicons()
-        end,
-    },
-    {
         "echasnovski/mini.indentscope",
         event = { "BufReadPre", "BufNewFile" },
         opts = {
@@ -35,6 +25,7 @@ return {
                     "mason",
                     "neotree",
                     "notify",
+                    "snacks_dashboard",
                     "snacks_terminal",
                 },
                 callback = function()
