@@ -49,18 +49,19 @@ return {
             "yaml-language-server",
         }
 
-        if vim.fn.has("unix") == 1 then
-            mason_packages = vim.list_extend(mason_packages, linux_only_pacakages)
-            local os = vim.fn.systemlist("grep ^ID= /etc/os-release | cut -d= -f2")[1]
-            if os == "nixos" then
-                mason_packages = vim.tbl_filter(function(p)
-                    return not vim.tbl_contains(ignore_on_nixos, p)
-                end, mason_packages)
-            end
-        end
-
         local mr = require("mason-registry")
+
         local function ensure_installed()
+            if vim.fn.has("unix") == 1 then
+                mason_packages = vim.list_extend(mason_packages, linux_only_pacakages)
+                local os = vim.fn.systemlist("grep ^ID= /etc/os-release | cut -d= -f2")[1]
+                if os == "nixos" then
+                    mason_packages = vim.tbl_filter(function(p)
+                        return not vim.tbl_contains(ignore_on_nixos, p)
+                    end, mason_packages)
+                end
+            end
+
             for _, tool in ipairs(mason_packages) do
                 local p = mr.get_package(tool)
                 if not p:is_installed() then

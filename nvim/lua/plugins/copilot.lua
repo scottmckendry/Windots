@@ -2,7 +2,7 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     build = ":Copilot auth",
-    event = "BufEnter",
+    event = "BufReadPost",
     config = function()
         require("copilot").setup({
             suggestion = {
