@@ -67,6 +67,13 @@ return {
                     p:install()
                 end
             end
+            -- auto uninstall unreferenced packages
+            for _, tool in ipairs(mr.get_installed_package_names()) do
+                if not vim.tbl_contains(mason_packages, tool) then
+                    local p = mr.get_package(tool)
+                    p:uninstall()
+                end
+            end
         end
         if mr.refresh then
             mr.refresh(ensure_installed)
