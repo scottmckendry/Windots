@@ -1,13 +1,11 @@
 return {
     {
-        "echasnovski/mini.pairs",
+        "nvim-mini/mini.pairs",
         event = "InsertEnter",
-        config = function()
-            require("mini.pairs").setup()
-        end,
+        opts = {},
     },
     {
-        "echasnovski/mini.indentscope",
+        "nvim-mini/mini.indentscope",
         event = { "BufReadPre", "BufNewFile" },
         opts = {
             symbol = "│",
@@ -35,8 +33,19 @@ return {
         end,
     },
     {
-        "echasnovski/mini.files",
-        dependencies = { "echasnovski/mini.icons" },
+        "nvim-mini/mini.hipatterns",
+        event = "BufReadPre",
+        opts = function(_, opts)
+            local hipatterns = require("mini.hipatterns")
+            opts.highlighters = {
+                hex_color = hipatterns.gen_highlighter.hex_color(),
+            }
+            return opts
+        end,
+    },
+    {
+        "nvim-mini/mini.files",
+        dependencies = { "nvim-mini/mini.icons" },
         keys = {
             {
                 "<leader>ee",
@@ -51,15 +60,6 @@ return {
             },
         },
         config = function()
-            require("mini.files").setup({
-                windows = {
-                    width_focus = 40,
-                    width_nofocus = 40,
-                },
-            })
-
-            -- All config below is to render git status in mini.files
-            -- See gist for more details: https://gist.github.com/bassamsdata/eec0a3065152226581f8d4244cce9051
             local nsMiniFiles = vim.api.nvim_create_namespace("mini_files_git")
             local autocmd = vim.api.nvim_create_autocmd
             local _, MiniFiles = pcall(require, "mini.files")
@@ -79,7 +79,7 @@ return {
             ---@return string symbol, string hlGroup
             local function mapSymbols(status, is_symlink)
                 local statusMap = {
-                    [" M"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- Modified in the working directory
+                    [" M"] = { symbol = "", hlGroup = "MiniDepsHint" }, -- Modified in the working directory
                     ["M "] = { symbol = "", hlGroup = "MiniDiffSignAdd" }, -- modified in index
                     ["MM"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- modified in both working tree and index
                     ["A "] = { symbol = "", hlGroup = "MiniDiffSignAdd" }, -- Added to the staging area, new file
@@ -91,8 +91,8 @@ return {
                     ["U "] = { symbol = "‖", hlGroup = "MiniDiffSignChange" }, -- Unmerged path
                     ["UU"] = { symbol = "⇄", hlGroup = "MiniDiffSignAdd" }, -- file is unmerged
                     ["UA"] = { symbol = "⊕", hlGroup = "MiniDiffSignAdd" }, -- file is unmerged and added in working tree
-                    ["??"] = { symbol = "", hlGroup = "MiniDiffSignDelete" }, -- Untracked files
-                    ["!!"] = { symbol = "", hlGroup = "MiniDiffSignChange" }, -- Ignored files
+                    ["??"] = { symbol = "", hlGroup = "MiniDepsPlaceholder" }, -- Untracked files
+                    ["!!"] = { symbol = "", hlGroup = "MiniIconsAzure" }, -- Ignored files
                 }
 
                 local result = statusMap[status] or { symbol = "?", hlGroup = "NonText" }
@@ -133,9 +133,6 @@ return {
                     local nlines = vim.api.nvim_buf_line_count(buf_id)
                     local cwd = vim.fs.root(buf_id, ".git")
                     local escapedcwd = cwd and vim.pesc(cwd)
-                    if not escapedcwd then
-                        return
-                    end
                     escapedcwd = vim.fs.normalize(escapedcwd)
 
                     for i = 1, nlines do
@@ -213,10 +210,6 @@ return {
                     return
                 end
                 local cwd = vim.fs.root(buf_id, ".git")
-                -- local cwd = vim.fn.expand("%:p:h")
-                if not cwd then
-                    return
-                end
                 local currentTime = os.time()
 
                 if gitStatusCache[cwd] and currentTime - gitStatusCache[cwd].time < cacheTimeout then

@@ -3,7 +3,7 @@ return {
     lazy = false,
     priority = 1000,
     dependencies = {
-        "echasnovski/mini.icons",
+        "nvim-mini/mini.icons",
         specs = {
             { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
         },
