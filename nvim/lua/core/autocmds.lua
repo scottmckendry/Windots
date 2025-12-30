@@ -87,3 +87,22 @@ autocmd("FileType", {
     end,
     desc = "Start treesitter automatically",
 })
+
+autocmd("VimEnter", {
+    group = general,
+    callback = function()
+        if vim.fn.argc(-1) == 0 then
+            require("resession").load(vim.fn.getcwd(), { silence_errors = true })
+        end
+    end,
+    nested = true,
+    desc = "Load previous session from cwd, if no args were given",
+})
+
+autocmd("VimLeavePre", {
+    group = general,
+    callback = function()
+        require("resession").save(vim.fn.getcwd(), { notify = true })
+    end,
+    desc = "Save session to cwd on exit",
+})
