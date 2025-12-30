@@ -147,23 +147,14 @@ M.navic = function(hl)
     return ""
 end
 
---- Status messages component. Shows @recording meesages. Depends on noice.nvim
+--- Status messages component. Shows @recording meesages.
 --- @param hl string|nil The highlight group to use
 --- @return string
 M.status_messages = function(hl)
-    local ignore = {
-        "-- INSERT --",
-        "-- TERMINAL --",
-        "-- VISUAL --",
-        "-- VISUAL LINE --",
-        "-- VISUAL BLOCK --",
-    }
-    --- @diagnostic disable: undefined-field
-    local mode = require("noice").api.status.mode.get()
-    if require("noice").api.status.mode.has() and not vim.tbl_contains(ignore, mode) then
-        return format_component(mode, hl)
+    local reg = vim.fn.reg_recording()
+    if reg ~= "" then
+        return format_component("recording @" .. reg, hl)
     end
-    --- @diagnostic enable: undefined-field
     return ""
 end
 
