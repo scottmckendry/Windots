@@ -8,15 +8,19 @@ vim.diagnostic.config({
     },
 })
 
+-- Add mason binaries to PATH
+local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+
 vim.lsp.enable({
     "basedpyright",
     "bashls",
     "bicep",
     "docker_compose_language_service",
+    "emmylua_ls",
     "gopls",
     "html",
     "jsonls",
-    "luals",
     "nil_ls",
     "ols",
     "powershell_es",

@@ -23,6 +23,7 @@ return {
             "bicep-lsp",
             "black",
             "copilot-language-server",
+            "emmylua_ls",
             "goimports-reviser",
             "golines",
             "gopls",

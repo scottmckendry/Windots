@@ -91,6 +91,7 @@ map("n", "<leader>fb", function() snacks.picker.buffers({ layout = { preset = "s
 map("n", "<leader>ft", function() snacks.picker() end, { desc = "Other pickers..." })
 map("n", "<leader>fh", function() snacks.picker.help() end, { desc = "Find help tags" })
 map("n", "<leader>fS", function() require("pick-resession").pick() end, { desc = "Find Session" })
+map("n" ,"<leader>.",  function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
 
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
