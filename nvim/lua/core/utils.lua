@@ -149,4 +149,25 @@ function M.open_lsp_log()
     vim.notify("Opened LSP log: " .. log_path, vim.log.levels.INFO)
 end
 
+--- Open GitHub markdown preview for the current buffer
+function M.gh_markdown_preview()
+    local bufname = vim.api.nvim_buf_get_name(0)
+    if bufname == "" then
+        vim.notify("No file to preview", vim.log.levels.WARN)
+        return
+    end
+    vim.fn.jobstart({ "gh", "markdown-preview", bufname }, {
+        on_stderr = function(_, data)
+            if not data then
+                return
+            end
+            --- remove the last line if it's empty
+            if data[#data] == "" then
+                table.remove(data, #data)
+            end
+            vim.notify(table.concat(data, "\n"), vim.log.levels.INFO, { title = "Markdown Preview" })
+        end,
+    })
+end
+
 return M

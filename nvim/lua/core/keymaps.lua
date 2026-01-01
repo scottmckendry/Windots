@@ -106,8 +106,9 @@ snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and 
 snacks.toggle.treesitter():map("<leader>tT")
 if vim.lsp.inlay_hint then snacks.toggle.inlay_hints():map("<leader>th") end
 
--- browse to git repo
+-- Git/GitHub
 map("n", "<leader>gb", function() snacks.gitbrowse() end, { desc = "Git Browse" })
+map("n", "<leader>gm", function() utils.gh_markdown_preview() end, { desc = "GitHub Markdown Preview" })
 
 -- Clear search with <esc>
 map("n", "<esc>", ":noh<cr><esc>", { desc = "Escape and clear hlsearch" })
