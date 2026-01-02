@@ -106,3 +106,19 @@ autocmd("VimLeavePre", {
     end,
     desc = "Save session to cwd on exit",
 })
+
+autocmd("BufEnter", {
+    group = general,
+    callback = vim.schedule_wrap(function(data)
+        if data.buf ~= vim.api.nvim_get_current_buf() then
+            return
+        end
+        local root = utils.find_root(data.buf, { ".git" })
+        if root == nil then
+            return
+        end
+        vim.fn.chdir(root)
+    end),
+    nested = true,
+    desc = "Find root and change current directory",
+})

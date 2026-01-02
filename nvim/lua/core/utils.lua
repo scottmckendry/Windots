@@ -170,4 +170,24 @@ function M.gh_markdown_preview()
     })
 end
 
+--- Find project root directory by searching for marker files/directories
+--- @param buf integer Buffer number
+--- @param names table|function Array of file names to search for, or a callable
+--- @return string|nil root the root directory path, or nil if not found
+function M.find_root(buf, names)
+    local path = vim.api.nvim_buf_get_name(buf)
+    if path == "" then
+        return nil
+    end
+
+    local dir = vim.fn.fnamemodify(path, ":p:h")
+    if dir == "" then
+        return nil
+    end
+
+    -- Search upwards for marker files/directories
+    local root = vim.fs.root(dir, names)
+    return root or nil
+end
+
 return M
