@@ -4,3 +4,5 @@ require("core.utils")
 require("core.lazy")
 require("core.keymaps")
 require("core.lsp")
+
+vim.cmd.colorscheme("cyberdream")
