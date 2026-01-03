@@ -2,7 +2,13 @@ return {
     {
         "nvim-mini/mini.pairs",
         event = "InsertEnter",
-        opts = {},
+        opts = {
+            modes = { insert = true, command = true, terminal = false },
+            skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+            skip_ts = { "string" },
+            skip_unbalanced = true,
+            markdown = true,
+        },
     },
     {
         "nvim-mini/mini.indentscope",
@@ -67,14 +73,12 @@ return {
             -- Cache for git status
             local gitStatusCache = {}
             local cacheTimeout = 2000 -- in milliseconds
-            local uv = vim.uv or vim.loop
-
             local function isSymlink(path)
-                local stat = uv.fs_lstat(path)
+                ---@diagnostic disable-next-line: undefined-field
+                local stat = vim.uv.fs_lstat(path)
                 return stat and stat.type == "link"
             end
 
-            ---@type table<string, {symbol: string, hlGroup: string}>
             ---@param status string
             ---@return string symbol, string hlGroup
             local function mapSymbols(status, is_symlink)
@@ -121,7 +125,6 @@ return {
                         -- vim.g.content = content.stdout
                     end
                 end
-                ---@see vim.system
                 vim.system({ "git", "status", "--ignored", "--porcelain" }, { text = true, cwd = clean_cwd }, on_exit)
             end
 
@@ -133,9 +136,14 @@ return {
                     local nlines = vim.api.nvim_buf_line_count(buf_id)
                     local cwd = vim.fs.root(buf_id, ".git")
                     local escapedcwd = cwd and vim.pesc(cwd)
+                    if not escapedcwd then
+                        return
+                    end
+
                     escapedcwd = vim.fs.normalize(escapedcwd)
 
                     for i = 1, nlines do
+                        ---@diagnostic disable-next-line: need-check-nil
                         local entry = MiniFiles.get_fs_entry(buf_id, i)
                         if not entry then
                             break
@@ -152,7 +160,11 @@ return {
                             })
                             -- This below code is responsible for coloring the text of the items. comment it out if you don't want that
                             local line = vim.api.nvim_buf_get_lines(buf_id, i - 1, i, false)[1]
+                            if not line then
+                                break
+                            end
                             -- Find the name position accounting for potential icons
+                            ---@diagnostic disable-next-line: need-check-nil
                             local nameStartCol = line:find(vim.pesc(entry.name)) or 0
 
                             if nameStartCol > 0 then
@@ -175,6 +187,9 @@ return {
                 -- lua match is faster than vim.split (in my experience )
                 for line in content:gmatch("[^\r\n]+") do
                     local status, filePath = string.match(line, "^(..)%s+(.*)")
+                    if not status or not filePath then
+                        goto continue
+                    end
                     -- Split the file path into parts
                     local parts = {}
                     for part in filePath:gmatch("[^/]+") do
@@ -199,6 +214,7 @@ return {
                             end
                         end
                     end
+                    ::continue::
                 end
                 return gitStatusMap
             end
@@ -210,6 +226,10 @@ return {
                     return
                 end
                 local cwd = vim.fs.root(buf_id, ".git")
+                if not cwd then
+                    return
+                end
+
                 local currentTime = os.time()
 
                 if gitStatusCache[cwd] and currentTime - gitStatusCache[cwd].time < cacheTimeout then

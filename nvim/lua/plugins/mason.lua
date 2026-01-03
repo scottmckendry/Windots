@@ -2,19 +2,20 @@ return {
     "williamboman/mason.nvim",
     event = "VeryLazy",
     build = ":MasonUpdate",
-    config = function()
-        require("mason").setup({
-            ui = {
-                border = "rounded",
-                width = 0.8,
-                height = 0.8,
-            },
-            registries = {
-                "github:mason-org/mason-registry",
-                "github:Crashdummyy/mason-registry",
-            },
-        })
-
+    ---@type MasonSettings
+    opts = {
+        ui = {
+            border = "rounded",
+            width = 0.8,
+            height = 0.8,
+        },
+        registries = {
+            "github:mason-org/mason-registry",
+            "github:Crashdummyy/mason-registry",
+        },
+    },
+    config = function(_, opts)
+        require("mason").setup(opts)
         local linux_only_pacakages = { "nil" }
         local ignore_on_nixos = { "nil" }
         local mason_packages = {
@@ -79,11 +80,7 @@ return {
         end
 
         vim.defer_fn(function()
-            if mr.refresh then
-                mr.refresh(ensure_installed)
-            else
-                ensure_installed()
-            end
+            mr.refresh(ensure_installed)
         end, 10)
     end,
 }
