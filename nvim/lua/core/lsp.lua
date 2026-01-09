@@ -21,7 +21,7 @@ vim.lsp.enable({
     "gopls",
     "html",
     "jsonls",
-    "nixd",
+    "nil_ls",
     "ols",
     "powershell_es",
     "rust_analyzer",
