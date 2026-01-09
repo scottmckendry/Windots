@@ -93,6 +93,13 @@ autocmd("VimEnter", {
     callback = function()
         if vim.fn.argc(-1) == 0 then
             require("resession").load(vim.fn.getcwd(), { silence_errors = true })
+            -- Show dashboard if no buffers are loaded after session load
+            local bufs = vim.tbl_filter(function(buf)
+                return vim.bo[buf].buflisted
+            end, vim.api.nvim_list_bufs())
+            if #bufs == 0 or (#bufs == 1 and vim.api.nvim_buf_get_name(bufs[1]) == "") then
+                require("snacks").dashboard()
+            end
         end
     end,
     nested = true,
