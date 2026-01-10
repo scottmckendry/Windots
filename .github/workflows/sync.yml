@@ -1,35 +1,35 @@
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 name: Sync
 
 jobs:
-    sync-files:
-        strategy:
-            max-parallel: 3
-            matrix:
-                file: [.github, bat, fastfetch, k9s, nvim, starship, wezterm]
-                repo: [dots, nix, Windots]
-                exclude:
-                    - repo: ${{ github.event.repository.name }}
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
+  sync-files:
+    strategy:
+      max-parallel: 3
+      matrix:
+        file: [.github, nvim]
+        repo: [dots, nix, Windots]
+        exclude:
+          - repo: ${{ github.event.repository.name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Sync ${{ matrix.file }} to ${{ matrix.repo }}
-              uses: scottmckendry/repo-files-clean-copy-sync@main
-              env:
-                  API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
-              with:
-                  source_file: "${{ matrix.file }}/"
-                  destination_repo: "scottmckendry/${{ matrix.repo }}"
-                  destination_folder: "/"
-                  user_email: "39483124+scottmckendry@users.noreply.github.com"
-                  user_name: "Scott McKendry"
-                  commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from ${{ github.repository }}"
-                  git_server: "github.com"
+      - name: Sync ${{ matrix.file }} to ${{ matrix.repo }}
+        uses: scottmckendry/repo-files-clean-copy-sync@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SYNC_TOKEN }}
+        with:
+          source_file: "${{ matrix.file }}/"
+          destination_repo: "scottmckendry/${{ matrix.repo }}"
+          destination_folder: "/"
+          user_email: "39483124+scottmckendry@users.noreply.github.com"
+          user_name: "Scott McKendry"
+          commit_message: "${{ github.event.head_commit.message }}\n[skip ci]\nAutomated sync from ${{ github.repository }}"
+          git_server: "github.com"
