@@ -222,6 +222,8 @@ M.file_name = function(hl)
     local fn_overrides = {
         ["k9s"] = { icon = "󱃾", icon_hl = "Directory" },
         ["lazygit"] = { icon = "", icon_hl = "Changed" },
+        ["opencode"] = { icon = "󰍩", icon_hl = "MiniIconsAzure" },
+        ["zsh"] = { icon = "", icon_hl = "Keyword" },
     }
 
     local ft = vim.bo.filetype
