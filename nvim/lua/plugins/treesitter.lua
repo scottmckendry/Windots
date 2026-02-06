@@ -25,6 +25,7 @@ return {
             "html",
             "http",
             "json",
+            "just",
             "kdl",
             "lua",
             "luadoc",
