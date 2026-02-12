@@ -1,6 +1,7 @@
 return {
     "folke/snacks.nvim",
     lazy = false,
+    dev = true,
     priority = 1000,
     dependencies = {
         "nvim-mini/mini.icons",
