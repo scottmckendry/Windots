@@ -12,6 +12,7 @@ return {
             json = { "prettier" },
             lua = { "stylua" },
             markdown = { "prettier" },
+            mdx = { "prettier" },
             nix = { "nixfmt" },
             python = { "black" },
             rust = { "rustfmt" },

@@ -29,7 +29,7 @@ autocmd("BufEnter", {
 })
 
 autocmd("BufEnter", {
-    pattern = { "*.md", "*.txt" },
+    pattern = { "*.md", "*.mdx", "*.txt" },
     callback = function()
         vim.opt_local.spell = true
     end,

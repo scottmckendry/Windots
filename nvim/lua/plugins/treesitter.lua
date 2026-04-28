@@ -52,6 +52,7 @@ return {
         }
 
         TS.setup(opts)
+        vim.treesitter.language.register("markdown", "mdx")
         local installed = TS.get_installed()
         local to_install = vim.tbl_filter(function(lang)
             return not vim.tbl_contains(installed, lang)
