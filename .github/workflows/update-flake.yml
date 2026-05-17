@@ -1,0 +1,56 @@
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+name: Update Flake
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Update flake inputs
+        run: nix flake update
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open or update PR
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="flake-update"
+
+          git fetch origin "$BRANCH" 2>/dev/null || true
+          git checkout -B "$BRANCH"
+          git add flake.lock
+          git commit -m "flake: update inputs $(date -u +%Y-%m-%d)"
+          git push origin "$BRANCH" --force
+
+          # Open PR if none exists, otherwise the push already updates it
+          if ! gh pr view "$BRANCH" --json state -q '.state' 2>/dev/null | grep -q OPEN; then
+            gh pr create \
+              --title "flake: update inputs $(date -u +%Y-%m-%d)" \
+              --body "Automated flake input update. Build and cache will be verified by CI before this is safe to merge." \
+              --base main \
+              --head "$BRANCH" \
+              --label "flake-update"
+          fi

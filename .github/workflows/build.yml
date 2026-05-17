@@ -1,0 +1,52 @@
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "flake.lock"
+
+name: Build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        host: [atlas, eris]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: scottmckendry
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Build ${{ matrix.host }}
+        run: |
+          nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel \
+            --no-link \
+            --print-build-logs
+
+  label:
+    needs: build
+    runs-on: ubuntu-latest
+    if: success()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Add cachix-ready label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit "${{ github.event.pull_request.number }}" \
+            --repo "${{ github.repository }}" \
+            --add-label "cachix-ready"
