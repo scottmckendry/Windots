@@ -109,7 +109,7 @@ function M.toggle_global_boolean(option, description)
 end
 
 --- Open K9s in a fullscreen interactive terminal
----@param cmd table<string> The command to run in the terminal
+---@param cmd string[] The command to run in the terminal
 --- @param fullscreen? boolean Open ther terminal in a fullscreen float
 function M.open_terminal_toggle(cmd, fullscreen)
     local snacks = require("snacks")
@@ -140,13 +140,27 @@ end
 
 --- Open the LSP log file in a readonly split
 function M.open_lsp_log()
-    local log_path = vim.lsp.get_log_path()
+    local log_path = vim.lsp.log.get_filename()
     if vim.fn.filereadable(log_path) == 0 then
         vim.notify("LSP log file not found: " .. log_path, vim.log.levels.WARN)
         return
     end
     vim.cmd("e " .. log_path)
     vim.notify("Opened LSP log: " .. log_path, vim.log.levels.INFO)
+end
+
+--- Launch opencode with a prompt to review and address unresolved PR comments
+function M.opencode_review_pr_comments()
+    local pr = vim.fn.system("gh pr view --json number --jq .number 2>/dev/null"):gsub("%s+", "")
+    if pr == "" or pr == "null" then
+        vim.notify("No open PR found for current branch", vim.log.levels.WARN)
+        return
+    end
+    local prompt = string.format(
+        "Review unresolved PR comments in PR #%s. For each unresolved thread: read the full thread including any replies to understand current state. Only implement if the comment is unresolved, clear and actionable, technically valid, and not already addressed by a reply. Skip comments that are ambiguous, debatable, or effectively resolved via discussion. For comments you implement: make the change, leave it unstaged, reply to the thread with one short sentence stating what was done, then resolve it with gh cli. For comments you skip: do not resolve them. Assess validity and accuracy before acting.",
+        pr
+    )
+    M.open_terminal_toggle({ "opencode", "--prompt", prompt })
 end
 
 --- Open GitHub markdown preview for the current buffer

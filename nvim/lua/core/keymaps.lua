@@ -8,9 +8,7 @@ local snacks = require("snacks")
 ---@param opts table: Options to pass to the keymap
 local map = function(modes, lhs, rhs, opts)
     local options = { silent = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
+    options = vim.tbl_extend("force", options, opts)
     if type(modes) == "string" then
         modes = { modes }
     end
@@ -104,7 +102,7 @@ snacks.toggle.diagnostics():map("<leader>td")
 snacks.toggle.line_number():map("<leader>tl")
 snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tC")
 snacks.toggle.treesitter():map("<leader>tT")
-if vim.lsp.inlay_hint then snacks.toggle.inlay_hints():map("<leader>th") end
+snacks.toggle.inlay_hints():map("<leader>th")
 
 -- Git/GitHub
 map("n", "<leader>gb", function() snacks.gitbrowse() end, { desc = "Git Browse" })
@@ -160,6 +158,7 @@ map({"n", "t"}, "<C-\\>", function() snacks.terminal() end, { desc = "Toggle Ter
 map("n", "<leader>gg", function() snacks.lazygit() end, { desc = "Lazygit" })
 map("n", "<leader>kk", function() utils.open_terminal_toggle({ "k9s" }, true) end, { desc = "K9s" })
 map("n", "<leader>ao", function() utils.open_terminal_toggle({ "opencode", "." }) end, { desc = "Opencode" })
+map("n", "<leader>ap", function() utils.opencode_review_pr_comments() end, { desc = "Opencode: Review PR comments" })
 map("n", "<leader>rlf", ":luafile %<cr>", { desc = "Run Current Lua File" })
 map("n", "<leader>rlt", ":PlenaryBustedFile %<cr>", { desc = "Run Lua Test File" })
 map("n", "<leader>rss", run_non_interactive_cmd(vim.fn.expand("%:p")), { desc = "Run shell script" })
