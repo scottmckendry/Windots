@@ -30,6 +30,12 @@ jobs:
           name: scottmckendry
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
+      - name: Pre-fetch DisplayLink zip (eris only)
+        if: matrix.host == 'eris'
+        run: |
+          nix-prefetch-url --name displaylink-620.zip \
+            "https://www.synaptics.com/sites/default/files/exe_files/2025-09/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.2-EXE.zip"
+
       - name: Build ${{ matrix.host }}
         run: |
           nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel \
