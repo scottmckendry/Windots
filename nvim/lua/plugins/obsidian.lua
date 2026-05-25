@@ -8,12 +8,13 @@ return {
     ft = "markdown",
     keys = {
         { "<leader>od", "<cmd>Obsidian today<cr>", desc = "Daily note" },
+        { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Daily note" },
+        { "<leader>ot", "<cmd>Obsidian tomorrow<cr>", desc = "Apply Core Template" },
         { "<leader>on", "<cmd>Obsidian new_from_template Core<cr>", desc = "New Obsidian note" },
-        { "<leader>oo", "<cmd>Obsidian search<cr>", desc = "Search Obsidian notes" },
-        { "<leader>os", "<cmd>Obsidian quick_switch<cr>", desc = "Quick Switch" },
+        { "<leader>os", "<cmd>Obsidian search<cr>", desc = "Search Obsidian notes" },
+        { "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "Quick Switch" },
         { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show location list of backlinks" },
         { "<leader>of", "<cmd>Obsidian follow_link<cr>", desc = "Follow link under cursor" },
-        { "<leader>ot", "<cmd>Obsidian template Core<cr>", desc = "Apply Core Template" },
         { "<leader>op", "<cmd>Obsidian paste_img<cr>", desc = "Paste image from clipboard" },
     },
     ---@type obsidian.config
