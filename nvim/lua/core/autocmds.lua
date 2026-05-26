@@ -124,7 +124,7 @@ autocmd("BufEnter", {
         if root == nil then
             return
         end
-        vim.fn.chdir(root)
+        vim.cmd.lcd(root)
     end),
     nested = true,
     desc = "Find root and change current directory",
