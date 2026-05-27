@@ -44,17 +44,5 @@ return {
 
     config = function(_, opts)
         require("obsidian").setup(opts)
-
-        -- Start livesync daemon via systemd user service
-        -- Service defined in modules/desktop/livesync.nix, no autostart
-        -- systemctl start is idempotent — no-op if already running
-        local ok = vim.system({ "systemctl", "--user", "start", "livesync" }):wait()
-        if ok.code ~= 0 then
-            vim.notify(
-                "livesync daemon failed to start (exit " .. ok.code .. ")",
-                vim.log.levels.ERROR,
-                { title = "LiveSync" }
-            )
-        end
     end,
 }
