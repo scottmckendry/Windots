@@ -108,6 +108,24 @@ function M.toggle_global_boolean(option, description)
     })
 end
 
+--- Returns a snacks toggle for copilot completion
+--- @return snacks.toggle.Class
+function M.copilot_toggle()
+    return require("snacks").toggle({
+        name = "Copilot Completion",
+        get = function()
+            return not require("copilot.client").is_disabled()
+        end,
+        set = function(state)
+            if state then
+                require("copilot.command").enable()
+            else
+                require("copilot.command").disable()
+            end
+        end,
+    })
+end
+
 --- Open K9s in a fullscreen interactive terminal
 ---@param cmd string[] The command to run in the terminal
 --- @param fullscreen? boolean Open ther terminal in a fullscreen float

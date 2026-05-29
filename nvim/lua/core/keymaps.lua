@@ -17,20 +17,6 @@ local map = function(modes, lhs, rhs, opts)
     end
 end
 
-local copilot_toggle_opts = {
-    name = "Copilot Completion",
-    get = function()
-        return not require("copilot.client").is_disabled()
-    end,
-    set = function(state)
-        if state then
-            require("copilot.command").enable()
-        else
-            require("copilot.command").disable()
-        end
-    end,
-}
-
 --- Open a non-interactive terminal and run a command. Keeps the current window focused.
 ---@param cmd string: The command to run
 local function run_non_interactive_cmd(cmd)
@@ -94,7 +80,7 @@ map("n" ,"<leader>.",  function() Snacks.scratch() end, { desc = "Toggle Scratch
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
 utils.toggle_global_boolean("obsidian_git_sync", "Obsidian Git Sync"):map("<leader>to")
-snacks.toggle(copilot_toggle_opts):map("<leader>tc")
+utils.copilot_toggle():map("<leader>tc")
 snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>ts")
 snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
 snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
