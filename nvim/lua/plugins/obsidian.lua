@@ -24,7 +24,6 @@ return {
         new_notes_location = "notes_subdir",
         notes_subdir = "Zettelkasten",
         picker = { snacks = true },
-        link = { style = "markdown" },
         templates = { folder = "Templates", date_format = "%Y-%m-%d", time_format = "%H:%M" },
         daily_notes = { folder = "Daily", date_format = "%Y-%m-%d-%A", template = "Daily", default_tags = { "daily" } },
         ui = { enable = false },
