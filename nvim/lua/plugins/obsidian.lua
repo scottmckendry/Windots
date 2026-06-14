@@ -3,6 +3,41 @@ if not obsidian_path then
     return {}
 end
 
+local function search_tasks()
+    local results = vim.fn.systemlist({
+        "rg",
+        "--no-heading",
+        "--line-number",
+        "--color=never",
+        "--regexp",
+        "^\\s*- \\[ \\]",
+        obsidian_path,
+    })
+    local items = {}
+    for _, line in ipairs(results) do
+        local file, lnum, text = line:match("(.-):(%d+):(.*)")
+        if file and lnum then
+            table.insert(items, {
+                file = file,
+                lnum = tonumber(lnum),
+                text = text,
+            })
+        end
+    end
+    require("snacks").picker({
+        title = "Tasks",
+        layout = { preset = "select" },
+        items = items,
+        format = function(item)
+            local file = vim.fn.fnamemodify(item.file, ":t") .. ":" .. item.lnum
+            return { { item.text .. "  ", "Normal" }, { file, "Comment" } }
+        end,
+        on_choose = function(item)
+            vim.cmd("edit +" .. item.lnum .. " " .. item.file)
+        end,
+    })
+end
+
 return {
     "obsidian-nvim/obsidian.nvim",
     ft = "markdown",
@@ -16,6 +51,7 @@ return {
         { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show location list of backlinks" },
         { "<leader>of", "<cmd>Obsidian follow_link<cr>", desc = "Follow link under cursor" },
         { "<leader>op", "<cmd>Obsidian paste_img<cr>", desc = "Paste image from clipboard" },
+        { "<leader>ox", search_tasks, desc = "Search tasks" },
     },
     ---@type obsidian.config
     opts = {
@@ -40,8 +76,4 @@ return {
         -- TODO: remove when the warning about legacy commands is gone
         legacy_commands = false,
     },
-
-    config = function(_, opts)
-        require("obsidian").setup(opts)
-    end,
 }

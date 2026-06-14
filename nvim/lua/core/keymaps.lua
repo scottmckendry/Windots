@@ -79,7 +79,6 @@ map("n" ,"<leader>.",  function() Snacks.scratch() end, { desc = "Toggle Scratch
 
 -- toggle options
 utils.toggle_global_boolean("autoformat", "Autoformat"):map("<leader>ta")
-utils.toggle_global_boolean("obsidian_git_sync", "Obsidian Git Sync"):map("<leader>to")
 utils.copilot_toggle():map("<leader>tc")
 snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>ts")
 snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
