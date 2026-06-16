@@ -15,25 +15,26 @@ local function search_tasks()
     })
     local items = {}
     for _, line in ipairs(results) do
-        local file, lnum, text = line:match("(.-):(%d+):(.*)")
+        local file, lnum, task = line:match("(.-):(%d+):%s*%- %[%s%] (.*)")
         if file and lnum then
             table.insert(items, {
                 file = file,
-                lnum = tonumber(lnum),
-                text = text,
+                pos = { tonumber(lnum), 0 },
+                text = task,
+                note = vim.fn.fnamemodify(file, ":t:r"),
             })
         end
     end
     require("snacks").picker({
         title = "Tasks",
-        layout = { preset = "select" },
         items = items,
         format = function(item)
-            local file = vim.fn.fnamemodify(item.file, ":t") .. ":" .. item.lnum
-            return { { item.text .. "  ", "Normal" }, { file, "Comment" } }
-        end,
-        on_choose = function(item)
-            vim.cmd("edit +" .. item.lnum .. " " .. item.file)
+            return {
+                { item.note, "Function" },
+                { ":", "Comment" },
+                { tostring(item.pos[1]), "Boolean" },
+                { " " .. item.text, "Normal" },
+            }
         end,
     })
 end
