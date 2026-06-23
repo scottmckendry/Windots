@@ -15,6 +15,7 @@ return {
             mdx = { "prettier" },
             nix = { "nixfmt" },
             python = { "black" },
+            qml = { "qmlformat" },
             rust = { "rustfmt" },
             scss = { "prettier" },
             sh = { "shfmt" },
