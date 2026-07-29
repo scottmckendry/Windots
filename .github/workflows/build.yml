@@ -55,4 +55,21 @@ jobs:
         run: |
           gh pr edit "${{ github.event.pull_request.number }}" \
             --repo "${{ github.repository }}" \
-            --add-label "cachix-ready"
+            --add-label "cachix-ready" \
+            --remove-label "build-failed" || true
+
+  label-failure:
+    needs: build
+    runs-on: ubuntu-latest
+    if: failure()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Add build-failed label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit "${{ github.event.pull_request.number }}" \
+            --repo "${{ github.repository }}" \
+            --add-label "build-failed" \
+            --remove-label "cachix-ready" || true
