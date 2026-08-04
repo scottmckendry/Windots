@@ -5,7 +5,7 @@ return {
     priority = 1000,
     ---@type cyberdream.Config
     opts = {
-        variant = "auto",
+        variant = "muted",
         transparent = true,
         italic_comments = true,
         hide_fillchars = true,
