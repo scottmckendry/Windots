@@ -167,20 +167,6 @@ function M.open_lsp_log()
     vim.notify("Opened LSP log: " .. log_path, vim.log.levels.INFO)
 end
 
---- Launch opencode with a prompt to review and address unresolved PR comments
-function M.opencode_review_pr_comments()
-    local pr = vim.fn.system("gh pr view --json number --jq .number 2>/dev/null"):gsub("%s+", "")
-    if pr == "" or pr == "null" then
-        vim.notify("No open PR found for current branch", vim.log.levels.WARN)
-        return
-    end
-    local prompt = string.format(
-        "Review unresolved PR comments in PR #%s. For each unresolved thread: read the full thread including any replies to understand current state. Only implement if the comment is unresolved, clear and actionable, technically valid, and not already addressed by a reply. Skip comments that are ambiguous, debatable, or effectively resolved via discussion. For comments you implement: make the change, leave it unstaged, reply to the thread with one short sentence stating what was done, then resolve it with gh cli. For comments you skip: do not resolve them. Assess validity and accuracy before acting.",
-        pr
-    )
-    M.open_terminal_toggle({ "opencode", "--prompt", prompt })
-end
-
 --- Open GitHub markdown preview for the current buffer
 function M.gh_markdown_preview()
     local bufname = vim.api.nvim_buf_get_name(0)
